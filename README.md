@@ -42,7 +42,7 @@ Open http://localhost:3000. Pages reload automatically when you save a file. The
 | Club name, email, Discord, social links, home page text        | `content/site.json`                 |
 | The About page                                                 | `content/about.md` (Markdown)       |
 | Beginner roadmap, practice platforms, books                    | `content/resources.json`            |
-| C++ and Python starter templates                               | `content/templates/*`               |
+| C++, Java and Python starter templates                         | `content/templates/*`               |
 
 Admin edits show up on the site **immediately**: pages load the latest data from the database in the visitor's browser. File edits need a push to GitHub, and the site redeploys within about 2 minutes. You can edit files right on GitHub: open the file → pencil icon → **Commit changes**.
 

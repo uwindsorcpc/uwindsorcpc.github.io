@@ -5,6 +5,32 @@ import { CheckIcon, CopyIcon } from "./icons";
 
 type Tab = { id: string; label: string; filename: string; code: string };
 
+/** Dims comments (// … or # …) so the code itself stands out. */
+function Highlighted({ code, python }: { code: string; python: boolean }) {
+  const marker = python ? /(^|\s)#/ : /\/\//;
+  return (
+    <>
+      {code.split("\n").map((line, i) => {
+        const m = marker.exec(line);
+        const at = m ? m.index + (m[1]?.length ?? 0) : -1;
+        return (
+          <span key={i}>
+            {at < 0 ? (
+              line
+            ) : (
+              <>
+                {line.slice(0, at)}
+                <span className="text-muted">{line.slice(at)}</span>
+              </>
+            )}
+            {"\n"}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
 /** Tabbed code viewer with a copy button. Arrow keys move between tabs. */
 export function CodeTabs({ tabs }: { tabs: Tab[] }) {
   const [active, setActive] = useState(0);
@@ -65,7 +91,9 @@ export function CodeTabs({ tabs }: { tabs: Tab[] }) {
       </div>
       <div role="tabpanel" id={`panel-${tab.id}`} aria-labelledby={`tab-${tab.id}`} tabIndex={0}>
         <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-6">
-          <code>{tab.code}</code>
+          <code>
+            <Highlighted code={tab.code} python={tab.filename.endsWith(".py")} />
+          </code>
         </pre>
       </div>
     </div>

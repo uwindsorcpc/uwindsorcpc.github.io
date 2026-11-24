@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "Resources",
   description:
-    "A beginner roadmap for competitive programming, the best practice sites (Kattis, Codeforces, LeetCode, CSES), free books, and C++ and Python starter templates.",
+    "A beginner roadmap for competitive programming, the best practice sites (Kattis, Codeforces, LeetCode, CSES), free books, and C++, Java and Python starter templates.",
   path: "/resources",
 });
 
@@ -27,6 +27,7 @@ function SmartLink({ href, children }: { href: string; children: React.ReactNode
 export default function ResourcesPage() {
   const templates = [
     { id: "cpp", label: "C++", filename: "template.cpp", code: readTemplate("template.cpp") },
+    { id: "java", label: "Java", filename: "Main.java", code: readTemplate("template.java") },
     { id: "py", label: "Python", filename: "template.py", code: readTemplate("template.py") },
   ];
 
@@ -117,7 +118,7 @@ export default function ResourcesPage() {
         <section aria-labelledby="templates">
           <SectionHeading
             id="templates"
-            sub="Copy one, then write your solution in main(). Both read input quickly, which matters on big test cases."
+            sub="Copy one, then write your solution in main(). Each shows the fast way to read input and print output in that language, which matters on big test cases. The comments explain why."
           >
             Starter templates
           </SectionHeading>

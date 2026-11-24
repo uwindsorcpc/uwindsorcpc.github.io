@@ -41,7 +41,7 @@ export const resources = resourcesJson as {
   books: { name: string; author?: string; url: string; text: string }[];
 };
 
-export function readTemplate(file: "template.cpp" | "template.py"): string {
+export function readTemplate(file: "template.cpp" | "template.java" | "template.py"): string {
   return fs.readFileSync(path.join(CONTENT_DIR, "templates", file), "utf8");
 }
 
