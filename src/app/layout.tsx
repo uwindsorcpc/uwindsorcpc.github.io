@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, JetBrains_Mono } from "next/font/google";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 
 import { themeInitScript } from "@/components/ThemeToggle";
 import { site } from "@/lib/content";
@@ -7,8 +7,9 @@ import "./globals.css";
 
 // Fonts are downloaded at build time and served from this site,
 // so visitors never make a request to Google.
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const jetbrainsMono = JetBrains_Mono({ variable: "--font-jetbrains-mono", subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
+// Archivo is variable in weight AND width: condensed for headlines, normal for text.
+const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], axes: ["wdth"] });
+const jetbrainsMono = JetBrains_Mono({ variable: "--font-jetbrains-mono", subsets: ["latin"], weight: ["400", "700", "800"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -22,13 +23,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0e13",
+  themeColor: "#0c1424",
   colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning className={`${geistSans.variable} ${jetbrainsMono.variable} antialiased`}>
+    <html lang="en" data-theme="dark" suppressHydrationWarning className={`${archivo.variable} ${jetbrainsMono.variable} antialiased`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>

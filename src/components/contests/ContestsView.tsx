@@ -3,8 +3,8 @@
 import { fetchPastContests, fetchProblems } from "@/lib/db/queries";
 import type { Difficulty, PastContest, ProblemSets } from "@/lib/db/types";
 import { useLive } from "@/lib/db/useLive";
-import { ExternalIcon, TrophyIcon } from "../icons";
-import { ExternalButton, SectionHeading } from "../ui";
+import { ExternalIcon } from "../icons";
+import { SectionHeading } from "../ui";
 
 const difficulties: { key: Difficulty; label: string; blurb: string; text: string; border: string }[] = [
   { key: "easy", label: "Easy", blurb: "Start here. Input/output, loops, conditionals and basic math.", text: "text-easy", border: "border-t-easy" },
@@ -18,52 +18,56 @@ export function ContestsView({ contests: initialContests, problems: initialProbl
 
   return (
     <>
-      <section aria-labelledby="past-contests" className="mb-20">
-        <SectionHeading id="past-contests" sub="Upsolve them: try the problems you didn't get during the contest.">
+      <section aria-labelledby="past-contests" className="mb-24">
+        <SectionHeading id="past-contests" sub="Every past contest stays open on Kattis. Upsolve the problems you didn't get during the contest.">
           Past club contests
         </SectionHeading>
         {contests.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-border p-6 font-mono text-sm text-muted">No past contests yet. The first one is coming soon.</p>
+          <p className="border-y border-border py-8 text-muted">No past contests yet. The first one is coming soon.</p>
         ) : (
-          <ul className="grid gap-4 md:grid-cols-2">
-            {contests.map((c) => (
-              <li key={c.id} className="flex flex-col rounded-xl border border-border bg-surface p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="font-mono text-xs text-muted">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[36rem] border-y border-border text-left">
+              <thead className="text-sm text-muted">
+                <tr className="border-b border-border">
+                  <th scope="col" className="py-3 pr-6 font-medium">Contest</th>
+                  <th scope="col" className="py-3 pr-6 font-medium">Date</th>
+                  <th scope="col" className="py-3 pr-6 text-right font-medium">Problems</th>
+                  <th scope="col" className="py-3 pr-6 text-right font-medium">Participants</th>
+                  <th scope="col" className="py-3 font-medium">
+                    <span className="sr-only">Link</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {contests.map((c) => (
+                  <tr key={c.id} className="align-top">
+                    <td className="py-5 pr-6">
+                      <p className="text-lg font-semibold">{c.title}</p>
+                      {c.description && <p className="mt-1 max-w-md text-sm leading-relaxed text-muted">{c.description}</p>}
+                    </td>
+                    <td className="py-5 pr-6 whitespace-nowrap text-muted">
                       <time dateTime={c.heldOn}>{c.dateLabel}</time>
-                    </p>
-                    <h3 className="mt-1 text-lg font-semibold">{c.title}</h3>
-                  </div>
-                  <span aria-hidden="true" className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent">
-                    <TrophyIcon />
-                  </span>
-                </div>
-                {c.description && <p className="mt-3 text-sm text-muted">{c.description}</p>}
-                <dl className="mt-4 flex gap-6 font-mono text-sm">
-                  {c.problems !== null && (
-                    <div>
-                      <dt className="text-xs text-muted">problems</dt>
-                      <dd className="font-semibold">{c.problems}</dd>
-                    </div>
-                  )}
-                  {c.participants !== null && (
-                    <div>
-                      <dt className="text-xs text-muted">participants</dt>
-                      <dd className="font-semibold">{c.participants}</dd>
-                    </div>
-                  )}
-                </dl>
-                {c.kattisUrl && (
-                  <div className="mt-5 pt-1">
-                    <ExternalButton href={c.kattisUrl} variant="secondary">
-                      View on Kattis
-                    </ExternalButton>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+                    </td>
+                    <td className="headline py-5 pr-6 text-right text-3xl tabular-nums">{c.problems ?? "–"}</td>
+                    <td className="headline py-5 pr-6 text-right text-3xl tabular-nums">{c.participants ?? "–"}</td>
+                    <td className="py-5 text-right whitespace-nowrap">
+                      {c.kattisUrl && (
+                        <a
+                          href={c.kattisUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-sm font-medium text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
+                        >
+                          Kattis <ExternalIcon className="size-3.5" />
+                          <span className="sr-only">(opens in a new tab)</span>
+                        </a>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </section>
 
@@ -72,42 +76,27 @@ export function ContestsView({ contests: initialContests, problems: initialProbl
           Practice problems
         </SectionHeading>
 
-        <nav aria-label="Difficulty" className="mb-8 flex flex-wrap gap-2">
+        <div className="grid gap-12 lg:grid-cols-3 lg:gap-10">
           {difficulties.map((d) => (
-            <a
-              key={d.key}
-              href={`#${d.key}`}
-              className="rounded-lg border border-border bg-surface px-4 py-2 font-mono text-sm text-muted transition-colors hover:border-accent hover:text-fg"
-            >
-              {d.label} <span className="text-xs">({problemSets[d.key].length})</span>
-            </a>
-          ))}
-        </nav>
-
-        <div className="grid gap-6 lg:grid-cols-3">
-          {difficulties.map((d) => (
-            <section key={d.key} aria-labelledby={d.key} className="rounded-xl border border-border bg-surface">
-              <div className={`rounded-t-xl border-t-4 ${d.border} p-6 pb-4`}>
-                <h3 id={d.key} className={`scroll-mt-24 font-mono text-lg font-bold ${d.text}`}>
+            <section key={d.key} aria-labelledby={d.key}>
+              <div className={`border-t-4 ${d.border} pt-4 pb-5`}>
+                <h3 id={d.key} className={`condensed scroll-mt-24 text-2xl font-bold ${d.text}`}>
                   {d.label}
                 </h3>
-                <p className="mt-1 text-sm text-muted">{d.blurb}</p>
+                <p className="mt-1 text-sm leading-relaxed text-muted">{d.blurb}</p>
               </div>
-              <ol className="divide-y divide-border border-t border-border">
+              <ol className="divide-y divide-border border-y border-border">
                 {problemSets[d.key].map((p, i) => (
                   <li key={p.id}>
-                    <a
-                      href={p.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-3 px-6 py-3 transition-colors hover:bg-surface-2"
-                    >
-                      <span className="w-6 shrink-0 font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
+                    <a href={p.url} target="_blank" rel="noopener noreferrer" className="group flex items-baseline gap-4 py-3">
+                      <span className="condensed w-4 shrink-0 font-bold text-muted">{String.fromCharCode(65 + i)}</span>
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-sm font-medium group-hover:text-accent">{p.name}</span>
-                        {p.topic && <span className="block font-mono text-xs text-muted">{p.topic}</span>}
+                        <span className="block truncate font-medium group-hover:text-accent group-hover:underline group-hover:underline-offset-4">
+                          {p.name}
+                        </span>
+                        {p.topic && <span className="block text-sm text-muted">{p.topic}</span>}
                       </span>
-                      <ExternalIcon className="size-3.5 shrink-0 text-muted" />
+                      <ExternalIcon className="size-3.5 shrink-0 self-center text-muted" />
                       <span className="sr-only">(opens in a new tab)</span>
                     </a>
                   </li>

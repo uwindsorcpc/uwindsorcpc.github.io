@@ -88,13 +88,13 @@ export function SignupForm({ clubEmail }: { clubEmail: string }) {
 
   if (status.kind === "done") {
     return (
-      <div role="status" className="rounded-xl border border-accent/50 bg-accent-soft p-6">
-        <p className="flex items-center gap-2 font-mono font-semibold text-accent">
+      <div role="status" className="rounded-lg border border-easy/50 bg-easy/10 p-6">
+        <p className="flex items-center gap-2 text-lg font-semibold text-easy">
           <CheckIcon /> You&apos;re signed up!
         </p>
         <p className="mt-2 text-muted">Welcome to CPC UWindsor. Join the Discord next so you hear about every event.</p>
         {status.returnTo && (
-          <Link href={status.returnTo} className="mt-4 inline-flex font-mono text-sm font-semibold text-accent underline underline-offset-4">
+          <Link href={status.returnTo} className="mt-4 inline-flex text-sm font-semibold text-accent underline underline-offset-4">
             ← {status.returnLabel ?? "Go back"}
           </Link>
         )}
@@ -179,7 +179,7 @@ export function SignupForm({ clubEmail }: { clubEmail: string }) {
         <button
           type="submit"
           disabled={sending}
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-7 py-3.5 font-mono font-semibold text-on-accent transition-colors hover:bg-accent-strong disabled:cursor-wait disabled:opacity-70"
+          className="inline-flex items-center justify-center gap-2 rounded-md bg-accent px-7 py-3.5 font-semibold text-on-accent transition-colors hover:bg-accent-strong disabled:cursor-wait disabled:opacity-70"
         >
           {sending ? "Signing you up…" : "Sign up"}
         </button>

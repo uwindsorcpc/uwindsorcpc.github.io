@@ -31,7 +31,7 @@ export function Modal({
       ref={ref}
       onClose={onClose}
       aria-labelledby={labelledBy}
-      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl border border-border bg-surface p-0 text-fg shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm"
+      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-lg border border-border bg-surface p-0 text-fg shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm"
     >
       <div className="p-6 sm:p-8">{children}</div>
     </dialog>

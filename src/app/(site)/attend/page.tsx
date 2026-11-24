@@ -17,7 +17,6 @@ export default async function AttendPage() {
   return (
     <>
       <PageHeader
-        command="./attend"
         title="Attendance"
         intro="At an event? Scan the QR code on the screen to check in. Planning to come? RSVP below."
       />

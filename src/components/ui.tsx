@@ -8,16 +8,13 @@ export function Container({ children, className = "" }: { children: ReactNode; c
   return <div className={`mx-auto w-full max-w-6xl px-4 sm:px-6 ${className}`}>{children}</div>;
 }
 
-/** Page title block with a terminal-style command above the heading. */
-export function PageHeader({ command, title, intro }: { command: string; title: string; intro?: ReactNode }) {
+/** Page title: a big condensed headline with an optional intro line. */
+export function PageHeader({ title, intro }: { title: string; intro?: ReactNode }) {
   return (
-    <div className="bg-grid border-b border-border">
-      <Container className="py-14 sm:py-20">
-        <p className="font-mono text-sm text-muted">
-          <span className="text-accent">$</span> {command}
-        </p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">{title}</h1>
-        {intro && <p className="mt-4 max-w-2xl text-lg text-muted">{intro}</p>}
+    <div className="border-b border-border">
+      <Container className="pt-16 pb-12 sm:pt-24 sm:pb-16">
+        <h1 className="headline text-6xl sm:text-8xl">{title}</h1>
+        {intro && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">{intro}</p>}
       </Container>
     </div>
   );
@@ -25,11 +22,8 @@ export function PageHeader({ command, title, intro }: { command: string; title: 
 
 export function SectionHeading({ id, children, sub }: { id?: string; children: ReactNode; sub?: ReactNode }) {
   return (
-    <div className="mb-8">
-      <h2 id={id} className="scroll-mt-24 font-mono text-2xl font-bold tracking-tight">
-        <span aria-hidden="true" className="text-accent">
-          ##{" "}
-        </span>
+    <div className="mb-8 max-w-2xl">
+      <h2 id={id} className="condensed scroll-mt-24 text-3xl font-bold tracking-tight sm:text-4xl">
         {children}
       </h2>
       {sub && <p className="mt-2 text-muted">{sub}</p>}
@@ -39,12 +33,12 @@ export function SectionHeading({ id, children, sub }: { id?: string; children: R
 
 const buttonStyles = {
   primary: "bg-accent text-on-accent hover:bg-accent-strong",
-  secondary: "border border-border bg-surface text-fg hover:border-accent",
+  secondary: "border border-border text-fg hover:border-fg/60",
 };
 
 const buttonSizes = {
   md: "px-5 py-2.5 text-sm",
-  lg: "px-7 py-4 text-base",
+  lg: "px-6 py-3.5 text-base",
 };
 
 type ButtonProps = {
@@ -56,7 +50,7 @@ type ButtonProps = {
 };
 
 function buttonClass(variant: keyof typeof buttonStyles, size: keyof typeof buttonSizes, className: string) {
-  return `inline-flex items-center justify-center gap-2 rounded-lg font-mono font-semibold transition-colors ${buttonStyles[variant]} ${buttonSizes[size]} ${className}`;
+  return `inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-colors ${buttonStyles[variant]} ${buttonSizes[size]} ${className}`;
 }
 
 /** Button-styled link to a page on this site. */

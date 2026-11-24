@@ -43,7 +43,7 @@ export function Navbar() {
               <Link
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className="rounded-md px-3 py-2 font-mono text-sm text-muted transition-colors hover:text-fg aria-[current=page]:text-accent"
+                className="rounded-sm px-3 py-2 text-[0.95rem] text-muted transition-colors hover:text-fg aria-[current=page]:text-fg aria-[current=page]:underline aria-[current=page]:decoration-accent aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-[10px]"
               >
                 {l.label}
               </Link>
@@ -56,7 +56,7 @@ export function Navbar() {
           <Link
             href="/join"
             aria-current={isActive("/join") ? "page" : undefined}
-            className="hidden rounded-lg bg-accent px-4 py-2 font-mono text-sm font-semibold text-on-accent transition-colors hover:bg-accent-strong sm:inline-flex"
+            className="hidden rounded-md bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-strong sm:inline-flex"
           >
             Join the club
           </Link>
@@ -67,7 +67,7 @@ export function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="inline-flex size-10 items-center justify-center rounded-lg border border-border text-fg lg:hidden"
+            className="inline-flex size-10 items-center justify-center rounded-md border border-border text-fg lg:hidden"
           >
             {open ? <CloseIcon /> : <MenuIcon />}
           </button>
@@ -82,11 +82,8 @@ export function Navbar() {
                 href={l.href}
                 onClick={close}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className="flex items-center gap-2 rounded-md px-2 py-3 font-mono text-base text-fg transition-colors hover:text-accent aria-[current=page]:text-accent"
+                className="flex items-center rounded-md px-2 py-3 text-lg text-fg transition-colors hover:text-accent aria-[current=page]:text-accent"
               >
-                <span aria-hidden="true" className="text-accent">
-                  &gt;
-                </span>
                 {l.label}
               </Link>
             </li>

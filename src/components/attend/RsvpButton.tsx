@@ -64,7 +64,7 @@ export function RsvpButton({ event, going }: { event: ClubEvent; going?: number 
         >
           RSVP
         </button>
-        {going ? <span className="font-mono text-xs text-muted">{going} going</span> : null}
+        {going ? <span className="text-sm text-muted">{going} going</span> : null}
       </div>
 
       <Modal open={open} onClose={() => setOpen(false)} labelledBy={headingId}>
@@ -114,12 +114,13 @@ export function RsvpButton({ event, going }: { event: ClubEvent; going?: number 
         ) : (
           <form onSubmit={onSubmit} className="grid gap-4">
             <div>
-              <p className="font-mono text-xs text-accent">rsvp</p>
-              <h2 id={headingId} className="mt-1 text-xl font-bold">
+              <h2 id={headingId} className="condensed text-2xl font-bold">
                 {event.title}
               </h2>
               <p className="mt-1 text-sm text-muted">
-                {event.dateLabel} · {event.timeLabel} · {event.room}
+                {event.dateLabel}, {event.timeLabel}
+                <br />
+                {event.room}
               </p>
             </div>
             <div>

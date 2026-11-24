@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
+import { Balloon } from "../Balloon";
+
 /*
  * Home page animation: one problem, four attempts. Code is typed into an
  * editor, submitted, and judged: TLE → WA → RTE → Accepted. Between attempts
@@ -206,7 +208,7 @@ const verdictStyle: Record<Verdict["code"], string> = {
   AC: "border-easy/50 bg-easy/10 text-easy",
   WA: "border-hard/50 bg-hard/10 text-hard",
   TLE: "border-medium/50 bg-medium/10 text-medium",
-  RTE: "border-practice/50 bg-practice/10 text-practice",
+  RTE: "border-violet/50 bg-violet/10 text-violet",
 };
 
 const FINAL: State = {
@@ -352,7 +354,7 @@ export function JudgeDemo() {
         {/* problem statement */}
         <div className="border-b border-border px-4 py-3 text-xs leading-relaxed">
           <p className="font-mono font-semibold text-fg">
-            <span className="text-accent">Problem</span> · Range Sums
+            <span className="text-accent">Problem A:</span> Range Sums
           </p>
           <p className="mt-1 text-muted">
             Given n integers and q queries (l, r), print a<sub>l</sub> + … + a<sub>r</sub>. n, q ≤ 2·10⁵, |a<sub>i</sub>| ≤ 10⁹.
@@ -384,12 +386,12 @@ export function JudgeDemo() {
           </span>
           <div className="min-w-0 flex-1 font-mono text-xs">
             {phase === "verdict" && verdict ? (
-              <div className={`rounded-md border px-3 py-1.5 ${verdictStyle[verdict.code]}`}>
-                <p className="font-bold">
-                  {verdict.code === "AC" ? "✓ " : ""}
-                  {verdict.title}
-                </p>
-                <p className="truncate text-[11px] text-fg/80">{verdict.detail}</p>
+              <div className={`flex items-center gap-3 rounded-md border px-3 py-1.5 ${verdictStyle[verdict.code]}`}>
+                {verdict.code === "AC" && <Balloon color="#46d39a" letter="A" className="balloon-rise -my-3 h-12 w-8 shrink-0 text-fg" />}
+                <div className="min-w-0">
+                  <p className="font-bold">{verdict.title}</p>
+                  <p className="truncate text-[11px] text-fg/80">{verdict.detail}</p>
+                </div>
               </div>
             ) : judging ? (
               <div>

@@ -4,53 +4,55 @@
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
 /* ==========================================================================
-   PALETTE — every colour on the site comes from these variables.
-   To re-theme the site, change the values here and nowhere else.
+   PALETTE: "Ink & Balloons"
+   Night-contest ink navy, chalk-white text, one tangerine for actions.
+   Other colours carry meaning only: verdicts, difficulty, event types, and
+   the ICPC balloons. Change values here and the whole site follows.
    ========================================================================== */
 
 /* Dark theme (the default) */
 :root,
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0a0e13;            /* page background */
-  --surface: #10161d;       /* cards, navbar */
-  --surface-2: #17202a;     /* raised elements, code blocks */
-  --border: #243142;        /* hairlines */
-  --fg: #e6edf3;            /* main text */
-  --muted: #9aa8b8;         /* secondary text */
-  --accent: #2ee88a;        /* the one vivid brand colour */
-  --accent-strong: #5cf2a6; /* accent hover */
-  --on-accent: #03130b;     /* text placed on top of the accent */
-  --accent-soft: rgb(46 232 138 / 0.12);
-  --practice: #7cb4ff;      /* event type: practice */
-  --contest: #2ee88a;       /* event type: contest */
-  --workshop: #f6c35b;      /* event type: workshop */
-  --easy: #2ee88a;
-  --medium: #f6c35b;
-  --hard: #ff7a85;
-  --grid-line: rgb(255 255 255 / 0.035);
+  --bg: #0c1424;            /* ink navy page */
+  --surface: #121d31;       /* raised panels */
+  --surface-2: #1a2840;     /* inputs, code */
+  --border: #283a57;        /* rules */
+  --fg: #eef2f7;            /* chalk text */
+  --muted: #a3b1c6;         /* secondary text */
+  --accent: #ff8a3d;        /* tangerine: actions, links, focus */
+  --accent-strong: #ffa266; /* hover */
+  --on-accent: #1a0d02;     /* text on tangerine */
+  --accent-soft: rgb(255 138 61 / 0.12);
+  --practice: #6fb3ff;      /* event type colours */
+  --contest: #ff8a3d;
+  --workshop: #c4a4ff;
+  --easy: #46d39a;          /* also "Accepted" */
+  --medium: #ffc857;        /* also "Time Limit Exceeded" */
+  --hard: #ff7070;          /* also "Wrong Answer" */
+  --violet: #c4a4ff;        /* "Run Time Error" */
 }
 
 /* Light theme */
 [data-theme="light"] {
   color-scheme: light;
-  --bg: #f6f8fa;
+  --bg: #f7f9fc;
   --surface: #ffffff;
-  --surface-2: #edf1f5;
-  --border: #d3dbe4;
-  --fg: #0d1520;
-  --muted: #4a5868;
-  --accent: #046c3c;
-  --accent-strong: #035530;
+  --surface-2: #eef2f8;
+  --border: #d6deea;
+  --fg: #0c1424;
+  --muted: #4b5a70;
+  --accent: #c2410c;
+  --accent-strong: #9a3412;
   --on-accent: #ffffff;
-  --accent-soft: rgb(4 108 60 / 0.1);
+  --accent-soft: rgb(194 65 12 / 0.08);
   --practice: #1d5fc4;
-  --contest: #046c3c;
-  --workshop: #8a5a00;
-  --easy: #046c3c;
+  --contest: #c2410c;
+  --workshop: #6d3fc0;
+  --easy: #047857;
   --medium: #8a5a00;
-  --hard: #b4232f;
-  --grid-line: rgb(13 21 32 / 0.05);
+  --hard: #b42318;
+  --violet: #6d3fc0;
 }
 
 /* Expose the variables to Tailwind as utilities: bg-bg, text-fg, border-border… */
@@ -71,8 +73,20 @@
   --color-easy: var(--easy);
   --color-medium: var(--medium);
   --color-hard: var(--hard);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --color-violet: var(--violet);
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Scoreboard-style condensed headlines (Archivo's width axis). */
+@utility headline {
+  font-stretch: 68%;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+}
+@utility condensed {
+  font-stretch: 78%;
 }
 
 html {
@@ -102,14 +116,6 @@ code {
   font-variant-ligatures: none;
 }
 
-/* Faint grid behind hero sections */
-.bg-grid {
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
 /* Blinking terminal cursor */
 @keyframes blink {
   0%, 49% { opacity: 1; }
@@ -119,33 +125,41 @@ code {
   animation: blink 1.1s steps(1) infinite;
 }
 
+/* The ICPC moment: a balloon floats up when the demo gets Accepted */
+@keyframes balloon-rise {
+  from { transform: translateY(14px) rotate(-6deg); opacity: 0; }
+  60% { opacity: 1; }
+  to { transform: translateY(0) rotate(0); opacity: 1; }
+}
+.balloon-rise {
+  animation: balloon-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .cursor-blink { animation: none; }
+  .cursor-blink,
+  .balloon-rise { animation: none; }
 }
 
 /* Long-form text rendered from Markdown in /content */
 .prose-content {
   color: var(--fg);
-  line-height: 1.75;
+  font-size: 1.0625rem;
+  line-height: 1.7;
 }
 .prose-content > :first-child {
   margin-top: 0;
 }
 .prose-content h2 {
-  font-family: var(--font-mono);
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin: 2.5rem 0 0.75rem;
-  letter-spacing: -0.01em;
-}
-.prose-content h2::before {
-  content: "## ";
-  color: var(--accent);
+  font-stretch: 78%;
+  font-size: 1.75rem;
+  font-weight: 750;
+  line-height: 1.15;
+  margin: 3rem 0 0.75rem;
 }
 .prose-content h3 {
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: 650;
+  font-size: 1.15rem;
   margin: 1.75rem 0 0.5rem;
 }
 .prose-content p,
@@ -156,27 +170,24 @@ code {
 }
 .prose-content strong {
   color: var(--fg);
-  font-weight: 600;
+  font-weight: 650;
+}
+.prose-content ul,
+.prose-content ol {
+  padding-left: 1.25rem;
 }
 .prose-content ul {
-  list-style: none;
-  padding-left: 0;
-}
-.prose-content ul li {
-  position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.4rem;
-}
-.prose-content ul li::before {
-  content: ">";
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-family: var(--font-mono);
+  list-style: disc;
 }
 .prose-content ol {
   list-style: decimal;
-  padding-left: 1.5rem;
+}
+.prose-content li {
+  margin-bottom: 0.4rem;
+  padding-left: 0.25rem;
+}
+.prose-content li::marker {
+  color: var(--accent);
 }
 .prose-content a {
   color: var(--accent);
@@ -185,15 +196,9 @@ code {
 }
 .prose-content code {
   font-family: var(--font-mono);
-  font-size: 0.9em;
+  font-size: 0.88em;
   background: var(--surface-2);
-  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.1em 0.35em;
   color: var(--fg);
-}
-.prose-content blockquote {
-  border-left: 3px solid var(--accent);
-  padding: 0.25rem 0 0.25rem 1rem;
-  margin: 1.5rem 0;
 }

@@ -17,8 +17,8 @@ export function Verdict({
   children?: ReactNode;
 }) {
   return (
-    <div role={tone === "ok" ? "status" : "alert"} className={`rounded-xl border p-5 ${tones[tone]}`}>
-      <p className="font-mono text-lg font-bold">{verdict}</p>
+    <div role={tone === "ok" ? "status" : "alert"} className={`rounded-lg border p-5 ${tones[tone]}`}>
+      <p className="condensed text-2xl font-bold">{verdict}</p>
       {children && <div className="mt-2 text-sm text-fg">{children}</div>}
     </div>
   );

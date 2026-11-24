@@ -9,7 +9,7 @@ import { inputClass, labelClass, primaryBtn, secondaryBtn } from "./styles";
 
 export function AuthCard({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="bg-grid flex min-h-dvh items-center justify-center px-4 py-12">
+    <div className="flex min-h-dvh items-center justify-center px-4 py-12">
       <div className="w-full max-w-md rounded-2xl border border-border bg-surface p-8 shadow-2xl shadow-black/20">
         <Logo />
         <h1 className="mt-6 text-2xl font-bold">{title}</h1>

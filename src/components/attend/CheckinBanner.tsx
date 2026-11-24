@@ -27,8 +27,8 @@ export function CheckinBanner() {
     <div className="border-b border-accent/40 bg-accent-soft px-4 py-2 text-center text-sm">
       <span aria-hidden="true" className="mr-2 inline-block size-2 animate-pulse rounded-full bg-accent motion-reduce:animate-none" />
       Check-in is open for <strong>{open.title}</strong>.{" "}
-      <Link href="/attend" className="font-mono font-semibold text-accent underline underline-offset-4">
-        Check in →
+      <Link href="/attend" className="font-semibold text-accent underline underline-offset-4">
+        Check in
       </Link>
     </div>
   );

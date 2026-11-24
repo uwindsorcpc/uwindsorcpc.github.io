@@ -25,7 +25,7 @@ export function TeamGrid({ team: initial }: { team: TeamMember[] }) {
   const team = useLive(fetchTeam, initial);
 
   return (
-    <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
       {team.map((m) => {
         const links = (Object.entries(m.links) as [TeamLinkKey, string][])
           .filter(([key, url]) => key in linkMeta && url && !isPlaceholder(url))
@@ -35,8 +35,8 @@ export function TeamGrid({ team: initial }: { team: TeamMember[] }) {
         const photo = safeUrl(m.photoUrl);
 
         return (
-          <li key={m.id} className="flex flex-col rounded-xl border border-border bg-surface p-6">
-            <div className="flex items-center gap-4">
+          <li key={m.id} className="flex flex-col">
+            <div>
               {photo ? (
                 // eslint-disable-next-line @next/next/no-img-element -- photos come from the database at run time
                 <img
@@ -45,25 +45,25 @@ export function TeamGrid({ team: initial }: { team: TeamMember[] }) {
                   width={80}
                   height={80}
                   loading="lazy"
-                  className="size-20 shrink-0 rounded-xl border border-border object-cover"
+                  className="aspect-square w-full max-w-[16rem] rounded-lg object-cover"
                 />
               ) : (
                 <div
                   role="img"
                   aria-label={`Photo placeholder for ${m.name}`}
-                  className="bg-grid flex size-20 shrink-0 items-center justify-center rounded-xl border border-dashed border-border bg-surface-2 font-mono text-2xl font-bold text-accent"
+                  className="headline flex aspect-square w-full max-w-[16rem] items-center justify-center rounded-lg bg-surface text-7xl text-muted/60"
                 >
                   {initials(m.name)}
                 </div>
               )}
-              <div className="min-w-0">
-                <h2 className="text-lg font-semibold leading-snug">{m.name}</h2>
-                <p className="font-mono text-sm text-accent">{m.role}</p>
+              <div className="mt-5 min-w-0">
+                <h2 className="condensed text-2xl font-bold leading-tight">{m.name}</h2>
+                <p className="mt-0.5 text-accent">{m.role}</p>
               </div>
             </div>
-            {m.bio && <p className="mt-4 text-sm text-muted">{m.bio}</p>}
+            {m.bio && <p className="mt-3 max-w-sm leading-relaxed text-muted">{m.bio}</p>}
             {links.length > 0 && (
-              <ul className="mt-auto flex flex-wrap gap-2 pt-5" aria-label={`${m.name}'s links`}>
+              <ul className="mt-4 flex flex-wrap gap-1" aria-label={`${m.name}'s links`}>
                 {links.map(([key, href]) => {
                   const { label, Icon } = linkMeta[key];
                   const external = key !== "email";
@@ -74,7 +74,7 @@ export function TeamGrid({ team: initial }: { team: TeamMember[] }) {
                         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         aria-label={`${m.name} on ${label}${external ? " (opens in a new tab)" : ""}`}
                         title={label}
-                        className="inline-flex size-10 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-accent hover:text-accent"
+                        className="inline-flex size-10 items-center justify-center rounded-md text-muted transition-colors hover:bg-surface hover:text-fg"
                       >
                         <Icon />
                       </a>

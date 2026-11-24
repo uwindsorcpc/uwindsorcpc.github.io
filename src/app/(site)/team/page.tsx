@@ -15,7 +15,6 @@ export default async function TeamPage() {
   return (
     <>
       <PageHeader
-        command="whoami --all"
         title="The team"
         intro="CPC UWindsor was started by three UWindsor ICPC contestants. Say hi at any practice night, or message us on Discord."
       />

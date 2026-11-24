@@ -32,7 +32,7 @@ export function ThemeToggle() {
       }}
       aria-label={`Switch to ${next} mode`}
       title={`Switch to ${next} mode`}
-      className="inline-flex size-10 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-accent hover:text-fg"
+      className="inline-flex size-10 items-center justify-center rounded-md border border-border text-muted transition-colors hover:border-fg/60 hover:text-fg"
     >
       {/* Icons are swapped with CSS so the right one shows before JavaScript loads */}
       <SunIcon className="light:hidden" />

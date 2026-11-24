@@ -32,7 +32,7 @@ export function NotMemberChoice({
   return (
     <div>
       <p className="font-mono text-sm text-hard">RuntimeError</p>
-      <h2 id={headingId} className="mt-1 font-mono text-xl font-bold">
+      <h2 id={headingId} className="condensed mt-1 text-2xl font-bold">
         You&apos;re not a registered member
       </h2>
       <p className="mt-3 text-sm text-muted">
@@ -53,7 +53,7 @@ export function NotMemberChoice({
         <button type="button" className={secondaryBtn} onClick={onGuest} disabled={busy}>
           {busy ? "Joining…" : "No thanks, continue as a guest"}
         </button>
-        <button type="button" onClick={onCancel} className="font-mono text-xs text-muted underline underline-offset-4 hover:text-fg">
+        <button type="button" onClick={onCancel} className="text-sm text-muted underline underline-offset-4 hover:text-fg">
           Cancel
         </button>
       </div>

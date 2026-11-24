@@ -15,9 +15,8 @@ export default async function ContestsPage() {
   return (
     <>
       <PageHeader
-        command="ls contests/"
         title="Contests"
-        intro="Club contests run on Kattis. Missed one? Every past contest stays open for practice."
+        intro="Club contests run on Kattis. Here is every past one, plus a set of problems to practise with."
       />
       <Container className="py-14">
         <ContestsView contests={contests} problems={problems} />

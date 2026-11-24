@@ -24,25 +24,22 @@ export default async function JoinPage() {
   return (
     <>
       <PageHeader
-        command="./join --no-experience-needed"
         title="Join the club"
         intro="Membership is free and open to every UWindsor student. It takes about two minutes."
       />
 
       <Container className="py-14">
         <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
-          <section aria-labelledby="signup" className="rounded-2xl border border-accent/50 bg-surface p-6 sm:p-10">
-            <p className="font-mono text-sm text-accent">step_1</p>
-            <h2 id="signup" className="mt-2 text-2xl font-bold">
+          <section aria-labelledby="signup" className="rounded-lg bg-surface p-6 sm:p-10">
+            <h2 id="signup" className="condensed text-3xl font-bold">
               Become a member
             </h2>
             <p className="mt-2 mb-8 text-muted">Any experience level is welcome, including none at all.</p>
             <SignupForm clubEmail={site.email} />
           </section>
 
-          <section aria-labelledby="discord" className="flex flex-col items-start self-start rounded-2xl border border-border bg-surface p-6 sm:p-10">
-            <p className="font-mono text-sm text-accent">step_2</p>
-            <h2 id="discord" className="mt-2 text-2xl font-bold">
+          <section aria-labelledby="discord" className="flex flex-col items-start self-start border-t border-border pt-8 lg:border-t-0 lg:border-l lg:pt-2 lg:pl-10">
+            <h2 id="discord" className="condensed text-3xl font-bold">
               Join the Discord
             </h2>
             <p className="mt-2 text-muted">Where we post events, share problems, and help each other debug.</p>
@@ -54,14 +51,14 @@ export default async function JoinPage() {
 
         <section aria-labelledby="how" className="mt-20">
           <SectionHeading id="how">How it works</SectionHeading>
-          <ol className="grid gap-4 md:grid-cols-3">
+          <ol className="grid border-t border-border md:grid-cols-3">
             {steps.map((s, i) => (
-              <li key={s.title} className="rounded-xl border border-border bg-surface p-6">
-                <span aria-hidden="true" className="font-mono text-3xl font-bold text-accent">
-                  0{i + 1}
+              <li key={s.title} className="border-b border-border py-8 md:border-b-0 md:pr-10 md:[&:not(:first-child)]:border-l md:[&:not(:first-child)]:pl-10">
+                <span aria-hidden="true" className="headline text-6xl text-accent">
+                  {i + 1}
                 </span>
-                <h3 className="mt-3 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-1 text-sm text-muted">{s.text}</p>
+                <h3 className="mt-3 text-xl font-semibold">{s.title}</h3>
+                <p className="mt-1 leading-relaxed text-muted">{s.text}</p>
               </li>
             ))}
           </ol>
@@ -73,9 +70,9 @@ export default async function JoinPage() {
           <p className="mt-8 text-sm text-muted">
             Still have a question? Email us at{" "}
             {isPlaceholder(site.email) ? (
-              <span className="font-mono text-fg">{site.email}</span>
+              <span className="text-fg">{site.email}</span>
             ) : (
-              <a href={`mailto:${site.email}`} className="font-mono text-accent underline underline-offset-4">
+              <a href={`mailto:${site.email}`} className="text-accent underline underline-offset-4">
                 {site.email}
               </a>
             )}{" "}

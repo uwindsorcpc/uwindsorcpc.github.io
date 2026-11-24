@@ -34,34 +34,31 @@ export default function ResourcesPage() {
   return (
     <>
       <PageHeader
-        command="man competitive-programming"
         title="Resources"
         intro="Everything you need to go from your first problem to the ICPC regional. Everything here is free."
       />
 
-      <Container className="py-14">
+      <Container className="py-16">
         <section aria-labelledby="roadmap" className="mb-20">
           <SectionHeading id="roadmap" sub="Not sure where to start? Follow these steps in order.">
             Beginner roadmap
           </SectionHeading>
-          <ol className="relative grid gap-6 border-l border-border pl-8 sm:pl-10">
+          <ol className="grid border-t border-border">
             {resources.roadmap.map((step, i) => (
-              <li key={step.title} className="relative">
-                <span
-                  aria-hidden="true"
-                  className="absolute top-0 -left-[calc(2rem+1px)] flex size-8 -translate-x-1/2 items-center justify-center rounded-full border border-accent bg-bg font-mono text-sm font-bold text-accent sm:-left-[calc(2.5rem+1px)]"
-                >
-                  {i + 1}
-                </span>
-                <div className="rounded-xl border border-border bg-surface p-6">
-                  {step.duration && <p className="font-mono text-xs text-muted">{step.duration}</p>}
-                  <h3 className="mt-1 text-lg font-semibold">
+              <li key={step.title} className="grid gap-4 border-b border-border py-8 sm:grid-cols-[6rem_1fr] sm:gap-8">
+                <div aria-hidden="true">
+                  <span className="headline block text-6xl text-accent">{i + 1}</span>
+                  {step.duration && <span className="mt-2 block text-sm text-muted">{step.duration}</span>}
+                </div>
+                <div className="max-w-2xl">
+                  <h3 className="condensed text-2xl font-bold">
                     <span className="sr-only">Step {i + 1}: </span>
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-muted">{step.text}</p>
+                  {step.duration && <p className="sr-only">{step.duration}</p>}
+                  <p className="mt-2 leading-relaxed text-muted">{step.text}</p>
                   {step.links && step.links.length > 0 && (
-                    <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm">
+                    <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-1">
                       {step.links.map((l) => (
                         <li key={l.url + l.label}>
                           <SmartLink href={l.url}>{l.label}</SmartLink>
@@ -79,20 +76,18 @@ export default function ResourcesPage() {
           <SectionHeading id="platforms" sub="Where to practise. Make an account on Kattis and Codeforces first.">
             Practice platforms
           </SectionHeading>
-          <ul className="grid gap-4 sm:grid-cols-2">
+          <ul className="divide-y divide-border border-y border-border">
             {resources.platforms.map((p) => (
               <li key={p.name}>
                 <a
                   href={p.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block h-full rounded-xl border border-border bg-surface p-6 transition-colors hover:border-accent"
+                  className="group grid gap-1 py-6 sm:grid-cols-[14rem_1fr_auto] sm:items-baseline sm:gap-8"
                 >
-                  <span className="flex items-center justify-between">
-                    <span className="font-mono text-lg font-bold group-hover:text-accent">{p.name}</span>
-                    <ExternalIcon className="size-4 text-muted group-hover:text-accent" />
-                  </span>
-                  <span className="mt-2 block text-sm text-muted">{p.text}</span>
+                  <span className="condensed text-2xl font-bold group-hover:text-accent">{p.name}</span>
+                  <span className="leading-relaxed text-muted">{p.text}</span>
+                  <ExternalIcon className="hidden size-4 text-muted group-hover:text-accent sm:block" />
                   <span className="sr-only">(opens in a new tab)</span>
                 </a>
               </li>
@@ -102,14 +97,14 @@ export default function ResourcesPage() {
 
         <section aria-labelledby="books" className="mb-20">
           <SectionHeading id="books">Books and guides</SectionHeading>
-          <ul className="grid gap-4 md:grid-cols-3">
+          <ul className="grid gap-10 md:grid-cols-3">
             {resources.books.map((b) => (
-              <li key={b.name} className="rounded-xl border border-border bg-surface p-6">
-                <h3 className="font-semibold">
+              <li key={b.name} className="border-t-2 border-border pt-5">
+                <h3 className="text-lg font-semibold">
                   <ExternalLink href={b.url}>{b.name}</ExternalLink>
                 </h3>
-                {b.author && <p className="mt-1 font-mono text-xs text-muted">{b.author}</p>}
-                <p className="mt-3 text-sm text-muted">{b.text}</p>
+                {b.author && <p className="mt-1 text-sm text-muted">{b.author}</p>}
+                <p className="mt-3 leading-relaxed text-muted">{b.text}</p>
               </li>
             ))}
           </ul>

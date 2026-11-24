@@ -172,30 +172,27 @@ export function AttendApp({ events: initialEvents }: { events: ClubEvent[] }) {
   /* ------------------------------- render ------------------------------- */
 
   if (checkin === undefined || checkingCode) {
-    return <p className="font-mono text-sm text-muted">Checking for an open check-in…</p>;
+    return <p className="text-muted">Checking for an open check-in…</p>;
   }
 
   if (!checkin) {
     const upcoming = events.filter((e) => e.startMs > now).slice(0, 3);
     return (
       <div className="grid gap-10">
-        <div className="rounded-2xl border border-dashed border-border p-8 text-center">
-          <p className="font-mono text-lg font-bold">No check-in open right now</p>
+        <div className="max-w-2xl">
+          <p className="condensed text-3xl font-bold">No check-in open right now</p>
           <p className="mt-2 text-sm text-muted">
             When an event starts, scan the QR code on the screen in the room, or come back here and enter the code.
           </p>
         </div>
         <section aria-labelledby={`${ids}-upcoming`}>
-          <h2 id={`${ids}-upcoming`} className="mb-4 font-mono text-xl font-bold">
-            <span aria-hidden="true" className="text-accent">
-              ##{" "}
-            </span>
-            Coming up: RSVP so we know you&apos;re coming
+          <h2 id={`${ids}-upcoming`} className="condensed mb-4 text-2xl font-bold">
+            Coming up. RSVP so we know you&apos;re coming
           </h2>
           {upcoming.length === 0 ? (
-            <p className="font-mono text-sm text-muted">No upcoming events yet. Check back soon.</p>
+            <p className="text-muted">No upcoming events yet. Check back soon.</p>
           ) : (
-            <ul className="grid gap-4">
+            <ul className="divide-y divide-border border-y border-border">
               {upcoming.map((e) => (
                 <li key={e.id}>
                   <EventCard event={e} footer={<RsvpButton event={e} going={counts[e.id]} />} />
@@ -212,12 +209,12 @@ export function AttendApp({ events: initialEvents }: { events: ClubEvent[] }) {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-start">
-      <section aria-labelledby={`${ids}-checkin`} className="rounded-2xl border border-accent/50 bg-surface p-6 sm:p-8">
-        <p className="flex items-center gap-2 font-mono text-sm text-accent">
-          <span aria-hidden="true" className="size-2 animate-pulse rounded-full bg-accent motion-reduce:animate-none" />
-          check-in open
+      <section aria-labelledby={`${ids}-checkin`} className="rounded-lg bg-surface p-6 sm:p-8">
+        <p className="flex items-center gap-2 text-sm font-semibold text-easy">
+          <span aria-hidden="true" className="size-2 animate-pulse rounded-full bg-easy motion-reduce:animate-none" />
+          Check-in is open
         </p>
-        <h2 id={`${ids}-checkin`} className="mt-2 text-2xl font-bold">
+        <h2 id={`${ids}-checkin`} className="condensed mt-2 text-3xl font-bold">
           {checkin.title}
         </h2>
         <p className="mt-1 text-sm text-muted">{checkin.room}</p>
@@ -226,7 +223,7 @@ export function AttendApp({ events: initialEvents }: { events: ClubEvent[] }) {
           {outcome?.kind === "accepted" ? (
             <Verdict tone="ok" verdict="Accepted ✓">
               You&apos;re checked in{outcome.guest ? " as a guest" : ""}. You&apos;re on the board as{" "}
-              <strong className="font-mono">{outcome.displayName}</strong>.
+              <strong>{outcome.displayName}</strong>.
               {outcome.guest && (
                 <span className="mt-2 block text-muted">
                   Enjoyed it? <a href="/join" className="text-accent underline underline-offset-4">Become a member</a>. It&apos;s free.

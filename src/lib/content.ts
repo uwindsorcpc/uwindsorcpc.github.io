@@ -30,7 +30,7 @@ export const site = siteJson as {
   home: {
     headline: string;
     pitch: string;
-    highlights: { title: string; command: string; text: string }[];
+    highlights: { title: string; text: string }[];
   };
 };
 

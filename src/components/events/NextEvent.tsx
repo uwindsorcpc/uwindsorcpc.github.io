@@ -27,8 +27,8 @@ export function NextEvent({ events: initial, builtAt }: { events: ClubEvent[]; b
 
   if (!next) {
     return (
-      <div className="rounded-xl border border-dashed border-border p-8 text-center">
-        <p className="font-mono text-muted">No events scheduled right now.</p>
+      <div className="border-y border-border py-8">
+        <p className="text-lg font-semibold">No events scheduled right now.</p>
         <p className="mt-2 text-sm text-muted">
           Join the Discord to hear about the next one first, or browse{" "}
           <Link href="/events#past" className="text-accent underline underline-offset-4">
@@ -43,21 +43,17 @@ export function NextEvent({ events: initial, builtAt }: { events: ClubEvent[]; b
   const live = next.startMs <= now;
 
   return (
-    <div className="grid gap-4">
-      <div className="rounded-xl border border-border bg-surface-2 p-5 sm:p-6">
-        <p className="font-mono text-sm text-muted">
-          <span className="text-accent">&gt;</span> {live ? "happening now" : "starts in"}
-        </p>
-        {live ? (
-          <p className="mt-3 font-mono text-3xl font-bold text-accent">It&apos;s on. Come join us.</p>
-        ) : (
-          <div role="timer" aria-label={`Countdown to ${next.title}`} className="mt-3 grid grid-cols-4 gap-2 sm:gap-3">
+    <div>
+      <div className="border-b border-border pb-6">
+        <p className="text-muted">{live ? "Happening now. Come join us." : "Starts in"}</p>
+        {!live && (
+          <div role="timer" aria-label={`Countdown to ${next.title}`} className="mt-2 flex flex-wrap gap-x-7 gap-y-2">
             {parts(next.startMs - now).map((p) => (
-              <div key={p.label} className="rounded-lg border border-border bg-surface px-2 py-3 text-center">
-                <span className="block font-mono text-3xl font-bold tabular-nums sm:text-4xl">
+              <div key={p.label} className="flex items-baseline gap-1.5">
+                <span className="headline text-6xl tabular-nums sm:text-7xl">
                   {liveNow === null ? "--" : String(p.value).padStart(2, "0")}
                 </span>
-                <span className="mt-1 block font-mono text-xs uppercase tracking-wider text-muted">{p.label}</span>
+                <span className="text-sm text-muted">{p.label}</span>
               </div>
             ))}
           </div>

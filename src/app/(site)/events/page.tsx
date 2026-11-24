@@ -17,7 +17,6 @@ export default async function EventsPage() {
   return (
     <>
       <PageHeader
-        command="ls events/ --sort=date"
         title="Events"
         intro="Practice nights, workshops and contests. Everyone is welcome; bring a laptop. All times are Windsor time (Eastern)."
       />

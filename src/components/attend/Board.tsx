@@ -26,24 +26,21 @@ export function Board({ highlight }: { highlight?: string }) {
   if (!board?.event_id) return null;
 
   return (
-    <section aria-labelledby="board" className="rounded-xl border border-border bg-surface p-6">
+    <section aria-labelledby="board" className="border-t-2 border-border pt-5">
       <div className="flex items-baseline justify-between gap-4">
-        <h2 id="board" className="font-mono text-lg font-bold">
-          <span aria-hidden="true" className="text-accent">
-            ##{" "}
-          </span>
+        <h2 id="board" className="condensed text-2xl font-bold">
           Who&apos;s here
         </h2>
-        <span className="font-mono text-sm text-muted">{board.count} checked in</span>
+        <span className="text-sm text-muted">{board.count} checked in</span>
       </div>
       {board.entries.length === 0 ? (
-        <p className="mt-4 font-mono text-sm text-muted">Nobody yet. Be the first!</p>
+        <p className="mt-4 text-muted">Nobody yet. Be the first!</p>
       ) : (
         <ul className="mt-4 flex flex-wrap gap-2">
           {board.entries.map((e, i) => (
             <li
               key={`${e.name}-${i}`}
-              className={`rounded-lg border px-3 py-1.5 font-mono text-sm ${
+              className={`rounded-md border px-3 py-1.5 text-sm ${
                 e.name === highlight ? "border-accent bg-accent-soft text-fg" : "border-border bg-surface-2 text-fg"
               }`}
             >

@@ -36,7 +36,7 @@ export function EventsBrowser({ events: initial, builtAt }: { events: ClubEvent[
             type="button"
             aria-pressed={filter === f}
             onClick={() => setFilter(f)}
-            className="rounded-lg border border-border bg-surface px-4 py-2 font-mono text-sm capitalize text-muted transition-colors hover:text-fg aria-pressed:border-accent aria-pressed:bg-accent-soft aria-pressed:text-fg"
+            className="rounded-full border border-border px-4 py-1.5 text-sm capitalize text-muted transition-colors hover:text-fg aria-pressed:border-fg aria-pressed:bg-fg aria-pressed:text-bg"
           >
             {f}
           </button>
@@ -46,7 +46,7 @@ export function EventsBrowser({ events: initial, builtAt }: { events: ClubEvent[
       <section aria-labelledby="upcoming" className="mb-16">
         <SectionHeading id="upcoming">Upcoming</SectionHeading>
         {upcoming.length ? (
-          <ul className="grid gap-4">
+          <ul className="divide-y divide-border border-y border-border">
             {upcoming.map((e) => (
               <li key={e.id}>
                 <EventCard
@@ -58,7 +58,7 @@ export function EventsBrowser({ events: initial, builtAt }: { events: ClubEvent[
             ))}
           </ul>
         ) : (
-          <p className="rounded-xl border border-dashed border-border p-6 font-mono text-sm text-muted">
+          <p className="border-y border-border py-8 text-muted">
             No upcoming {filter === "all" ? "events" : `${filter} events`} scheduled yet. Check Discord for announcements.
           </p>
         )}
@@ -67,7 +67,7 @@ export function EventsBrowser({ events: initial, builtAt }: { events: ClubEvent[
       <section aria-labelledby="past">
         <SectionHeading id="past">Past events</SectionHeading>
         {past.length ? (
-          <ul className="grid gap-4">
+          <ul className="divide-y divide-border border-y border-border">
             {past.map((e) => (
               <li key={e.id}>
                 <EventCard event={e} status="past" />
@@ -75,7 +75,7 @@ export function EventsBrowser({ events: initial, builtAt }: { events: ClubEvent[
             ))}
           </ul>
         ) : (
-          <p className="font-mono text-sm text-muted">Nothing here yet.</p>
+          <p className="text-muted">Nothing here yet.</p>
         )}
       </section>
     </>

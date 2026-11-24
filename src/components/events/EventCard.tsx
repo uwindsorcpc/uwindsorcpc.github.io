@@ -1,55 +1,42 @@
 import type { ReactNode } from "react";
 
 import type { ClubEvent } from "@/lib/db/types";
-import { ClockIcon, ExternalIcon, PinIcon } from "../icons";
+import { ExternalIcon } from "../icons";
 import { EventTypeBadge } from "./EventTypeBadge";
 
+/** One event as an agenda row: the date on the left, details on the right. */
 export function EventCard({ event, status, footer }: { event: ClubEvent; status?: "live" | "past"; footer?: ReactNode }) {
   return (
-    <article
-      className={`flex gap-5 rounded-xl border bg-surface p-5 sm:p-6 ${status === "live" ? "border-accent" : "border-border"} ${status === "past" ? "opacity-80" : ""}`}
-    >
-      <div
-        aria-hidden="true"
-        className="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-lg border border-border bg-surface-2 font-mono"
-      >
-        <span className="text-xs uppercase text-accent">{event.monthLabel}</span>
-        <span className="text-2xl font-bold leading-none">{event.dayLabel}</span>
+    <article className={`grid grid-cols-[3.75rem_1fr] gap-5 py-7 sm:grid-cols-[5rem_1fr] sm:gap-8 ${status === "past" ? "opacity-70" : ""}`}>
+      <div aria-hidden="true" className="text-center leading-none">
+        <span className="condensed block text-sm font-semibold text-muted">{event.monthLabel}</span>
+        <span className="headline mt-1 block text-5xl sm:text-6xl">{event.dayLabel}</span>
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="min-w-0">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
           <EventTypeBadge type={event.type} />
           {status === "live" && (
-            <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-accent">
-              <span className="size-2 animate-pulse rounded-full bg-accent motion-reduce:animate-none" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-sm font-semibold text-easy">
+              <span className="size-2 animate-pulse rounded-full bg-easy motion-reduce:animate-none" aria-hidden="true" />
               Happening now
             </span>
           )}
         </div>
-        <h3 className="mt-2 text-lg font-semibold leading-snug">{event.title}</h3>
-        <dl className="mt-2 flex flex-col gap-1 text-sm text-muted sm:flex-row sm:flex-wrap sm:gap-x-5">
-          <div className="flex items-center gap-1.5">
-            <dt className="sr-only">Date and time</dt>
-            <ClockIcon className="size-4 shrink-0" />
-            <dd>
-              <time dateTime={new Date(event.startMs).toISOString()}>{event.dateLabel}</time> · {event.timeLabel}
-            </dd>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <dt className="sr-only">Room</dt>
-            <PinIcon className="size-4 shrink-0" />
-            <dd>{event.room}</dd>
-          </div>
-        </dl>
-        {event.description && <p className="mt-3 text-sm text-muted">{event.description}</p>}
+        <h3 className="mt-2 text-xl font-semibold leading-snug sm:text-2xl">{event.title}</h3>
+        <p className="mt-1.5 text-muted">
+          <time dateTime={new Date(event.startMs).toISOString()}>{event.dateLabel}</time>, {event.timeLabel}
+          <br />
+          {event.room}
+        </p>
+        {event.description && <p className="mt-3 max-w-2xl leading-relaxed text-muted">{event.description}</p>}
         {event.kattisUrl && (
           <a
             href={event.kattisUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center gap-1.5 font-mono text-sm text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
+            className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
           >
-            Open on Kattis <ExternalIcon className="size-3.5" />
+            Problems on Kattis <ExternalIcon className="size-3.5" />
             <span className="sr-only">(opens in a new tab)</span>
           </a>
         )}

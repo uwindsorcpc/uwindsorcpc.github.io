@@ -11,7 +11,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto border-t border-border bg-surface">
+    <footer className="mt-auto border-t border-border">
       <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
           <Logo variant="stacked" />
@@ -21,7 +21,7 @@ export function Footer() {
         </div>
 
         <nav aria-label="Footer">
-          <h2 className="font-mono text-sm font-semibold text-fg">Pages</h2>
+          <h2 className="text-sm font-semibold text-fg">Pages</h2>
           <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
             {[...NAV_LINKS, { href: "/join", label: "Join" }].map((l) => (
               <li key={l.href}>
@@ -34,7 +34,7 @@ export function Footer() {
         </nav>
 
         <div>
-          <h2 className="font-mono text-sm font-semibold text-fg">Contact</h2>
+          <h2 className="text-sm font-semibold text-fg">Contact</h2>
           <p className="mt-3 text-sm">
             {isPlaceholder(site.email) ? (
               <span className="inline-flex items-center gap-2 text-muted">
@@ -58,14 +58,14 @@ export function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${s.label} (opens in a new tab)`}
-                      className="inline-flex size-10 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-accent hover:text-accent"
+                      className="inline-flex size-10 items-center justify-center rounded-md border border-border text-muted transition-colors hover:border-fg/60 hover:text-fg"
                     >
                       <Icon />
                     </a>
                   ) : (
                     <span
                       title={`${s.label}: link not set yet`}
-                      className="inline-flex size-10 items-center justify-center rounded-lg border border-dashed border-border text-muted opacity-50"
+                      className="inline-flex size-10 items-center justify-center rounded-md border border-dashed border-border text-muted opacity-50"
                     >
                       <Icon />
                       <span className="sr-only">{s.label} (link coming soon)</span>
@@ -78,11 +78,9 @@ export function Footer() {
         </div>
       </Container>
       <div className="border-t border-border">
-        <Container className="flex flex-col gap-2 py-5 font-mono text-xs text-muted sm:flex-row sm:justify-between">
+        <Container className="flex flex-col gap-2 py-5 text-sm text-muted sm:flex-row sm:justify-between">
           <p>© {year} {site.name}</p>
-          <p>
-            <span className="text-accent">$</span> exit 0
-          </p>
+          <p>Free to join. Run by students.</p>
         </Container>
       </div>
     </footer>

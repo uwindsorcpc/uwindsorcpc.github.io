@@ -35,17 +35,14 @@
     "highlights": [
       {
         "title": "Learn",
-        "command": "./learn",
         "text": "Beginner-friendly workshops on the core ideas: sorting, binary search, graphs, dynamic programming and more."
       },
       {
         "title": "Compete",
-        "command": "./compete",
         "text": "Weekly practice and monthly club contests on Kattis. Solve problems, climb the scoreboard, and see yourself improve."
       },
       {
         "title": "Go to ICPC",
-        "command": "./icpc --regional ecna",
         "text": "Form a team of three and represent UWindsor at the ICPC East Central NA Regional, hosted right here on campus."
       }
     ]
