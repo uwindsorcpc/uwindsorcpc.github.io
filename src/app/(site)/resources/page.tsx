@@ -118,7 +118,7 @@ export default function ResourcesPage() {
         <section aria-labelledby="templates">
           <SectionHeading
             id="templates"
-            sub="Copy one, then write your solution in main(). Each shows the fast way to read input and print output in that language, which matters on big test cases. The comments explain why."
+            sub="Standard boilerplate with fast input/output. Copy one and write your code where it says solution."
           >
             Starter templates
           </SectionHeading>
