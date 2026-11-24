@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   icons: { apple: "/apple-touch-icon.png" },
   // Google Search Console ownership check (public by design).
-  verification: { google: "q9njCIHid0pjqPNRUsqBpbXvTCvDUtzCFlpLW9XdbN4" },
+  verification: { google: "ifhw3kUUyO5RCidgOLrTOXHN7Ewyd9zwrHFcK2hjGCc" },
 };
 
 export const viewport: Viewport = {
