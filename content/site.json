@@ -1,0 +1,38 @@
+{
+  "_readme": "Club-wide settings. Replace every value in [SQUARE_BRACKETS] before launch, then set showSampleContentBanner to false.",
+  "showSampleContentBanner": true,
+  "name": "CPC UWindsor",
+  "fullName": "UWindsor Competitive Programming Club",
+  "url": "https://cpc-uwindsor.vercel.app",
+  "description": "The University of Windsor's competitive programming club. Learn algorithms, practise weekly, compete in contests, and train for the ICPC East Central NA Regional.",
+  "email": "[CLUB_EMAIL]",
+  "googleFormUrl": "[GOOGLE_FORM_URL]",
+  "discordUrl": "[DISCORD_URL]",
+  "socials": [
+    { "label": "Discord", "icon": "discord", "url": "[DISCORD_URL]" },
+    { "label": "Instagram", "icon": "instagram", "url": "[INSTAGRAM_URL]" },
+    { "label": "GitHub", "icon": "github", "url": "[GITHUB_URL]" },
+    { "label": "LinkedIn", "icon": "linkedin", "url": "[LINKEDIN_URL]" }
+  ],
+  "home": {
+    "headline": "Learn algorithms. Compete. Go to ICPC.",
+    "pitch": "CPC UWindsor is a student club for anyone who wants to get better at solving problems with code. We run weekly practice sessions, club contests and workshops, and we train UWindsor teams for the ICPC East Central North America Regional, which UWindsor hosts. No experience needed: if you can write a loop, you can start.",
+    "highlights": [
+      {
+        "title": "Learn",
+        "command": "./learn",
+        "text": "Beginner-friendly workshops on the core ideas: sorting, binary search, graphs, dynamic programming and more."
+      },
+      {
+        "title": "Compete",
+        "command": "./compete",
+        "text": "Weekly practice and monthly club contests on Kattis. Solve problems, climb the scoreboard, and see yourself improve."
+      },
+      {
+        "title": "Go to ICPC",
+        "command": "./icpc --regional ecna",
+        "text": "Form a team of three and represent UWindsor at the ICPC East Central NA Regional, hosted right here on campus."
+      }
+    ]
+  }
+}

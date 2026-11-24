@@ -1,0 +1,92 @@
+{
+  "_readme": "One object per event. date is YYYY-MM-DD and times are 24-hour HH:MM in Windsor time (Eastern). type must be practice, contest or workshop. kattisUrl is optional: delete the line if there is no link. Events move from Upcoming to Past on their own once they end. SAMPLE DATA: replace before launch.",
+  "timezone": "America/Toronto",
+  "events": [
+    {
+      "id": "practice-2026-10-08",
+      "title": "Kickoff + First Practice",
+      "date": "2026-10-08",
+      "startTime": "18:00",
+      "endTime": "20:00",
+      "room": "Erie Hall 3123",
+      "type": "practice",
+      "description": "Meet the execs, set up your Kattis account, and solve your first problems together.",
+      "kattisUrl": "https://open.kattis.com/problems/hello"
+    },
+    {
+      "id": "workshop-2026-10-22",
+      "title": "Workshop: Complexity and Big-O",
+      "date": "2026-10-22",
+      "startTime": "18:00",
+      "endTime": "19:30",
+      "room": "Lambton Tower 2101",
+      "type": "workshop",
+      "description": "Why some solutions get Time Limit Exceeded, and how to estimate whether yours will pass before you submit."
+    },
+    {
+      "id": "contest-2026-11-07",
+      "title": "Fall Club Contest #1",
+      "date": "2026-11-07",
+      "startTime": "13:00",
+      "endTime": "16:00",
+      "room": "Erie Hall 3123",
+      "type": "contest",
+      "description": "Three hours, eight problems, teams of up to three. Pizza after.",
+      "kattisUrl": "https://open.kattis.com/contests"
+    },
+    {
+      "id": "practice-2026-11-19",
+      "title": "Weekly Practice: Graphs",
+      "date": "2026-11-19",
+      "startTime": "18:00",
+      "endTime": "20:00",
+      "room": "Erie Hall 3123",
+      "type": "practice",
+      "description": "BFS, DFS and connected components on a set of Kattis problems.",
+      "kattisUrl": "https://open.kattis.com/problems/10kindsofpeople"
+    },
+    {
+      "id": "practice-2026-12-03",
+      "title": "Weekly Practice: Binary Search",
+      "date": "2026-12-03",
+      "startTime": "18:00",
+      "endTime": "20:00",
+      "room": "Erie Hall 3123",
+      "type": "practice",
+      "description": "Binary search on arrays and on the answer. Bring a laptop.",
+      "kattisUrl": "https://open.kattis.com/problems/guess"
+    },
+    {
+      "id": "workshop-2026-12-10",
+      "title": "Workshop: Intro to Dynamic Programming",
+      "date": "2026-12-10",
+      "startTime": "18:00",
+      "endTime": "19:30",
+      "room": "Lambton Tower 2101",
+      "type": "workshop",
+      "description": "From recursion to memoization to tables: knapsack, coin change and longest increasing subsequence."
+    },
+    {
+      "id": "contest-2027-01-16",
+      "title": "Winter Club Contest #2",
+      "date": "2027-01-16",
+      "startTime": "13:00",
+      "endTime": "16:00",
+      "room": "Erie Hall 3123",
+      "type": "contest",
+      "description": "ICPC-style rules: teams of three sharing one computer. A good warm-up for the regional.",
+      "kattisUrl": "https://open.kattis.com/contests"
+    },
+    {
+      "id": "practice-2027-01-21",
+      "title": "Weekly Practice: Greedy Algorithms",
+      "date": "2027-01-21",
+      "startTime": "18:00",
+      "endTime": "20:00",
+      "room": "Erie Hall 3123",
+      "type": "practice",
+      "description": "When is the obvious choice the right one? Exchange arguments and classic greedy problems.",
+      "kattisUrl": "https://open.kattis.com/problems/commercials"
+    }
+  ]
+}

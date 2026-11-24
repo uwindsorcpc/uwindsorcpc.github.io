@@ -1,0 +1,39 @@
+{
+  "_readme": "One object per exec. photo is optional: put the image in /public/team/ and write its path, e.g. \"/team/jane.jpg\". Leave photo as \"\" to show initials instead. Every link is optional: delete any you don't need. SAMPLE DATA: replace before launch.",
+  "members": [
+    {
+      "name": "[Exec Name 1]",
+      "role": "President",
+      "bio": "ICPC contestant and co-founder. Likes graph problems and helping first-years get their first Accepted.",
+      "photo": "",
+      "links": {
+        "github": "https://github.com/",
+        "linkedin": "https://www.linkedin.com/",
+        "codeforces": "https://codeforces.com/",
+        "kattis": "https://open.kattis.com/"
+      }
+    },
+    {
+      "name": "[Exec Name 2]",
+      "role": "VP Contests",
+      "bio": "ICPC contestant and co-founder. Writes and tests the problems for club contests.",
+      "photo": "",
+      "links": {
+        "github": "https://github.com/",
+        "codeforces": "https://codeforces.com/",
+        "kattis": "https://open.kattis.com/"
+      }
+    },
+    {
+      "name": "[Exec Name 3]",
+      "role": "VP Training",
+      "bio": "ICPC contestant and co-founder. Runs the weekly practice sessions and the beginner workshop series.",
+      "photo": "",
+      "links": {
+        "linkedin": "https://www.linkedin.com/",
+        "codeforces": "https://codeforces.com/",
+        "email": "[EXEC_EMAIL]"
+      }
+    }
+  ]
+}
