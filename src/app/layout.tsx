@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   keywords: ["competitive programming", "ICPC", "University of Windsor", "UWindsor", "ECNA", "algorithms", "Kattis", "student club"],
   openGraph: { type: "website", siteName: site.name, locale: "en_CA" },
   twitter: { card: "summary_large_image" },
+  icons: { apple: "/apple-touch-icon.png" },
 };
 
 export const viewport: Viewport = {

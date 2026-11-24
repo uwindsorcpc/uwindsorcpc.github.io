@@ -1,11 +1,10 @@
 import { ImageResponse } from "next/og";
 
-// PNG home-screen icon for iPhones (iOS does not use SVG favicons).
-export const size = { width: 180, height: 180 };
-export const contentType = "image/png";
+// PNG home-screen icon for iPhones (iOS does not use SVG favicons),
+// served as /apple-touch-icon.png.
 export const dynamic = "force-static";
 
-export default function AppleIcon() {
+export function GET() {
   return new ImageResponse(
     (
       <div
@@ -26,6 +25,6 @@ export default function AppleIcon() {
         </div>
       </div>
     ),
-    size,
+    { width: 180, height: 180 },
   );
 }

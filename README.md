@@ -2,7 +2,7 @@
 
 The website for **CPC UWindsor**, the UWindsor Competitive Programming Club.
 
-Built with Next.js (App Router), TypeScript and Tailwind CSS. The whole site is **static**: there is no backend, no database, no analytics and no paid services. `npm run build` produces plain HTML files that Vercel serves for free.
+Built with Next.js (App Router), TypeScript and Tailwind CSS. The whole site is **static**: there is no backend, no database, no analytics and no paid services. `npm run build` produces plain HTML files, which GitHub Pages serves for free at **https://uwindsorcpc.github.io**.
 
 > **Sample content:** everything in `/content` is placeholder data (fake events, `[Exec Name 1]`, `[CLUB_EMAIL]` and so on). A yellow "PREVIEW" banner shows at the top of every page until you turn it off. See [Before launch](#before-launch).
 
@@ -49,7 +49,7 @@ All text and data live in the **`/content`** folder. You never need to touch the
 - If something breaks, run `npm run build`: it prints the file and the event name that has the problem.
 - You can also paste a file into [jsonlint.com](https://jsonlint.com) to find a missing comma or quote.
 
-You can edit files right on GitHub (open the file → pencil icon → **Commit changes**). Vercel redeploys automatically within about a minute.
+You can edit files right on GitHub (open the file → pencil icon → **Commit changes**). The site redeploys automatically within about 2 minutes. If the change has a mistake, the run shows a red ❌ on the repo's **Actions** tab and the live site stays as it was.
 
 ### Add or change an event
 
@@ -120,7 +120,7 @@ Open `content/team.json` and edit the `members` list:
    - `googleFormUrl`: `[GOOGLE_FORM_URL]`
    - `discordUrl`: `[DISCORD_URL]` (it appears in two places: the field and the Discord social link)
    - each URL in `socials` (delete any platform the club doesn't use)
-2. Set `url` in `content/site.json` to the real address, for example `https://cpc-uwindsor.vercel.app`. Search engines and link previews use it.
+2. Check that `url` in `content/site.json` is the real address (`https://uwindsorcpc.github.io`). Search engines and link previews use it.
 3. Replace the sample events, team, past contests and About text.
 4. Set `"showSampleContentBanner": false` in `content/site.json`.
 
@@ -128,29 +128,35 @@ Until a link is filled in, the site shows a greyed-out **"link coming soon"** bu
 
 ---
 
-## Deploying to Vercel (free)
+## Deploying to GitHub Pages (free)
 
-The site is designed for Vercel's free **Hobby** plan. Keep it non-commercial, as the Hobby plan requires: no ads, no payments, no sponsor ad placements.
+The site is published at **https://uwindsorcpc.github.io** from the `uwindsorcpc/uwindsorcpc.github.io` repository. The workflow in `.github/workflows/deploy.yml` does all the work:
 
-**First-time setup** (about 5 minutes):
+1. On every push to `main`, it installs packages, runs the linter, and builds the site into `/out`.
+2. If the build passes, it publishes `/out` to GitHub Pages. The live site updates in about 1–2 minutes.
+3. If the build fails (for example a missing comma in a JSON file), nothing is published and the live site stays as it was. Open the repo's **Actions** tab to see the error.
 
-1. Push this folder to a GitHub repository. A club GitHub organization makes it easy to hand the site down to future execs.
-2. Sign in at [vercel.com](https://vercel.com) with GitHub, then click **Add New… → Project**.
-3. Import the repository. Vercel detects Next.js automatically, so leave every setting at its default.
-4. Click **Deploy**. You'll get a URL like `https://cpc-uwindsor.vercel.app`.
-5. Put that URL in `content/site.json` → `url` and push the change.
+You can also redeploy by hand: **Actions → Deploy to GitHub Pages → Run workflow**.
 
-**After that:** every push to the `main` branch redeploys the site automatically. Pull requests get their own preview URLs, so you can check a change before merging it.
+### One-time setup
 
-**Custom domain (optional):** Vercel → Project → **Settings → Domains**.
+Only needed once, when the site first moves to the club organization:
 
-> The site has no server code and no environment variables or secrets. `next.config.ts` uses `output: "export"`, so the build fails loudly if anyone adds something that needs a server.
+1. Create the free GitHub organization `uwindsorcpc` and add the execs as **Owners**.
+2. The repository must be named exactly **`uwindsorcpc.github.io`** inside that organization. That name is what makes the site live at the root address.
+3. The repository must be **public**. GitHub Pages is free only for public repositories.
+4. In the repository, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
+5. Push to `main`, or run the workflow by hand. The deploy step is skipped while the repository is private, so the workflow is safe to keep before setup is finished.
+
+**Custom domain (optional):** if the club buys a domain, add it under **Settings → Pages → Custom domain**, then update `url` in `content/site.json`.
+
+> The site has no server code, environment variables or secrets. `next.config.ts` uses `output: "export"`, so the build fails loudly if anyone adds something that needs a server. The same `/out` folder would also deploy unchanged to any other static host, such as Vercel or Netlify.
 
 ---
 
 ## Changing the look
 
-- **Colours:** every colour is a CSS variable at the top of `src/app/globals.css`, with one block for dark mode (the default) and one for light mode. Change them there and the whole site follows. If you change `--bg` or `--accent`, also update the hex values in `src/app/icon.svg`, `src/app/opengraph-image.tsx` and `src/app/apple-icon.tsx`.
+- **Colours:** every colour is a CSS variable at the top of `src/app/globals.css`, with one block for dark mode (the default) and one for light mode. Change them there and the whole site follows. If you change `--bg` or `--accent`, also update the hex values in `src/app/icon.svg`, `src/app/og.png/route.tsx` (the social preview image) and `src/app/apple-touch-icon.png/route.tsx` (the iPhone icon).
 - **Logo:** the wordmark is text, built in `src/components/Logo.tsx`. The square favicon is `src/app/icon.svg`.
 - **Fonts:** Geist (text) and JetBrains Mono (code accents), set in `src/app/layout.tsx`. They're downloaded at build time and served from the site itself, so visitors never contact Google.
 
@@ -159,7 +165,8 @@ The site is designed for Vercel's free **Hobby** plan. Keep it non-commercial, a
 ```
 content/              ← everything editable (see above)
 public/               ← static files such as team photos (public/team/)
-src/app/              ← one folder per page (about/, events/, …), layout, favicon, social image
+src/app/              ← one folder per page (about/, events/, …), layout, favicon, social image (og.png/)
+.github/workflows/    ← automatic build and deploy to GitHub Pages
 src/components/       ← navbar, footer, logo, event cards, countdown, …
 src/lib/content.ts    ← loads and checks /content (build errors point to the bad entry)
 src/lib/metadata.ts   ← SEO and Open Graph tags for each page

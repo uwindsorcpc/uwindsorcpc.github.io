@@ -1,14 +1,13 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/lib/content";
 
-// Social preview image used by every page (Discord, LinkedIn, iMessage…).
-// Colours mirror the dark palette in globals.css.
-export const alt = `${site.name}: ${site.fullName}`;
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+// Social preview image (Discord, LinkedIn, iMessage…), built at deploy time
+// and served as /og.png. Colours mirror the dark palette in globals.css.
 export const dynamic = "force-static";
 
-export default function OpenGraphImage() {
+const OG_SIZE = { width: 1200, height: 630 };
+
+export function GET() {
   return new ImageResponse(
     (
       <div
@@ -40,6 +39,6 @@ export default function OpenGraphImage() {
         <div style={{ display: "flex", fontSize: 36, fontWeight: 600 }}>{site.home.headline}</div>
       </div>
     ),
-    size,
+    OG_SIZE,
   );
 }
