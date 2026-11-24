@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   openGraph: { type: "website", siteName: site.name, locale: "en_CA" },
   twitter: { card: "summary_large_image" },
   icons: { apple: "/apple-touch-icon.png" },
+  // Google Search Console ownership check (public by design).
+  verification: { google: "q9njCIHid0pjqPNRUsqBpbXvTCvDUtzCFlpLW9XdbN4" },
 };
 
 export const viewport: Viewport = {
