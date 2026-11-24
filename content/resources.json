@@ -37,7 +37,7 @@
     {
       "title": "Train as a team for ICPC",
       "duration": "Before the regional",
-      "text": "ICPC is three people sharing one computer. Practise splitting problems, pair-debugging, and building a team reference document (notebook).",
+      "text": "ICPC is three people sharing one computer. Practise splitting problems, pair-debugging, and building a team reference document (notebook). The regional is judged with PC², so get used to submitting through it in practice rounds.",
       "links": [{ "label": "ICPC", "url": "https://icpc.global/" }]
     }
   ],
@@ -45,7 +45,7 @@
     {
       "name": "Kattis",
       "url": "https://open.kattis.com/",
-      "text": "The judge used for ICPC regionals in North America, and for our club contests. Thousands of problems, rated by difficulty."
+      "text": "Thousands of problems rated by difficulty, including many from past ICPC contests. We use it for club practice and contests."
     },
     {
       "name": "Codeforces",
