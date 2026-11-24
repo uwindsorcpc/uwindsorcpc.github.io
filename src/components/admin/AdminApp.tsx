@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 
 import { getAdminDb } from "@/lib/supabase/clients";
 import { AuthCard, LoginForm, MfaEnroll, MfaVerify, NotAdmin } from "./AuthScreens";
@@ -36,7 +36,18 @@ async function resolveStage(): Promise<Stage> {
   return { kind: "ready", email };
 }
 
+export type AdminContext = { email: string; signOut: () => void };
+
+/** The /admin page. */
 export function AdminApp() {
+  return <AdminGate>{(ctx) => <Dashboard email={ctx.email} onSignOut={ctx.signOut} />}</AdminGate>;
+}
+
+/**
+ * Shows sign-in, 2FA, or "not an admin" until the user is a fully verified
+ * admin, then renders its children. Used by /admin and the presenter screen.
+ */
+export function AdminGate({ children }: { children: (ctx: AdminContext) => ReactNode }) {
   const [stage, setStage] = useState<Stage>({ kind: "loading" });
 
   const refresh = useCallback(() => {
@@ -94,6 +105,6 @@ export function AdminApp() {
     case "verify":
       return <MfaVerify onSignOut={signOut} />;
     case "ready":
-      return <Dashboard email={stage.email} onSignOut={signOut} />;
+      return children({ email: stage.email, signOut });
   }
 }

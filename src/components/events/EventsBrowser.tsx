@@ -6,6 +6,8 @@ import { useNowEveryMinute } from "@/lib/clock";
 import { fetchEvents } from "@/lib/db/queries";
 import type { ClubEvent, EventType } from "@/lib/db/types";
 import { useLive } from "@/lib/db/useLive";
+import { getRsvpCounts } from "@/lib/attendance";
+import { RsvpButton } from "../attend/RsvpButton";
 import { SectionHeading } from "../ui";
 import { EventCard } from "./EventCard";
 
@@ -17,6 +19,7 @@ const FILTERS: ("all" | EventType)[] = ["all", "practice", "contest", "workshop"
  */
 export function EventsBrowser({ events: initial, builtAt }: { events: ClubEvent[]; builtAt: number }) {
   const events = useLive(fetchEvents, initial);
+  const counts = useLive(getRsvpCounts, {});
   const now = useNowEveryMinute() ?? builtAt;
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("all");
 
@@ -46,7 +49,11 @@ export function EventsBrowser({ events: initial, builtAt }: { events: ClubEvent[
           <ul className="grid gap-4">
             {upcoming.map((e) => (
               <li key={e.id}>
-                <EventCard event={e} status={e.startMs <= now ? "live" : undefined} />
+                <EventCard
+                  event={e}
+                  status={e.startMs <= now ? "live" : undefined}
+                  footer={e.startMs > now ? <RsvpButton event={e} going={counts[e.id]} /> : undefined}
+                />
               </li>
             ))}
           </ul>

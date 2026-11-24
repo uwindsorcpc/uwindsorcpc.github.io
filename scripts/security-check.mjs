@@ -70,6 +70,40 @@ await check("public account sign-up is disabled", async () => {
   return Boolean(res.error);
 });
 
+// --- attendance and RSVPs (0002_attendance.sql) ---
+for (const t of ["attendance", "rsvps", "event_checkins", "checkin_tickets", "checkin_failures", "rate_log"]) {
+  await check(`cannot read ${t}`, async () => refused(await db.from(t).select("*").limit(1)));
+}
+await check("cannot insert attendance directly", async () =>
+  refused(await db.from("attendance").insert({ event_id: NO_ID, full_name: "x", email: "x@x.com", display_name: "x" })),
+);
+for (const fn of ["open_checkin", "close_checkin", "checkin_display"]) {
+  await check(`cannot call admin function ${fn}`, async () => refused(await db.rpc(fn, { p_event_id: NO_ID })));
+}
+await check("can see whether check-in is open", async () => !(await db.rpc("current_checkin")).error);
+await check("public board shows screen names only", async () => {
+  const { data, error } = await db.rpc("checkin_board");
+  return !error && Array.isArray(data.entries) && data.entries.every((e) => Object.keys(e).sort().join() === "guest,name");
+});
+await check("a made-up ticket can't check anyone in", async () => {
+  const { data } = await db.rpc("submit_checkin", {
+    p_ticket: crypto.randomUUID(),
+    p_full_name: "Security Check",
+    p_email: "security-check@gmail.com",
+    p_display_name: "",
+    p_as_guest: true,
+  });
+  return data?.status === "bad_ticket";
+});
+await check("RSVP to a non-existent event is refused", async () => {
+  const { data } = await db.rpc("submit_rsvp", { p_event_id: NO_ID, p_full_name: "Security Check", p_email: "security-check@gmail.com", p_as_guest: true });
+  return data?.status === "closed";
+});
+await check("RSVP counts expose numbers only", async () => {
+  const { data, error } = await db.rpc("rsvp_counts");
+  return !error && Object.values(data ?? {}).every((v) => typeof v === "number");
+});
+
 let failed = 0;
 for (const [status, name] of results) {
   if (status === "FAIL") failed++;

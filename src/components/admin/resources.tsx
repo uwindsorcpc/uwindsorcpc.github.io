@@ -108,6 +108,19 @@ export const RESOURCES: ResourceDef[] = [
       { label: "Title", render: (r) => s(r.title) },
       { label: "Type", render: (r) => <span className="font-mono text-xs uppercase">{s(r.type)}</span> },
       { label: "Status", render: published },
+      {
+        label: "Check-in",
+        render: (r) => (
+          <a
+            href={`/admin/present?event=${r.id}`}
+            target="_blank"
+            rel="noopener"
+            className="whitespace-nowrap font-mono text-xs text-accent underline underline-offset-4"
+          >
+            Check-in screen ↗
+          </a>
+        ),
+      },
     ],
     describe: (r) => s(r.title),
     toForm: (row): FormValues => {
@@ -156,6 +169,55 @@ export const RESOURCES: ResourceDef[] = [
     ],
     describe: (r) => `${s(r.full_name)} (${s(r.email)})`,
     searchText: (r) => [r.full_name, r.email, r.program, r.codeforces_handle, r.notes].map(s).join(" ").toLowerCase(),
+  },
+  {
+    key: "attendance",
+    title: "Attendance",
+    singular: "check-in",
+    table: "attendance",
+    select: "*, events(title)",
+    order: [{ column: "checked_in_at", ascending: false }],
+    canCreate: false,
+    csv: true,
+    fields: [
+      { name: "full_name", label: "Full name", kind: "text", required: true, maxLength: 100 },
+      { name: "email", label: "Email", kind: "email", required: true, maxLength: 254 },
+      { name: "display_name", label: "Shown on screen as", kind: "text", required: true, maxLength: 30 },
+      { name: "hidden", label: "Hidden from the public board", kind: "checkbox" },
+    ],
+    columns: [
+      { label: "Event", render: (r) => s((r.events as { title?: string } | null)?.title) },
+      { label: "Checked in", render: (r) => new Date(s(r.checked_in_at)).toLocaleString("en-CA", { timeZone: CLUB_TIMEZONE, dateStyle: "medium", timeStyle: "short" }) },
+      { label: "Name", render: (r) => s(r.full_name) },
+      { label: "Email", render: (r) => <span className="font-mono text-xs">{s(r.email)}</span> },
+      { label: "On screen", render: (r) => <span className={r.hidden ? "line-through opacity-60" : ""}>{s(r.display_name)}</span> },
+      { label: "Type", render: (r) => <span className="font-mono text-xs">{r.is_guest ? "guest" : "member"}</span> },
+    ],
+    describe: (r) => `${s(r.full_name)} (${s(r.email)})`,
+    searchText: (r) => [r.full_name, r.email, r.display_name, (r.events as { title?: string } | null)?.title].map(s).join(" ").toLowerCase(),
+  },
+  {
+    key: "rsvps",
+    title: "RSVPs",
+    singular: "RSVP",
+    table: "rsvps",
+    select: "*, events(title, starts_at)",
+    order: [{ column: "created_at", ascending: false }],
+    canCreate: false,
+    csv: true,
+    fields: [
+      { name: "full_name", label: "Full name", kind: "text", required: true, maxLength: 100 },
+      { name: "email", label: "Email", kind: "email", required: true, maxLength: 254 },
+    ],
+    columns: [
+      { label: "Event", render: (r) => s((r.events as { title?: string } | null)?.title) },
+      { label: "RSVPed", render: (r) => dateOnly(s(r.created_at).slice(0, 10)) },
+      { label: "Name", render: (r) => s(r.full_name) },
+      { label: "Email", render: (r) => <span className="font-mono text-xs">{s(r.email)}</span> },
+      { label: "Type", render: (r) => <span className="font-mono text-xs">{r.is_guest ? "guest" : "member"}</span> },
+    ],
+    describe: (r) => `${s(r.full_name)} (${s(r.email)})`,
+    searchText: (r) => [r.full_name, r.email, (r.events as { title?: string } | null)?.title].map(s).join(" ").toLowerCase(),
   },
   {
     key: "team",

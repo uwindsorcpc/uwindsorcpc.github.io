@@ -3,7 +3,7 @@
 The website for **CPC UWindsor**, the UWindsor Competitive Programming Club, live at **https://uwindsorcpc.github.io**.
 
 - **Frontend:** Next.js (App Router), TypeScript and Tailwind CSS, built into static files and hosted free on GitHub Pages.
-- **Database:** [Supabase](https://supabase.com) (PostgreSQL, Canada Central region, free plan) stores events, the team, contests, problems, the FAQ and member sign-ups.
+- **Database:** [Supabase](https://supabase.com) (PostgreSQL, Canada Central region, free plan) stores events, the team, contests, problems, the FAQ, member sign-ups, event check-ins and RSVPs.
 - **Admin:** a private page at **`/admin`** with email + password + 2FA, where execs edit everything in the database. No coding needed.
 
 No analytics, no tracking, no paid services.
@@ -28,7 +28,7 @@ Open http://localhost:3000. Pages reload automatically when you save a file. The
 | `npm run dev`            | Run the site locally while you edit                                  |
 | `npm run build`          | Build the production site into `/out` (reads the database)           |
 | `npm run lint`           | Check the code for common problems                                   |
-| `npm run security-check` | Try to break into the database as an outsider; every attempt must fail |
+| `npm run security-check` | Try to break into the database as an outsider (45 checks); every attempt must fail |
 
 ---
 
@@ -38,6 +38,7 @@ Open http://localhost:3000. Pages reload automatically when you save a file. The
 | -------------------------------------------------------------- | ----------------------------------- |
 | Events, team, past contests, practice problems, FAQ            | **`/admin`** (stored in Supabase)   |
 | Member sign-ups from the Join page                             | **`/admin` → Members** (private)    |
+| Event check-ins and RSVPs                                      | **`/admin` → Attendance / RSVPs** (private) |
 | Club name, email, Discord, social links, home page text        | `content/site.json`                 |
 | The About page                                                 | `content/about.md` (Markdown)       |
 | Beginner roadmap, practice platforms, books                    | `content/resources.json`            |
@@ -56,12 +57,24 @@ Go to **https://uwindsorcpc.github.io/admin**. It isn't linked anywhere on the s
 2. Scan the QR code with an authenticator app (Google Authenticator, Authy, 1Password…) and enter the 6-digit code.
 3. On every later sign-in you'll be asked for a fresh code. You're signed out after 30 minutes without activity.
 
-**Sections:** Events · Members · Team · Past contests · Problems · FAQ. Each one lets you add, edit and delete rows.
+**Sections:** Events · Members · Attendance · RSVPs · Team · Past contests · Problems · FAQ. Each one lets you add, edit and delete rows (Members, Attendance and RSVPs are only created from the public site).
 - **Published** controls whether a row appears on the public site. Untick it to keep a draft.
 - **Order** sorts team members, problems and FAQ entries (lower numbers come first).
 - **Event times** are Windsor time. The site handles daylight saving and visitors in other time zones, and events move from "Upcoming" to "Past" on their own.
 - **Team photos** upload straight from the form (JPG/PNG/WebP, under 2 MB).
 - **Members** can be searched and exported to CSV. They can't be added from the admin page, only through the Join form. To handle a deletion request, find the person and click **Delete**.
+
+### Running check-in at an event
+
+1. In **`/admin` → Events**, click **Check-in screen ↗** on the event. Put that window on the projector (there's a **Full screen** button).
+2. Click **Open check-in**. A QR code and a 5-character code appear; both change every 30 seconds, so a photo or a shared link stops working quickly. Check-in closes on its own 30 minutes after the event ends (or 3 hours after opening, whichever is later), or click **Close check-in**.
+3. People **scan the QR** (no typing), or go to **uwindsorcpc.github.io/attend** and type the code. They enter their name, email, and what to show on screen (blank = a fun anonymous name like *Segment Tree #7*).
+   - **Members** (email is in the member list) are checked in straight away.
+   - **Non-members** see *RuntimeError: you're not a registered member* and can **sign up** (name and email carried over) or **continue as a guest**. Guests can't use throwaway email services, nonsense names, or links in their screen name, and are marked "guest".
+4. The board on the screen shows **screen names only**. Tick **Show names & emails (don't project!)** to see real details and **Hide** or **Remove** an entry.
+5. Afterwards, **Attendance** has everyone with real names and emails (search, CSV export).
+
+**RSVPs:** upcoming events on `/events` and `/attend` have an **RSVP** button (same member/guest flow, plus *Add to calendar*). Counts show as "12 going"; the names are in **`/admin` → RSVPs**.
 
 ### Adding another admin
 1. In Supabase: **Authentication → Users → Add user → Create new user**. Enter their email and a temporary password, and tick **Auto Confirm User**. Share the password with them privately; they should change it later.
@@ -84,18 +97,20 @@ Hiding the `/admin` URL is not the protection; the repo is public. The protectio
 
 - **Row Level Security is on for every table.** Rules inside PostgreSQL decide who can do what, no matter how the database is reached.
   - **Public content:** anyone can read rows marked *published*. Only admins can add, change or delete anything.
-  - **Members:** only admins can read, change, count or delete them. The public can't even read back their own sign-up.
+  - **Members, attendance and RSVPs:** only admins can read, change, count or delete them. The public can't even read back their own entry.
 - **Admin = listed in `public.admins` AND signed in with 2FA.** The database itself checks the 2FA level (`aal2`), so a stolen password alone can't change or read anything.
 - **No public accounts.** Sign-up is turned off in Supabase; admins are created by hand.
 - **The Join form can only call `submit_signup()`.** It validates the input, ignores duplicate emails without revealing them, and limits floods of sign-ups.
+- **Check-in** needs the rotating room code (proof you're in the room). The code is traded for a private 15-minute ticket that checks in exactly one person and allows only a few tries, so it can't be used to test which emails are members. Failed codes, guest check-ins and RSVP lookups are rate-limited. Check-in secrets and tickets can't be read through the API at all.
+- **The public board** gets only the screen names people chose, never real names or emails.
 - **Only the publishable key is in the code** (`src/lib/supabase/config.ts`). It's public by design and can do nothing the rules don't allow.
-- **Automatic check:** `npm run security-check` runs before every deploy. It acts as an outsider and tries 30 forbidden actions. If any of them succeeds, the deploy is blocked.
+- **Automatic check:** `npm run security-check` runs before every deploy. It acts as an outsider and makes 45 checks (reading private tables, writing anything, calling admin functions…). If any forbidden action succeeds, the deploy is blocked.
 - Admin-entered links are only shown if they start with `https://` (or are emails), and the CSV export defuses spreadsheet formulas.
 
 ### Rules for whoever maintains this
 
 1. **Never** put the Supabase **secret / service_role key** or the **database password** in this repo, a GitHub secret, chat, or a screenshot.
-2. Any new table needs Row Level Security **and** explicit rules. Add it as a new file in `supabase/migrations/` (e.g. `0002_attendance.sql`), copying the pattern in `0001_schema.sql`. That file stops with an error if any table is left without RLS.
+2. Any new table needs Row Level Security **and** explicit rules. Add it as a new numbered file in `supabase/migrations/` (e.g. `0003_….sql`), copying the pattern in the existing files, which stop with an error if any table is left without RLS.
 3. Keep 2FA on for every admin, and on the GitHub and Supabase accounts that own the project.
 4. Collect only what the club needs. Never collect student numbers.
 
@@ -104,9 +119,10 @@ Hiding the `/admin` URL is not the protection; the repo is public. The protectio
 | File                                  | What it is                                                                  |
 | ------------------------------------- | --------------------------------------------------------------------------- |
 | `supabase/migrations/0001_schema.sql` | Tables, security rules, sign-up function, photo storage. Safe to re-run.    |
+| `supabase/migrations/0002_attendance.sql` | Check-in, attendance, RSVPs, the public board. Safe to re-run.         |
 | `supabase/seed.sql`                   | The sample content. Run once on a fresh database (running it twice duplicates rows). |
 
-To set up a fresh Supabase project: create it in **Canada (Central)**, turn off public sign-ups (**Authentication → Sign In / Providers**), run `0001_schema.sql` then `seed.sql` in the SQL Editor, then add an admin as above. Put the new Project URL and publishable key in `src/lib/supabase/config.ts`.
+To set up a fresh Supabase project: create it in **Canada (Central)**, turn off public sign-ups (**Authentication → Sign In / Providers**), run `0001_schema.sql`, then `seed.sql`, then `0002_attendance.sql` in the SQL Editor, then add an admin as above. Put the new Project URL and publishable key in `src/lib/supabase/config.ts`.
 
 **Free-plan notes:** Supabase pauses free projects after a week without activity. The daily rebuild (below) reads the database, which keeps it awake. The free plan has no automatic backups, so export important data (for example **Members → Export CSV**) now and then and store it somewhere private, never in this repo.
 
@@ -118,7 +134,7 @@ To set up a fresh Supabase project: create it in **Canada (Central)**, turn off 
    - `email`: `[CLUB_EMAIL]`
    - `discordUrl`: `[DISCORD_URL]` (it appears in two places: the field and the Discord social link)
    - each URL in `socials` (delete any platform the club doesn't use)
-2. In `/admin`, replace the sample events, team members, past contests, problems and FAQ, and delete any test sign-ups under **Members**.
+2. In `/admin`, replace the sample events, team members, past contests, problems and FAQ, and delete any test entries under **Members**, **Attendance** and **RSVPs**.
 3. Rewrite `content/about.md` in the club's own words.
 4. Set `"showSampleContentBanner": false` in `content/site.json`.
 
@@ -152,8 +168,9 @@ Setup facts, already done: the repo must be **public** and named exactly `uwinds
 content/                  ← file-based content (settings, About, roadmap, templates)
 supabase/                 ← database schema, security rules, sample data
 scripts/security-check.mjs← the outsider test run before every deploy
-src/app/(site)/           ← public pages (home, about, events, contests, resources, team, join)
-src/app/admin/            ← the /admin page
+src/app/(site)/           ← public pages (home, about, events, attend, contests, resources, team, join)
+src/app/admin/            ← the /admin page and the check-in screen (admin/present)
+src/components/attend/    ← check-in form, RSVP pop-up, public board, check-in banner
 src/components/admin/     ← sign-in, 2FA, and the editors for each table
 src/lib/db/               ← reads public data from Supabase (build time and in the browser)
 src/lib/supabase/         ← Supabase URL, publishable key, clients
@@ -162,7 +179,7 @@ src/lib/supabase/         ← Supabase URL, publishable key, clients
 
 ## Roadmap ideas
 
-- **Attendance:** an `attendance` table linking `events` and `members`, admin-only like members, with a check-in screen in `/admin`.
+- **Attendance stats:** turnout per event, most active members, streaks for people who opt in.
 - **Leaderboard:** use the optional Codeforces handles from sign-ups to show member ratings.
 
 ## Accessibility and privacy

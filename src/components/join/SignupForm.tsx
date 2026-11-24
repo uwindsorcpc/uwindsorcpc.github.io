@@ -1,6 +1,9 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import Link from "next/link";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+
+import { clearPrefill, readPrefill } from "@/lib/attendance";
 
 import { publicDb } from "@/lib/supabase/clients";
 import { isPlaceholder } from "@/lib/placeholder";
@@ -23,7 +26,11 @@ const EXPERIENCE = [
   ["advanced", "Advanced: competed before (ICPC, Codeforces…)"],
 ] as const;
 
-type Status = { kind: "idle" } | { kind: "sending" } | { kind: "done" } | { kind: "error"; message: string };
+type Status =
+  | { kind: "idle" }
+  | { kind: "sending" }
+  | { kind: "done"; returnTo?: string; returnLabel?: string }
+  | { kind: "error"; message: string };
 
 const input =
   "mt-1.5 w-full rounded-lg border border-border bg-bg px-3.5 py-2.5 text-fg placeholder:text-muted/70 focus:border-accent focus:outline-none";
@@ -32,6 +39,21 @@ const label = "block text-sm font-medium";
 /** Member sign-up. Sends one row to the database through submit_signup(). */
 export function SignupForm({ clubEmail }: { clubEmail: string }) {
   const [status, setStatus] = useState<Status>({ kind: "idle" });
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Coming from check-in or RSVP? Fill in the name and email they already typed.
+  // (Handed over through session storage, never the URL.)
+  useEffect(() => {
+    const p = readPrefill();
+    const form = formRef.current;
+    if (!p || !form) return;
+    const set = (name: string, value: string) => {
+      const el = form.elements.namedItem(name);
+      if (el instanceof HTMLInputElement && !el.value) el.value = value;
+    };
+    set("full_name", p.fullName);
+    set("email", p.email);
+  }, []);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -59,7 +81,9 @@ export function SignupForm({ clubEmail }: { clubEmail: string }) {
       });
       return;
     }
-    setStatus({ kind: "done" });
+    const p = readPrefill();
+    clearPrefill();
+    setStatus({ kind: "done", returnTo: p?.returnTo, returnLabel: p?.returnLabel });
   }
 
   if (status.kind === "done") {
@@ -69,6 +93,11 @@ export function SignupForm({ clubEmail }: { clubEmail: string }) {
           <CheckIcon /> You&apos;re signed up!
         </p>
         <p className="mt-2 text-muted">Welcome to CPC UWindsor. Join the Discord next so you hear about every event.</p>
+        {status.returnTo && (
+          <Link href={status.returnTo} className="mt-4 inline-flex font-mono text-sm font-semibold text-accent underline underline-offset-4">
+            ← {status.returnLabel ?? "Go back"}
+          </Link>
+        )}
       </div>
     );
   }
@@ -76,7 +105,7 @@ export function SignupForm({ clubEmail }: { clubEmail: string }) {
   const sending = status.kind === "sending";
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-5" noValidate={false}>
+    <form ref={formRef} onSubmit={onSubmit} className="grid gap-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="full_name" className={label}>

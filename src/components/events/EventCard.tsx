@@ -1,8 +1,10 @@
+import type { ReactNode } from "react";
+
 import type { ClubEvent } from "@/lib/db/types";
 import { ClockIcon, ExternalIcon, PinIcon } from "../icons";
 import { EventTypeBadge } from "./EventTypeBadge";
 
-export function EventCard({ event, status }: { event: ClubEvent; status?: "live" | "past" }) {
+export function EventCard({ event, status, footer }: { event: ClubEvent; status?: "live" | "past"; footer?: ReactNode }) {
   return (
     <article
       className={`flex gap-5 rounded-xl border bg-surface p-5 sm:p-6 ${status === "live" ? "border-accent" : "border-border"} ${status === "past" ? "opacity-80" : ""}`}
@@ -51,6 +53,7 @@ export function EventCard({ event, status }: { event: ClubEvent; status?: "live"
             <span className="sr-only">(opens in a new tab)</span>
           </a>
         )}
+        {footer && <div className="mt-4">{footer}</div>}
       </div>
     </article>
   );

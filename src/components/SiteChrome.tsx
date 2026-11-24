@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { SampleBanner } from "./SampleBanner";
+import { CheckinBanner } from "./attend/CheckinBanner";
 
 /** Skip link, banner, navbar and footer around every public page. */
 export function SiteChrome({ children }: { children: ReactNode }) {
@@ -16,6 +17,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       </a>
       <SampleBanner />
       <Navbar />
+      <CheckinBanner />
       <main id="main" className="flex-1">
         {children}
       </main>
