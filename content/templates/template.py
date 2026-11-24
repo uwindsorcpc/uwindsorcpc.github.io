@@ -1,10 +1,10 @@
 import sys
-input = sys.stdin.readline
 
 
 def main():
+    data = sys.stdin.buffer.read().split()
+
     # solution
-    pass
 
 
 main()
