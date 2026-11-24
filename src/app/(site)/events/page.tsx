@@ -1,6 +1,6 @@
 import { EventsBrowser } from "@/components/events/EventsBrowser";
 import { Container, PageHeader } from "@/components/ui";
-import { events } from "@/lib/content";
+import { fetchEvents } from "@/lib/db/queries";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -11,7 +11,9 @@ export const metadata = pageMetadata({
 
 const builtAt = Date.now();
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const events = await fetchEvents();
+
   return (
     <>
       <PageHeader

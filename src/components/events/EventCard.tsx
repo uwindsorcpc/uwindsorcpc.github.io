@@ -1,4 +1,4 @@
-import type { ClubEvent } from "@/lib/content";
+import type { ClubEvent } from "@/lib/db/types";
 import { ClockIcon, ExternalIcon, PinIcon } from "../icons";
 import { EventTypeBadge } from "./EventTypeBadge";
 

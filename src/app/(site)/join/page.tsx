@@ -1,6 +1,9 @@
 import { DiscordIcon } from "@/components/icons";
+import { FaqList } from "@/components/join/FaqList";
+import { SignupForm } from "@/components/join/SignupForm";
 import { Container, ExternalButton, PageHeader, SectionHeading } from "@/components/ui";
-import { faq, isPlaceholder, site } from "@/lib/content";
+import { isPlaceholder, site } from "@/lib/content";
+import { fetchFaqs } from "@/lib/db/queries";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -15,7 +18,9 @@ const steps = [
   { title: "Come to a practice", text: "Bring a laptop and show up. We'll help you set up and solve your first problem." },
 ];
 
-export default function JoinPage() {
+export default async function JoinPage() {
+  const faqs = await fetchFaqs();
+
   return (
     <>
       <PageHeader
@@ -25,24 +30,27 @@ export default function JoinPage() {
       />
 
       <Container className="py-14">
-        <section aria-label="Sign up" className="grid gap-6 lg:grid-cols-2">
-          <div className="flex flex-col items-start rounded-2xl border border-accent/50 bg-accent-soft p-8 sm:p-10">
+        <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
+          <section aria-labelledby="signup" className="rounded-2xl border border-accent/50 bg-surface p-6 sm:p-10">
             <p className="font-mono text-sm text-accent">step_1</p>
-            <h2 className="mt-2 text-2xl font-bold">Become a member</h2>
-            <p className="mt-2 text-muted">A short Google Form: your name, program, and experience level (any level is fine).</p>
-            <ExternalButton href={site.googleFormUrl} size="lg" className="mt-6 w-full sm:w-auto">
-              Sign up with Google Forms
-            </ExternalButton>
-          </div>
-          <div className="flex flex-col items-start rounded-2xl border border-border bg-surface p-8 sm:p-10">
+            <h2 id="signup" className="mt-2 text-2xl font-bold">
+              Become a member
+            </h2>
+            <p className="mt-2 mb-8 text-muted">Any experience level is welcome, including none at all.</p>
+            <SignupForm clubEmail={site.email} />
+          </section>
+
+          <section aria-labelledby="discord" className="flex flex-col items-start self-start rounded-2xl border border-border bg-surface p-6 sm:p-10">
             <p className="font-mono text-sm text-accent">step_2</p>
-            <h2 className="mt-2 text-2xl font-bold">Join the Discord</h2>
+            <h2 id="discord" className="mt-2 text-2xl font-bold">
+              Join the Discord
+            </h2>
             <p className="mt-2 text-muted">Where we post events, share problems, and help each other debug.</p>
-            <ExternalButton href={site.discordUrl} variant="secondary" size="lg" className="mt-6 w-full sm:w-auto">
+            <ExternalButton href={site.discordUrl} variant="secondary" size="lg" className="mt-6 w-full">
               <DiscordIcon /> Join the Discord
             </ExternalButton>
-          </div>
-        </section>
+          </section>
+        </div>
 
         <section aria-labelledby="how" className="mt-20">
           <SectionHeading id="how">How it works</SectionHeading>
@@ -61,19 +69,7 @@ export default function JoinPage() {
 
         <section aria-labelledby="faq" className="mt-20">
           <SectionHeading id="faq">FAQ</SectionHeading>
-          <div className="grid gap-3">
-            {faq.map((item, i) => (
-              <details key={item.q} open={i < 2} className="group rounded-xl border border-border bg-surface open:border-accent/50">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-xl p-5 font-semibold [&::-webkit-details-marker]:hidden">
-                  {item.q}
-                  <span aria-hidden="true" className="font-mono text-accent transition-transform group-open:rotate-45">
-                    +
-                  </span>
-                </summary>
-                <p className="px-5 pb-5 text-muted">{item.a}</p>
-              </details>
-            ))}
-          </div>
+          <FaqList faqs={faqs} />
           <p className="mt-8 text-sm text-muted">
             Still have a question? Email us at{" "}
             {isPlaceholder(site.email) ? (

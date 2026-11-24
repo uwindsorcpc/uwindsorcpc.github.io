@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 
-import type { ClubEvent, EventType } from "@/lib/content";
 import { useNowEveryMinute } from "@/lib/clock";
+import { fetchEvents } from "@/lib/db/queries";
+import type { ClubEvent, EventType } from "@/lib/db/types";
+import { useLive } from "@/lib/db/useLive";
 import { SectionHeading } from "../ui";
 import { EventCard } from "./EventCard";
 
@@ -13,7 +15,8 @@ const FILTERS: ("all" | EventType)[] = ["all", "practice", "contest", "workshop"
  * Splits events into upcoming and past using the visitor's clock, so the page
  * stays correct between deploys. `builtAt` is used for the static HTML.
  */
-export function EventsBrowser({ events, builtAt }: { events: ClubEvent[]; builtAt: number }) {
+export function EventsBrowser({ events: initial, builtAt }: { events: ClubEvent[]; builtAt: number }) {
+  const events = useLive(fetchEvents, initial);
   const now = useNowEveryMinute() ?? builtAt;
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("all");
 

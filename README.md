@@ -1,14 +1,18 @@
 # CPC UWindsor website
 
-The website for **CPC UWindsor**, the UWindsor Competitive Programming Club.
+The website for **CPC UWindsor**, the UWindsor Competitive Programming Club, live at **https://uwindsorcpc.github.io**.
 
-Built with Next.js (App Router), TypeScript and Tailwind CSS. The whole site is **static**: there is no backend, no database, no analytics and no paid services. `npm run build` produces plain HTML files, which GitHub Pages serves for free at **https://uwindsorcpc.github.io**.
+- **Frontend:** Next.js (App Router), TypeScript and Tailwind CSS, built into static files and hosted free on GitHub Pages.
+- **Database:** [Supabase](https://supabase.com) (PostgreSQL, Canada Central region, free plan) stores events, the team, contests, problems, the FAQ and member sign-ups.
+- **Admin:** a private page at **`/admin`** with email + password + 2FA, where execs edit everything in the database. No coding needed.
 
-> **Sample content:** everything in `/content` is placeholder data (fake events, `[Exec Name 1]`, `[CLUB_EMAIL]` and so on). A yellow "PREVIEW" banner shows at the top of every page until you turn it off. See [Before launch](#before-launch).
+No analytics, no tracking, no paid services.
+
+> **Sample content:** the database and `/content` start with placeholder data (`[Exec Name 1]`, `[CLUB_EMAIL]`, fake events…). A yellow "PREVIEW" banner shows on every page until you turn it off. See [Before launch](#before-launch).
 
 ---
 
-## Quick start
+## Quick start (developers)
 
 You need [Node.js](https://nodejs.org/) 20.9 or newer.
 
@@ -17,99 +21,94 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. Pages reload automatically when you save a file.
+Open http://localhost:3000. Pages reload automatically when you save a file. The dev site uses the real database, so edits made in `/admin` locally are real edits.
 
-| Command         | What it does                                                    |
-| --------------- | --------------------------------------------------------------- |
-| `npm run dev`   | Run the site locally while you edit                             |
-| `npm run build` | Build the production site into `/out` (also catches mistakes)   |
-| `npm run lint`  | Check the code for common problems                              |
+| Command                  | What it does                                                         |
+| ------------------------ | -------------------------------------------------------------------- |
+| `npm run dev`            | Run the site locally while you edit                                  |
+| `npm run build`          | Build the production site into `/out` (reads the database)           |
+| `npm run lint`           | Check the code for common problems                                   |
+| `npm run security-check` | Try to break into the database as an outsider; every attempt must fail |
 
 ---
 
-## Editing content (no coding needed)
+## Where content lives
 
-All text and data live in the **`/content`** folder. You never need to touch the code in `/src` to update the site.
+| What                                                           | Where to edit it                    |
+| -------------------------------------------------------------- | ----------------------------------- |
+| Events, team, past contests, practice problems, FAQ            | **`/admin`** (stored in Supabase)   |
+| Member sign-ups from the Join page                             | **`/admin` → Members** (private)    |
+| Club name, email, Discord, social links, home page text        | `content/site.json`                 |
+| The About page                                                 | `content/about.md` (Markdown)       |
+| Beginner roadmap, practice platforms, books                    | `content/resources.json`            |
+| C++ and Python starter templates                               | `content/templates/*`               |
 
-| File                        | What it controls                                                          |
-| --------------------------- | ------------------------------------------------------------------------- |
-| `content/site.json`         | Club name, email, Google Form, Discord, social links, home page text      |
-| `content/events.json`       | Events on the Events page and the home page countdown                     |
-| `content/team.json`         | Exec cards on the Team page                                               |
-| `content/contests.json`     | Past club contests and practice problem lists (easy / medium / hard)      |
-| `content/resources.json`    | Beginner roadmap, practice platforms, books                               |
-| `content/faq.json`          | FAQ on the Join page                                                      |
-| `content/about.md`          | The About page (plain Markdown)                                           |
-| `content/templates/*`       | The C++ and Python starter templates on the Resources page               |
+Admin edits show up on the site **immediately**: pages load the latest data from the database in the visitor's browser. File edits need a push to GitHub, and the site redeploys within about 2 minutes. You can edit files right on GitHub: open the file → pencil icon → **Commit changes**.
 
-**JSON tips** (most mistakes are one of these):
+---
 
-- Text goes inside `"double quotes"`.
-- Items in a list are separated by commas, but there is **no comma after the last item**.
-- If something breaks, run `npm run build`: it prints the file and the event name that has the problem.
-- You can also paste a file into [jsonlint.com](https://jsonlint.com) to find a missing comma or quote.
+## Using the admin page
 
-You can edit files right on GitHub (open the file → pencil icon → **Commit changes**). The site redeploys automatically within about 2 minutes. If the change has a mistake, the run shows a red ❌ on the repo's **Actions** tab and the live site stays as it was.
+Go to **https://uwindsorcpc.github.io/admin**. It isn't linked anywhere on the site, and search engines are told not to index it.
 
-### Add or change an event
+**First sign-in**
+1. Sign in with your email and password.
+2. Scan the QR code with an authenticator app (Google Authenticator, Authy, 1Password…) and enter the 6-digit code.
+3. On every later sign-in you'll be asked for a fresh code. You're signed out after 30 minutes without activity.
 
-Open `content/events.json` and add an object to the `events` list:
+**Sections:** Events · Members · Team · Past contests · Problems · FAQ. Each one lets you add, edit and delete rows.
+- **Published** controls whether a row appears on the public site. Untick it to keep a draft.
+- **Order** sorts team members, problems and FAQ entries (lower numbers come first).
+- **Event times** are Windsor time. The site handles daylight saving and visitors in other time zones, and events move from "Upcoming" to "Past" on their own.
+- **Team photos** upload straight from the form (JPG/PNG/WebP, under 2 MB).
+- **Members** can be searched and exported to CSV. They can't be added from the admin page, only through the Join form. To handle a deletion request, find the person and click **Delete**.
 
-```json
-{
-  "id": "practice-2027-02-04",
-  "title": "Weekly Practice: Prefix Sums",
-  "date": "2027-02-04",
-  "startTime": "18:00",
-  "endTime": "20:00",
-  "room": "Erie Hall 3123",
-  "type": "practice",
-  "description": "Range sums in O(1) after O(n) setup.",
-  "kattisUrl": "https://open.kattis.com/problems/..."
-}
-```
+### Adding another admin
+1. In Supabase: **Authentication → Users → Add user → Create new user**. Enter their email and a temporary password, and tick **Auto Confirm User**. Share the password with them privately; they should change it later.
+2. In Supabase: **SQL Editor → New query**, replace the email, and run:
+   ```sql
+   insert into public.admins (user_id)
+   select id from auth.users where email = 'their.email@example.com';
+   ```
+3. They sign in at `/admin` and set up their own 2FA.
 
-| Field         | Rules                                                                                     |
-| ------------- | ----------------------------------------------------------------------------------------- |
-| `id`          | Any unique text. `type-date` works well.                                                  |
-| `date`        | `YYYY-MM-DD`                                                                              |
-| `startTime`, `endTime` | 24-hour `HH:MM` in **Windsor time**. The site handles daylight saving and visitors in other time zones. |
-| `type`        | Exactly one of `practice`, `contest`, `workshop`                                          |
-| `description` | Optional                                                                                  |
-| `kattisUrl`   | Optional. Delete the whole line if there's no link.                                       |
+**Removing an admin:** run `delete from public.admins where user_id = (select id from auth.users where email = '…');`, then delete the user under **Authentication → Users**.
 
-Order doesn't matter: events are sorted by date automatically. You don't need to move old events anywhere either. Each visitor's browser decides what's **upcoming** and what's **past**, so an event moves to "Past events" as soon as it ends, without a redeploy. The home page countdown always targets the next event that hasn't ended.
+**Lost phone / authenticator:** another admin deletes that person's MFA factor in Supabase (**Authentication → Users →** the user **→** MFA factors). Their next sign-in asks them to set up 2FA again.
 
-### Add or change a team member
+---
 
-Open `content/team.json` and edit the `members` list:
+## How the data is protected
 
-```json
-{
-  "name": "Jane Doe",
-  "role": "VP Outreach",
-  "bio": "One or two sentences.",
-  "photo": "/team/jane.jpg",
-  "links": {
-    "github": "https://github.com/janedoe",
-    "linkedin": "https://www.linkedin.com/in/janedoe",
-    "codeforces": "https://codeforces.com/profile/janedoe",
-    "kattis": "https://open.kattis.com/users/janedoe",
-    "website": "https://janedoe.dev",
-    "email": "jane@example.com"
-  }
-}
-```
+Hiding the `/admin` URL is not the protection; the repo is public. The protection is in the database:
 
-- **Photo:** put a square image (at least 160×160 px) in `public/team/` and set `"photo": "/team/filename.jpg"`. Leave it as `""` to show the person's initials instead.
-- **Links:** all optional. Delete any line you don't need. Supported keys: `github`, `linkedin`, `codeforces`, `kattis`, `website`, `email`.
-- Cards appear in the same order as the list.
+- **Row Level Security is on for every table.** Rules inside PostgreSQL decide who can do what, no matter how the database is reached.
+  - **Public content:** anyone can read rows marked *published*. Only admins can add, change or delete anything.
+  - **Members:** only admins can read, change, count or delete them. The public can't even read back their own sign-up.
+- **Admin = listed in `public.admins` AND signed in with 2FA.** The database itself checks the 2FA level (`aal2`), so a stolen password alone can't change or read anything.
+- **No public accounts.** Sign-up is turned off in Supabase; admins are created by hand.
+- **The Join form can only call `submit_signup()`.** It validates the input, ignores duplicate emails without revealing them, and limits floods of sign-ups.
+- **Only the publishable key is in the code** (`src/lib/supabase/config.ts`). It's public by design and can do nothing the rules don't allow.
+- **Automatic check:** `npm run security-check` runs before every deploy. It acts as an outsider and tries 30 forbidden actions. If any of them succeeds, the deploy is blocked.
+- Admin-entered links are only shown if they start with `https://` (or are emails), and the CSV export defuses spreadsheet formulas.
 
-### Other common edits
+### Rules for whoever maintains this
 
-- **Contests:** add finished contests to `pastContests` in `content/contests.json`. Add practice problems to `problemSets.easy`, `.medium` or `.hard`.
-- **FAQ:** edit `content/faq.json`. Each entry is `{ "q": "...", "a": "..." }`.
-- **About page:** edit `content/about.md`. Use `##` for headings, blank lines between paragraphs, and `-` for bullet points.
+1. **Never** put the Supabase **secret / service_role key** or the **database password** in this repo, a GitHub secret, chat, or a screenshot.
+2. Any new table needs Row Level Security **and** explicit rules. Add it as a new file in `supabase/migrations/` (e.g. `0002_attendance.sql`), copying the pattern in `0001_schema.sql`. That file stops with an error if any table is left without RLS.
+3. Keep 2FA on for every admin, and on the GitHub and Supabase accounts that own the project.
+4. Collect only what the club needs. Never collect student numbers.
+
+### Database files
+
+| File                                  | What it is                                                                  |
+| ------------------------------------- | --------------------------------------------------------------------------- |
+| `supabase/migrations/0001_schema.sql` | Tables, security rules, sign-up function, photo storage. Safe to re-run.    |
+| `supabase/seed.sql`                   | The sample content. Run once on a fresh database (running it twice duplicates rows). |
+
+To set up a fresh Supabase project: create it in **Canada (Central)**, turn off public sign-ups (**Authentication → Sign In / Providers**), run `0001_schema.sql` then `seed.sql` in the SQL Editor, then add an admin as above. Put the new Project URL and publishable key in `src/lib/supabase/config.ts`.
+
+**Free-plan notes:** Supabase pauses free projects after a week without activity. The daily rebuild (below) reads the database, which keeps it awake. The free plan has no automatic backups, so export important data (for example **Members → Export CSV**) now and then and store it somewhere private, never in this repo.
 
 ---
 
@@ -117,63 +116,57 @@ Open `content/team.json` and edit the `members` list:
 
 1. In `content/site.json`, replace every value in `[SQUARE_BRACKETS]`:
    - `email`: `[CLUB_EMAIL]`
-   - `googleFormUrl`: `[GOOGLE_FORM_URL]`
    - `discordUrl`: `[DISCORD_URL]` (it appears in two places: the field and the Discord social link)
    - each URL in `socials` (delete any platform the club doesn't use)
-2. Check that `url` in `content/site.json` is the real address (`https://uwindsorcpc.github.io`). Search engines and link previews use it.
-3. Replace the sample events, team, past contests and About text.
+2. In `/admin`, replace the sample events, team members, past contests, problems and FAQ, and delete any test sign-ups under **Members**.
+3. Rewrite `content/about.md` in the club's own words.
 4. Set `"showSampleContentBanner": false` in `content/site.json`.
 
-Until a link is filled in, the site shows a greyed-out **"link coming soon"** button instead of a broken link, so it's safe to deploy early.
+Until a link is filled in, the site shows a greyed-out **"link coming soon"** button instead of a broken link.
 
 ---
 
-## Deploying to GitHub Pages (free)
+## Deploying (GitHub Pages)
 
-The site is published at **https://uwindsorcpc.github.io** from the `uwindsorcpc/uwindsorcpc.github.io` repository. The workflow in `.github/workflows/deploy.yml` does all the work:
+The site is published from the `uwindsorcpc/uwindsorcpc.github.io` repository by `.github/workflows/deploy.yml`. It runs:
 
-1. On every push to `main`, it installs packages, runs the linter, and builds the site into `/out`.
-2. If the build passes, it publishes `/out` to GitHub Pages. The live site updates in about 1–2 minutes.
-3. If the build fails (for example a missing comma in a JSON file), nothing is published and the live site stays as it was. Open the repo's **Actions** tab to see the error.
+- on every push to `main`,
+- **once a day**, so the built pages stay fresh and Supabase never pauses,
+- or by hand: **Actions → Deploy to GitHub Pages → Run workflow**.
 
-You can also redeploy by hand: **Actions → Deploy to GitHub Pages → Run workflow**.
+Each run installs packages, lints, runs the **security check**, builds the site (reading the database), and publishes it. If any step fails, nothing is published and the live site stays as it was; the **Actions** tab shows the error.
 
-### One-time setup
-
-Only needed once, when the site first moves to the club organization:
-
-1. Create the free GitHub organization `uwindsorcpc` and add the execs as **Owners**.
-2. The repository must be named exactly **`uwindsorcpc.github.io`** inside that organization. That name is what makes the site live at the root address.
-3. The repository must be **public**. GitHub Pages is free only for public repositories.
-4. In the repository, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
-5. Push to `main`, or run the workflow by hand. The deploy step is skipped while the repository is private, so the workflow is safe to keep before setup is finished.
-
-**Custom domain (optional):** if the club buys a domain, add it under **Settings → Pages → Custom domain**, then update `url` in `content/site.json`.
-
-> The site has no server code, environment variables or secrets. `next.config.ts` uses `output: "export"`, so the build fails loudly if anyone adds something that needs a server. The same `/out` folder would also deploy unchanged to any other static host, such as Vercel or Netlify.
+Setup facts, already done: the repo must be **public** and named exactly `uwindsorcpc.github.io`, and **Settings → Pages → Source** must be **GitHub Actions**. For a custom domain, use **Settings → Pages → Custom domain**, then update `url` in `content/site.json` and the Site URL in Supabase (**Authentication → URL Configuration**).
 
 ---
 
 ## Changing the look
 
-- **Colours:** every colour is a CSS variable at the top of `src/app/globals.css`, with one block for dark mode (the default) and one for light mode. Change them there and the whole site follows. If you change `--bg` or `--accent`, also update the hex values in `src/app/icon.svg`, `src/app/og.png/route.tsx` (the social preview image) and `src/app/apple-touch-icon.png/route.tsx` (the iPhone icon).
+- **Colours:** every colour is a CSS variable at the top of `src/app/globals.css`, with one block for dark mode (the default) and one for light mode. If you change `--bg` or `--accent`, also update the hex values in `src/app/icon.svg`, `src/app/og.png/route.tsx` (social preview image) and `src/app/apple-touch-icon.png/route.tsx` (iPhone icon).
 - **Logo:** the wordmark is text, built in `src/components/Logo.tsx`. The square favicon is `src/app/icon.svg`.
-- **Fonts:** Geist (text) and JetBrains Mono (code accents), set in `src/app/layout.tsx`. They're downloaded at build time and served from the site itself, so visitors never contact Google.
+- **Fonts:** Geist (text) and JetBrains Mono (code accents), set in `src/app/layout.tsx`. They're downloaded at build time and served from the site itself.
 
 ## Project structure
 
 ```
-content/              ← everything editable (see above)
-public/               ← static files such as team photos (public/team/)
-src/app/              ← one folder per page (about/, events/, …), layout, favicon, social image (og.png/)
-.github/workflows/    ← automatic build and deploy to GitHub Pages
-src/components/       ← navbar, footer, logo, event cards, countdown, …
-src/lib/content.ts    ← loads and checks /content (build errors point to the bad entry)
-src/lib/metadata.ts   ← SEO and Open Graph tags for each page
+content/                  ← file-based content (settings, About, roadmap, templates)
+supabase/                 ← database schema, security rules, sample data
+scripts/security-check.mjs← the outsider test run before every deploy
+src/app/(site)/           ← public pages (home, about, events, contests, resources, team, join)
+src/app/admin/            ← the /admin page
+src/components/admin/     ← sign-in, 2FA, and the editors for each table
+src/lib/db/               ← reads public data from Supabase (build time and in the browser)
+src/lib/supabase/         ← Supabase URL, publishable key, clients
+.github/workflows/        ← build, security check and deploy
 ```
+
+## Roadmap ideas
+
+- **Attendance:** an `attendance` table linking `events` and `members`, admin-only like members, with a check-in screen in `/admin`.
+- **Leaderboard:** use the optional Codeforces handles from sign-ups to show member ratings.
 
 ## Accessibility and privacy
 
-- Semantic HTML, a skip link, visible keyboard focus, and labelled icons and buttons.
-- Colour contrast meets WCAG AA in both themes. Animations are turned off for visitors who prefer reduced motion.
-- No cookies, no analytics, no tracking. The only thing stored in the browser is the light/dark choice.
+- Semantic HTML, a skip link, visible keyboard focus, and labelled icons and buttons. Colour contrast meets WCAG AA in both themes, and animations are off for visitors who prefer reduced motion.
+- No analytics or tracking cookies. The browser stores only the light/dark choice and, for admins, their sign-in session.
+- Sign-up data is stored in Supabase's Canada (Central) region and is visible only to admins. People can ask for their data to be deleted at any time.

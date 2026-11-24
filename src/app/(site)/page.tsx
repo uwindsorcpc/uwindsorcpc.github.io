@@ -1,7 +1,8 @@
 import { NextEvent } from "@/components/events/NextEvent";
 import { ArrowRightIcon, CalendarIcon, CodeIcon, TrophyIcon } from "@/components/icons";
 import { ButtonLink, Container, ExternalButton, SectionHeading } from "@/components/ui";
-import { events, site } from "@/lib/content";
+import { site } from "@/lib/content";
+import { fetchEvents } from "@/lib/db/queries";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({ description: site.description, path: "/" });
@@ -52,7 +53,9 @@ function TerminalDemo() {
 // The moment this page was built. The countdown uses it until the visitor's clock takes over.
 const builtAt = Date.now();
 
-export default function HomePage() {
+export default async function HomePage() {
+  const events = await fetchEvents();
+
   return (
     <>
       {/* Hero */}

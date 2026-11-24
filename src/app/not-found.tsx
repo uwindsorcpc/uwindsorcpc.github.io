@@ -1,9 +1,11 @@
+import { SiteChrome } from "@/components/SiteChrome";
 import { ButtonLink, Container } from "@/components/ui";
 
 export const metadata = { title: "Page not found" };
 
 export default function NotFound() {
   return (
+    <SiteChrome>
     <Container className="py-24 sm:py-32">
       <p className="font-mono text-sm text-muted">
         <span className="text-accent">$</span> curl {"<this page>"}
@@ -16,5 +18,6 @@ export default function NotFound() {
         <ButtonLink href="/">Back to home</ButtonLink>
       </div>
     </Container>
+    </SiteChrome>
   );
 }

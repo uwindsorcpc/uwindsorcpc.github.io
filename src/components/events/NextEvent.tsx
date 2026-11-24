@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 
-import type { ClubEvent } from "@/lib/content";
 import { useNowEverySecond } from "@/lib/clock";
+import { fetchEvents } from "@/lib/db/queries";
+import type { ClubEvent } from "@/lib/db/types";
+import { useLive } from "@/lib/db/useLive";
 import { EventCard } from "./EventCard";
 
 function parts(ms: number) {
@@ -17,7 +19,8 @@ function parts(ms: number) {
 }
 
 /** Home page card: the next event plus a live countdown to its start. */
-export function NextEvent({ events, builtAt }: { events: ClubEvent[]; builtAt: number }) {
+export function NextEvent({ events: initial, builtAt }: { events: ClubEvent[]; builtAt: number }) {
+  const events = useLive(fetchEvents, initial);
   const liveNow = useNowEverySecond();
   const now = liveNow ?? builtAt;
   const next = events.find((e) => e.endMs > now);

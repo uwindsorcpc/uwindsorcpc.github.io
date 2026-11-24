@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
 
-import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
-import { SampleBanner } from "@/components/SampleBanner";
 import { themeInitScript } from "@/components/ThemeToggle";
 import { site } from "@/lib/content";
 import "./globals.css";
@@ -36,18 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="flex min-h-dvh flex-col font-sans">
-        <a
-          href="#main"
-          className="sr-only z-50 rounded-md bg-accent px-4 py-2 font-mono text-sm font-semibold text-on-accent focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
-        >
-          Skip to content
-        </a>
-        <SampleBanner />
-        <Navbar />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

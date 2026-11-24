@@ -1,4 +1,4 @@
-import type { EventType } from "@/lib/content";
+import type { EventType } from "@/lib/db/types";
 
 const styles: Record<EventType, string> = {
   practice: "text-practice border-practice/40 bg-practice/10",

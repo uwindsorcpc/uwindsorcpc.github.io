@@ -1,18 +1,33 @@
 {
-  "_readme": "Club-wide settings. Replace every value in [SQUARE_BRACKETS] before launch, then set showSampleContentBanner to false.",
+  "_readme": "Club-wide settings. Replace every value in [SQUARE_BRACKETS] before launch, then set showSampleContentBanner to false. Events, team, contests, problems, FAQ and sign-ups are managed from the /admin page, not from files.",
   "showSampleContentBanner": true,
   "name": "CPC UWindsor",
   "fullName": "UWindsor Competitive Programming Club",
   "url": "https://uwindsorcpc.github.io",
   "description": "The University of Windsor's competitive programming club. Learn algorithms, practise weekly, compete in contests, and train for the ICPC East Central NA Regional.",
   "email": "[CLUB_EMAIL]",
-  "googleFormUrl": "[GOOGLE_FORM_URL]",
   "discordUrl": "[DISCORD_URL]",
   "socials": [
-    { "label": "Discord", "icon": "discord", "url": "[DISCORD_URL]" },
-    { "label": "Instagram", "icon": "instagram", "url": "[INSTAGRAM_URL]" },
-    { "label": "GitHub", "icon": "github", "url": "[GITHUB_URL]" },
-    { "label": "LinkedIn", "icon": "linkedin", "url": "[LINKEDIN_URL]" }
+    {
+      "label": "Discord",
+      "icon": "discord",
+      "url": "[DISCORD_URL]"
+    },
+    {
+      "label": "Instagram",
+      "icon": "instagram",
+      "url": "[INSTAGRAM_URL]"
+    },
+    {
+      "label": "GitHub",
+      "icon": "github",
+      "url": "[GITHUB_URL]"
+    },
+    {
+      "label": "LinkedIn",
+      "icon": "linkedin",
+      "url": "[LINKEDIN_URL]"
+    }
   ],
   "home": {
     "headline": "Learn algorithms. Compete. Go to ICPC.",
