@@ -1,4 +1,5 @@
 import { NextEvent } from "@/components/events/NextEvent";
+import { JudgeDemo } from "@/components/home/JudgeDemo";
 import { ArrowRightIcon, CalendarIcon, CodeIcon, TrophyIcon } from "@/components/icons";
 import { ButtonLink, Container, ExternalButton, SectionHeading } from "@/components/ui";
 import { site } from "@/lib/content";
@@ -22,31 +23,6 @@ function Headline({ text }: { text: string }) {
       ))}
       <span className="block text-accent">{last}</span>
     </h1>
-  );
-}
-
-function TerminalDemo() {
-  return (
-    <div aria-hidden="true" className="overflow-hidden rounded-xl border border-border bg-surface shadow-2xl shadow-black/20">
-      <div className="flex items-center gap-2 border-b border-border bg-surface-2 px-4 py-3">
-        <span className="size-3 rounded-full bg-hard/70" />
-        <span className="size-3 rounded-full bg-medium/70" />
-        <span className="size-3 rounded-full bg-easy/70" />
-        <span className="ml-2 font-mono text-xs text-muted">~/cpc-uwindsor</span>
-      </div>
-      <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-7 sm:text-sm">
-        <span className="text-accent">$</span> g++ -O2 solve.cpp -o solve{"\n"}
-        <span className="text-accent">$</span> ./submit solve.cpp --judge kattis{"\n"}
-        <span className="text-muted">running hidden tests...</span>{"\n"}
-        <span className="text-easy">✓</span> test 1 <span className="text-muted">.... 0.01s</span>{"\n"}
-        <span className="text-easy">✓</span> test 2 <span className="text-muted">.... 0.03s</span>{"\n"}
-        <span className="text-easy">✓</span> test 3 <span className="text-muted">.... 0.12s</span>{"\n"}
-        <span className="font-bold text-easy">Accepted</span>
-        <span className="text-muted"> (3/3)</span>
-        {"\n"}
-        <span className="text-accent">$</span> <span className="cursor-blink text-accent">█</span>
-      </pre>
-    </div>
   );
 }
 
@@ -78,7 +54,7 @@ export default async function HomePage() {
               </ButtonLink>
             </div>
           </div>
-          <TerminalDemo />
+          <JudgeDemo />
         </Container>
       </section>
 
