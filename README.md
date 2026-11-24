@@ -55,7 +55,12 @@ Go to **https://uwindsorcpc.github.io/admin**. It isn't linked anywhere on the s
 **First sign-in**
 1. Sign in with your email and password.
 2. Scan the QR code with an authenticator app (Google Authenticator, Authy, 1Password…) and enter the 6-digit code.
-3. On every later sign-in you'll be asked for a fresh code. You're signed out after 30 minutes without activity.
+3. On every later sign-in you'll be asked for a fresh code.
+
+**Staying signed in**
+- Tick **Keep me signed in on this device for 7 days** on your own computer or phone: no sign-in or 2FA code needed for a week.
+- Without it, you're signed out after 12 hours, or after 30 minutes with no activity in any admin tab. An open check-in screen counts as activity, so the projector never signs itself out mid-event.
+- Signing out (or timing out) only affects that browser. **Sign out everywhere** at the bottom of the dashboard ends every session for your account, e.g. if a device is lost.
 
 **Sections:** Events · Members · Attendance · RSVPs · Team · Past contests · Problems · FAQ. Each one lets you add, edit and delete rows (Members, Attendance and RSVPs are only created from the public site).
 - **Published** controls whether a row appears on the public site. Untick it to keep a draft.

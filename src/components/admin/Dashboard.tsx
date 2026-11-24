@@ -2,13 +2,23 @@
 
 import { useState } from "react";
 
+import { CLUB_TIMEZONE } from "@/lib/time";
 import { Logo } from "../Logo";
+import type { AdminContext } from "./AdminApp";
 import { ThemeToggle } from "../ThemeToggle";
 import { ResourceManager } from "./ResourceManager";
 import { RESOURCES } from "./resources";
 import { secondaryBtn } from "./styles";
 
-export function Dashboard({ email, onSignOut }: { email: string; onSignOut: () => void }) {
+function sessionNote(policy: AdminContext["policy"]) {
+  if (!policy) return "";
+  if (!policy.remember) return "You'll be signed out after 30 minutes without activity.";
+  const until = new Date(policy.until).toLocaleString("en-CA", { timeZone: CLUB_TIMEZONE, dateStyle: "medium", timeStyle: "short" });
+  return `This device stays signed in until ${until}.`;
+}
+
+export function Dashboard({ ctx }: { ctx: AdminContext }) {
+  const { email, signOut, signOutEverywhere } = ctx;
   const [active, setActive] = useState(RESOURCES[0].key);
   const def = RESOURCES.find((r) => r.key === active) ?? RESOURCES[0];
 
@@ -26,7 +36,7 @@ export function Dashboard({ email, onSignOut }: { email: string; onSignOut: () =
               View site
             </a>
             <ThemeToggle />
-            <button type="button" onClick={onSignOut} className={`${secondaryBtn} px-3 py-1.5 text-xs`}>
+            <button type="button" onClick={signOut} className={`${secondaryBtn} px-3 py-1.5 text-xs`}>
               Sign out
             </button>
           </div>
@@ -53,7 +63,19 @@ export function Dashboard({ email, onSignOut }: { email: string; onSignOut: () =
         <ResourceManager key={def.key} def={def} />
 
         <p className="mt-10 font-mono text-xs text-muted">
-          Changes appear on the public site right away. You&apos;ll be signed out after 30 minutes without activity.
+          Changes appear on the public site right away. {sessionNote(ctx.policy)}
+        </p>
+        <p className="mt-2 font-mono text-xs text-muted">
+          Lost a device or signed in somewhere shared?{" "}
+          <button
+            type="button"
+            onClick={() => {
+              if (window.confirm("Sign out of the admin page on every device, including this one?")) signOutEverywhere();
+            }}
+            className="text-hard underline underline-offset-4"
+          >
+            Sign out everywhere
+          </button>
         </p>
       </div>
     </div>

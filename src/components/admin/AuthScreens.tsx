@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 
+import { clearSessionPolicy, REMEMBER_DAYS, startSessionPolicy } from "@/lib/supabase/adminSession";
 import { getAdminDb } from "@/lib/supabase/clients";
 import { Logo } from "../Logo";
 import { inputClass, labelClass, primaryBtn, secondaryBtn } from "./styles";
@@ -36,13 +37,18 @@ export function LoginForm() {
     const f = new FormData(e.currentTarget);
     setBusy(true);
     setError("");
+    // Set before signing in: the page checks it as soon as the session appears.
+    startSessionPolicy(f.get("remember") === "on");
     const { error } = await getAdminDb().auth.signInWithPassword({
       email: String(f.get("email") ?? "").trim(),
       password: String(f.get("password") ?? ""),
     });
     setBusy(false);
     // Same message for every failure, so the form doesn't reveal which emails exist.
-    if (error) setError("Sign-in failed. Check your email and password.");
+    if (error) {
+      clearSessionPolicy();
+      setError("Sign-in failed. Check your email and password.");
+    }
   }
 
   return (
@@ -60,6 +66,13 @@ export function LoginForm() {
           </label>
           <input id="password" name="password" type="password" required autoComplete="current-password" className={inputClass} />
         </div>
+        <label className="flex items-start gap-3 text-sm">
+          <input type="checkbox" name="remember" className="mt-0.5 size-4 shrink-0 accent-[var(--accent)]" />
+          <span>
+            Keep me signed in on this device for {REMEMBER_DAYS} days
+            <span className="block text-xs text-muted">Only on your own computer or phone, never a shared or lab one.</span>
+          </span>
+        </label>
         {error && <ErrorText>{error}</ErrorText>}
         <button type="submit" disabled={busy} className={primaryBtn}>
           {busy ? "Signing in…" : "Sign in"}

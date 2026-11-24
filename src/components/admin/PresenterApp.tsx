@@ -15,5 +15,5 @@ export function PresenterApp() {
       </AuthCard>
     );
   }
-  return <AdminGate>{() => <Presenter eventId={eventId} />}</AdminGate>;
+  return <AdminGate keepAlive>{() => <Presenter eventId={eventId} />}</AdminGate>;
 }
