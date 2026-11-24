@@ -15,13 +15,13 @@ export function GET() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "#17181d",
-          color: "#e3e4e8",
+          background: "#1f1f1f",
+          color: "#cccccc",
         }}
       >
         <div style={{ display: "flex", fontSize: 64, fontWeight: 800, letterSpacing: -3 }}>CPC</div>
         <div style={{ display: "flex", width: 120, marginTop: 6 }}>
-          <div style={{ width: 40, height: 12, background: "#9aa6e8", borderRadius: 2 }} />
+          <div style={{ width: 40, height: 12, background: "#0078d4", borderRadius: 2 }} />
         </div>
       </div>
     ),

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <!-- Compact square CPC UWindsor mark. Colours match --bg and --accent in globals.css. -->
-  <rect width="64" height="64" rx="14" fill="#17181d"/>
-  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#30323a" stroke-width="2"/>
-  <text x="32" y="38" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="22" font-weight="800" fill="#e3e4e8" letter-spacing="-1">CPC</text>
-  <rect x="13" y="45" width="14" height="5" rx="1" fill="#9aa6e8"/>
+  <rect width="64" height="64" rx="14" fill="#1f1f1f"/>
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="32" y="38" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="22" font-weight="800" fill="#cccccc" letter-spacing="-1">CPC</text>
+  <rect x="13" y="45" width="14" height="5" rx="1" fill="#0078d4"/>
 </svg>

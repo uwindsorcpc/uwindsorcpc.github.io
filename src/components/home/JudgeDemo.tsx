@@ -160,27 +160,31 @@ function diff(a: string[], b: string[]): Op[] {
 
 /* ------------------------------ highlighting ----------------------------- */
 
+// VS Code's C++ colours: #include and control flow purple, keywords blue,
+// types teal, variables light blue, strings orange, numbers green-grey.
 const TOKEN =
-  /(\/\/.*$)|('(?:\\.|[^'])*')|(#include\s*<[^>]*>)|\b(int|long|using|namespace|while|for|auto|return|vector)\b|\b(cin|cout|std)\b|\b(\d+)\b/g;
+  /(\/\/.*$)|('(?:\\.|[^'])*')|(#include)|\b(while|for|return)\b|\b(int|long|using|namespace|auto)\b|\b(vector|std)\b|\b(cin|cout)\b|\b(\d+)\b|(<[a-z/+.]+\.h>)/g;
+
+const TOKEN_CLASS = [
+  "text-syn-comment",
+  "text-syn-string",
+  "text-syn-control",
+  "text-syn-control",
+  "text-syn-keyword",
+  "text-syn-type",
+  "text-syn-variable",
+  "text-syn-number",
+  "text-syn-string",
+];
 
 function highlight(line: string): ReactNode[] {
   const out: ReactNode[] = [];
   let last = 0;
   for (const m of line.matchAll(TOKEN)) {
     if (m.index > last) out.push(line.slice(last, m.index));
-    const cls = m[1]
-      ? "text-muted"
-      : m[2]
-        ? "text-medium"
-        : m[3]
-          ? "text-hard"
-          : m[4]
-            ? "text-practice"
-            : m[5]
-              ? "text-accent"
-              : "text-workshop";
+    const group = m.slice(1).findIndex((g) => g !== undefined);
     out.push(
-      <span key={m.index} className={cls}>
+      <span key={m.index} className={TOKEN_CLASS[group]}>
         {m[0]}
       </span>,
     );
@@ -333,7 +337,7 @@ export function JudgeDemo() {
   const judging = phase === "running" || phase === "submitting";
 
   return (
-    <div ref={rootRef} className="overflow-hidden rounded-xl border border-border bg-surface shadow-2xl shadow-black/20">
+    <div ref={rootRef} className="overflow-hidden rounded-lg border border-border bg-bg shadow-2xl shadow-black/25">
       <p className="sr-only">
         Animation: a solution to a range-sum problem is written and submitted four times. It gets Time Limit Exceeded,
         then Wrong Answer, then Run Time Error, and finally Accepted.
@@ -341,12 +345,9 @@ export function JudgeDemo() {
 
       <div aria-hidden="true">
         {/* window bar */}
-        <div className="flex items-center gap-2 border-b border-border bg-surface-2 px-4 py-2.5">
-          <span className="size-3 rounded-full bg-hard/70" />
-          <span className="size-3 rounded-full bg-medium/70" />
-          <span className="size-3 rounded-full bg-easy/70" />
-          <span className="ml-2 rounded-md bg-surface px-2.5 py-1 font-mono text-xs text-fg">solution.cpp</span>
-          <span className="ml-auto font-mono text-[11px] text-muted">attempt {state.attempt + 1}/4</span>
+        <div className="flex items-stretch border-b border-border bg-surface">
+          <span className="border-t-2 border-t-button bg-bg px-4 py-2 font-mono text-xs text-fg">solution.cpp</span>
+          <span className="ml-auto self-center px-4 font-mono text-[11px] text-muted">attempt {state.attempt + 1}/4</span>
         </div>
 
         {/* problem statement */}
@@ -366,7 +367,7 @@ export function JudgeDemo() {
               <span className="w-7 shrink-0 select-none pr-3 text-right text-muted/50">{i + 1}</span>
               <span className="whitespace-pre text-fg">
                 {highlight(caret.line === i ? line.slice(0, caret.col) : line)}
-                {caret.line === i && <span className="cursor-blink inline-block h-[1.15em] w-[2px] translate-y-[0.2em] bg-accent" />}
+                {caret.line === i && <span className="cursor-blink inline-block h-[1.15em] w-[2px] translate-y-[0.2em] bg-fg" />}
                 {caret.line === i && highlight(line.slice(caret.col))}
               </span>
             </div>
@@ -374,10 +375,10 @@ export function JudgeDemo() {
         </pre>
 
         {/* submit bar + judge */}
-        <div className="flex min-h-[4.75rem] items-center gap-3 border-t border-border bg-surface-2 px-4 py-3">
+        <div className="flex min-h-[4.75rem] items-center gap-3 border-t border-border bg-surface px-4 py-3">
           <span
             className={`shrink-0 rounded-md px-3 py-1.5 font-mono text-xs font-semibold transition-all ${
-              phase === "submitting" ? "scale-95 bg-accent-strong text-on-accent" : judging ? "bg-accent/50 text-on-accent" : "bg-accent text-on-accent"
+              phase === "submitting" ? "scale-95 bg-button-hover text-on-accent" : judging ? "bg-button/50 text-on-accent" : "bg-button text-on-accent"
             }`}
           >
             {judging ? "Judging…" : "Submit"}

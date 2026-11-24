@@ -179,7 +179,7 @@ export function SignupForm({ clubEmail }: { clubEmail: string }) {
         <button
           type="submit"
           disabled={sending}
-          className="inline-flex items-center justify-center gap-2 rounded-md bg-accent px-7 py-3.5 font-semibold text-on-accent transition-colors hover:bg-accent-strong disabled:cursor-wait disabled:opacity-70"
+          className="inline-flex items-center justify-center gap-2 rounded-md bg-button px-7 py-3.5 font-semibold text-on-accent transition-colors hover:bg-button-hover disabled:cursor-wait disabled:opacity-70"
         >
           {sending ? "Signing you up…" : "Sign up"}
         </button>

@@ -32,7 +32,7 @@ export function SectionHeading({ id, children, sub }: { id?: string; children: R
 }
 
 const buttonStyles = {
-  primary: "bg-accent text-on-accent hover:bg-accent-strong",
+  primary: "bg-button text-on-accent hover:bg-button-hover",
   secondary: "border border-border text-fg hover:border-fg/60",
 };
 

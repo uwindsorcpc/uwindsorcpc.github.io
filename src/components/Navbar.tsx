@@ -56,7 +56,7 @@ export function Navbar() {
           <Link
             href="/join"
             aria-current={isActive("/join") ? "page" : undefined}
-            className="hidden rounded-md bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-strong sm:inline-flex"
+            className="hidden rounded-md bg-button px-4 py-2 text-sm font-semibold text-on-accent transition-colors hover:bg-button-hover sm:inline-flex"
           >
             Join the club
           </Link>

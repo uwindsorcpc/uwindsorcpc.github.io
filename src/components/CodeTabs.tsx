@@ -20,7 +20,7 @@ function Highlighted({ code, python }: { code: string; python: boolean }) {
             ) : (
               <>
                 {line.slice(0, at)}
-                <span className="text-muted">{line.slice(at)}</span>
+                <span className="text-syn-comment">{line.slice(at)}</span>
               </>
             )}
             {"\n"}

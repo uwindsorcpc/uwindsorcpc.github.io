@@ -4,55 +4,77 @@
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
 /* ==========================================================================
-   PALETTE: "Graphite & periwinkle"
-   Soft charcoal, off-white text, one calm periwinkle for actions and links.
-   Other colours are muted and carry meaning only (verdicts, difficulty,
-   event types). Change values here and the whole site follows.
+   PALETTE: VS Code "Dark Modern" (default) and "Light Modern".
+   Colours follow VS Code's own default themes; a few light-theme values are
+   nudged slightly darker so every text colour meets WCAG AA contrast.
+   Change values here and the whole site follows.
    ========================================================================== */
 
-/* Dark theme (the default) */
+/* Dark theme (the default): VS Code Dark Modern */
 :root,
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg: #17181d;            /* soft charcoal page */
-  --surface: #1f2127;       /* raised panels */
-  --surface-2: #26282f;     /* inputs, code */
-  --border: #30323a;        /* rules */
-  --fg: #e3e4e8;            /* off-white text */
-  --muted: #9a9ca6;         /* secondary text */
-  --accent: #9aa6e8;        /* periwinkle: actions, links, focus */
-  --accent-strong: #b2bbef; /* hover */
-  --on-accent: #14151a;     /* text on periwinkle */
-  --accent-soft: rgb(154 166 232 / 0.12);
-  --practice: #8fb8de;      /* event type colours */
-  --contest: #c3a6e0;
-  --workshop: #d6bd8a;
-  --easy: #8cc7a4;          /* also "Accepted" */
-  --medium: #d6bd8a;        /* also "Time Limit Exceeded" */
-  --hard: #e39595;          /* also "Wrong Answer" */
-  --violet: #b9a6e6;        /* "Run Time Error" */
+  --bg: #1f1f1f;            /* editor background */
+  --surface: #181818;       /* side bar / panels */
+  --surface-2: #313131;     /* inputs */
+  --border: #2b2b2b;
+  --fg: #cccccc;            /* foreground */
+  --muted: #9d9d9d;         /* description text */
+  --accent: #4daafc;        /* links, highlights */
+  --accent-strong: #7cc0fd;
+  --accent-soft: rgb(0 120 212 / 0.2);
+  --button: #0078d4;        /* button background */
+  --button-hover: #026ec1;
+  --on-accent: #ffffff;     /* text on buttons */
+  --selection: #264f78;
+  --practice: #569cd6;      /* event type colours */
+  --contest: #c586c0;
+  --workshop: #dcdcaa;
+  --easy: #73c991;          /* also "Accepted" */
+  --medium: #cca700;        /* also "Time Limit Exceeded" */
+  --hard: #f85149;          /* also "Wrong Answer" */
+  --violet: #c586c0;        /* "Run Time Error" */
+  /* syntax (Dark Modern / Dark+) */
+  --syn-keyword: #569cd6;
+  --syn-control: #c586c0;
+  --syn-type: #4ec9b0;
+  --syn-string: #ce9178;
+  --syn-number: #b5cea8;
+  --syn-comment: #6a9955;
+  --syn-variable: #9cdcfe;
 }
 
-/* Light theme */
+/* Light theme: VS Code Light Modern */
 [data-theme="light"] {
   color-scheme: light;
-  --bg: #f6f6f8;
-  --surface: #ffffff;
-  --surface-2: #eeeff3;
-  --border: #dcdde3;
-  --fg: #1b1c22;
-  --muted: #5a5d68;
-  --accent: #4a56b8;
-  --accent-strong: #3a4596;
+  --bg: #ffffff;
+  --surface: #f8f8f8;
+  --surface-2: #f2f2f2;
+  --border: #e5e5e5;
+  --fg: #3b3b3b;
+  --muted: #616161;
+  --accent: #005fb8;
+  --accent-strong: #004c94;
+  --accent-soft: rgb(0 95 184 / 0.08);
+  --button: #005fb8;
+  --button-hover: #0258a8;
   --on-accent: #ffffff;
-  --accent-soft: rgb(74 86 184 / 0.08);
-  --practice: #2f5f99;
-  --contest: #7a4a9a;
-  --workshop: #7a5c14;
-  --easy: #2f7a52;
-  --medium: #7a5c14;
-  --hard: #a63d3d;
-  --violet: #6a4fb0;
+  --selection: #add6ff;
+  --practice: #005fb8;
+  --contest: #af00db;
+  --workshop: #795e26;
+  --easy: #2d7a2a;
+  --medium: #9a6700;
+  --hard: #d6292d;
+  --violet: #af00db;
+  /* syntax (Light Modern / Light+) */
+  --syn-keyword: #0000ff;
+  --syn-control: #af00db;
+  --syn-type: #1f6f87;
+  --syn-string: #a31515;
+  --syn-number: #087a4f;
+  --syn-comment: #008000;
+  --syn-variable: #001080;
 }
 
 /* Expose the variables to Tailwind as utilities: bg-bg, text-fg, border-border… */
@@ -74,6 +96,15 @@
   --color-medium: var(--medium);
   --color-hard: var(--hard);
   --color-violet: var(--violet);
+  --color-button: var(--button);
+  --color-button-hover: var(--button-hover);
+  --color-syn-keyword: var(--syn-keyword);
+  --color-syn-control: var(--syn-control);
+  --color-syn-type: var(--syn-type);
+  --color-syn-string: var(--syn-string);
+  --color-syn-number: var(--syn-number);
+  --color-syn-comment: var(--syn-comment);
+  --color-syn-variable: var(--syn-variable);
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
@@ -99,8 +130,7 @@ body {
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--selection);
 }
 
 /* One consistent, highly visible keyboard focus ring */

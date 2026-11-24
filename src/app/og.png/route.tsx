@@ -18,17 +18,17 @@ export function GET() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "#17181d",
-          color: "#e3e4e8",
+          background: "#1f1f1f",
+          color: "#cccccc",
         }}
       >
-        <div style={{ display: "flex", fontSize: 30, color: "#9a9ca6" }}>UWindsor Competitive Programming Club</div>
+        <div style={{ display: "flex", fontSize: 30, color: "#9d9d9d" }}>UWindsor Competitive Programming Club</div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", fontSize: 150, fontWeight: 800, letterSpacing: -4, lineHeight: 1 }}>
-            <span style={{ color: "#9aa6e8" }}>&lt;</span>CPC<span style={{ color: "#9aa6e8" }}>/&gt;</span>
+            <span style={{ color: "#0078d4" }}>&lt;</span>CPC<span style={{ color: "#0078d4" }}>/&gt;</span>
           </div>
-          <div style={{ display: "flex", fontSize: 54, color: "#9a9ca6", marginTop: 12 }}>
-            UWindsor<span style={{ color: "#9aa6e8" }}>_</span>
+          <div style={{ display: "flex", fontSize: 54, color: "#9d9d9d", marginTop: 12 }}>
+            UWindsor<span style={{ color: "#0078d4" }}>_</span>
           </div>
         </div>
         <div style={{ display: "flex", fontSize: 36, fontWeight: 600 }}>{site.home.headline}</div>
