@@ -18,22 +18,17 @@ export function GET() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "#0a0e13",
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          color: "#e6edf3",
+          background: "#17181d",
+          color: "#e3e4e8",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", fontSize: 30, color: "#9aa8b8" }}>
-          <span style={{ color: "#2ee88a", marginRight: 14 }}>$</span> ./join --club cpc-uwindsor
-        </div>
+        <div style={{ display: "flex", fontSize: 30, color: "#9a9ca6" }}>UWindsor Competitive Programming Club</div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", fontSize: 150, fontWeight: 800, letterSpacing: -4, lineHeight: 1 }}>
-            <span style={{ color: "#2ee88a" }}>&lt;</span>CPC<span style={{ color: "#2ee88a" }}>/&gt;</span>
+            <span style={{ color: "#9aa6e8" }}>&lt;</span>CPC<span style={{ color: "#9aa6e8" }}>/&gt;</span>
           </div>
-          <div style={{ display: "flex", fontSize: 54, color: "#9aa8b8", marginTop: 12 }}>
-            UWindsor<span style={{ color: "#2ee88a" }}>_</span>
+          <div style={{ display: "flex", fontSize: 54, color: "#9a9ca6", marginTop: 12 }}>
+            UWindsor<span style={{ color: "#9aa6e8" }}>_</span>
           </div>
         </div>
         <div style={{ display: "flex", fontSize: 36, fontWeight: 600 }}>{site.home.headline}</div>

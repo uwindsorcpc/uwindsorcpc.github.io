@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-import { Balloon } from "../Balloon";
-
 /*
  * Home page animation: one problem, four attempts. Code is typed into an
  * editor, submitted, and judged: TLE → WA → RTE → Accepted. Between attempts
@@ -386,12 +384,9 @@ export function JudgeDemo() {
           </span>
           <div className="min-w-0 flex-1 font-mono text-xs">
             {phase === "verdict" && verdict ? (
-              <div className={`flex items-center gap-3 rounded-md border px-3 py-1.5 ${verdictStyle[verdict.code]}`}>
-                {verdict.code === "AC" && <Balloon color="#46d39a" letter="A" className="balloon-rise -my-3 h-12 w-8 shrink-0 text-fg" />}
-                <div className="min-w-0">
-                  <p className="font-bold">{verdict.title}</p>
-                  <p className="truncate text-[11px] text-fg/80">{verdict.detail}</p>
-                </div>
+              <div className={`rounded-md border px-3 py-1.5 ${verdictStyle[verdict.code]}`}>
+                <p className="font-bold">{verdict.title}</p>
+                <p className="truncate text-[11px] text-fg/80">{verdict.detail}</p>
               </div>
             ) : judging ? (
               <div>
