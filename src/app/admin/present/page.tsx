@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { PresenterApp } from "@/components/admin/PresenterApp";
 
 export const metadata: Metadata = {
-  title: "Check-in screen",
+  title: "Event control",
   robots: { index: false, follow: false, nocache: true },
 };
 

@@ -71,13 +71,15 @@ Go to **https://uwindsorcpc.github.io/admin**. It isn't linked anywhere on the s
 
 ### Running check-in at an event
 
-1. In **`/admin` → Events**, click **Check-in screen ↗** on the event. Put that window on the projector (there's a **Full screen** button).
-2. Click **Open check-in**. A QR code and a 5-character code appear; both change every 30 seconds, so a photo or a shared link stops working quickly. Check-in closes on its own 30 minutes after the event ends (or 3 hours after opening, whichever is later), or click **Close check-in**.
-3. People **scan the QR** (no typing), or go to **uwindsorcpc.github.io/attend** and type the code. They enter their name, email, and what to show on screen (blank = a fun anonymous name like *Segment Tree #7*).
+1. In **`/admin` → Events**, click **Run event ↗** on the event. This opens the **event control** view on your laptop.
+2. Click **Open presenter window**, drag that window to the projector, and press **F** for full screen. It shows the QR code, the room code and a board of screen names only, sized to fit any screen.
+3. Click **Start event**. Check-in opens and the code appears on the projector. Both the QR and the code change every 30 seconds, so a photo or a shared link stops working quickly.
+4. People **scan the QR** (no typing), or go to **uwindsorcpc.github.io/attend** and type the code. They enter their name, email, and what to show on screen (blank = an anonymous name like *Segment Tree #7*).
    - **Members** (email is in the member list) are checked in straight away.
    - **Non-members** see *RuntimeError: you're not a registered member* and can **sign up** (name and email carried over) or **continue as a guest**. Guests can't use throwaway email services, nonsense names, or links in their screen name, and are marked "guest".
-4. The board on the screen shows **screen names only**. Tick **Show names & emails (don't project!)** to see real details and **Hide** or **Remove** an entry.
-5. Afterwards, **Attendance** has everyone with real names and emails (search, CSV export).
+5. Your control view lists everyone with real names and emails. **Hide** takes someone off the projector board; **Remove** deletes their check-in. The projector updates within a few seconds.
+6. Click **End event** when you're done. Check-in closes and the projector says "Thanks for coming". If you forget, check-in closes on its own 30 minutes after the event's end time (or 3 hours after starting, whichever is later).
+7. Afterwards, **`/admin` → Attendance** has everyone, with search and CSV export.
 
 **RSVPs:** upcoming events on `/events` and `/attend` have an **RSVP** button (same member/guest flow, plus *Add to calendar*). Counts show as "12 going"; the names are in **`/admin` → RSVPs**.
 

@@ -109,7 +109,7 @@ export const RESOURCES: ResourceDef[] = [
       { label: "Type", render: (r) => <span className="font-mono text-xs uppercase">{s(r.type)}</span> },
       { label: "Status", render: published },
       {
-        label: "Check-in",
+        label: "Event",
         render: (r) => (
           <a
             href={`/admin/present?event=${r.id}`}
@@ -117,7 +117,7 @@ export const RESOURCES: ResourceDef[] = [
             rel="noopener"
             className="whitespace-nowrap font-mono text-xs text-accent underline underline-offset-4"
           >
-            Check-in screen ↗
+            Run event ↗
           </a>
         ),
       },
