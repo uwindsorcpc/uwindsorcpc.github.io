@@ -40,26 +40,21 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* What we do, labelled like problems in a problem set */}
+      {/* What we do: three things the club runs */}
       <section aria-labelledby="what-we-do" className="py-20 sm:py-28">
         <Container>
           <SectionHeading id="what-we-do">What we do</SectionHeading>
-          <ol className="grid border-t border-border md:grid-cols-3">
-            {site.home.highlights.map((h, i) => (
+          <ul className="grid border-t border-border md:grid-cols-3">
+            {site.home.highlights.map((h) => (
               <li
                 key={h.title}
-                className="flex gap-5 border-b border-border py-8 md:border-b-0 md:py-10 md:pr-10 md:[&:not(:first-child)]:border-l md:[&:not(:first-child)]:pl-10"
+                className="border-b border-border py-8 md:border-b-0 md:py-10 md:pr-10 md:[&:not(:first-child)]:border-l md:[&:not(:first-child)]:pl-10"
               >
-                <span aria-hidden="true" className="headline w-8 shrink-0 text-4xl text-accent">
-                  {String.fromCharCode(65 + i)}
-                </span>
-                <div>
-                  <h3 className="condensed text-2xl font-bold">{h.title}</h3>
-                  <p className="mt-2 leading-relaxed text-muted">{h.text}</p>
-                </div>
+                <h3 className="condensed text-2xl font-bold sm:text-3xl">{h.title}</h3>
+                <p className="mt-3 leading-relaxed text-muted">{h.text}</p>
               </li>
             ))}
-          </ol>
+          </ul>
         </Container>
       </section>
 

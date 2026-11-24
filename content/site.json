@@ -34,16 +34,16 @@
     "pitch": "CPC UWindsor is a student club for anyone who wants to get better at solving problems with code. We run weekly practice sessions, club contests and workshops, and we train UWindsor teams for the ICPC East Central North America Regional, which UWindsor hosts. No experience needed: if you can write a loop, you can start.",
     "highlights": [
       {
-        "title": "Learn",
-        "text": "Beginner-friendly workshops on the core ideas: sorting, binary search, graphs, dynamic programming and more."
+        "title": "Weekly practice",
+        "text": "Practice nights and workshops on the core ideas: sorting, binary search, graphs, dynamic programming. Every session comes with problems to try on the spot, and beginners are welcome."
       },
       {
-        "title": "Compete",
-        "text": "Weekly practice and monthly club contests on Kattis. Solve problems, climb the scoreboard, and see yourself improve."
+        "title": "Club contests",
+        "text": "A timed contest on Kattis every month, solo or in teams, with a live scoreboard. Every past contest stays open, so you can practise the problems you missed."
       },
       {
-        "title": "Go to ICPC",
-        "text": "Form a team of three and represent UWindsor at the ICPC East Central NA Regional, hosted right here on campus."
+        "title": "ICPC teams",
+        "text": "We form teams of three and train them for the ICPC East Central NA Regional, which is hosted right here at UWindsor."
       }
     ]
   }
