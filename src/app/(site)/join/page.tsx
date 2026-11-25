@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Join",
-  description: "Join CPC UWindsor: sign up in two minutes, hop on the Discord, and come to a practice. For students who know the basics of programming.",
+  description: "Join UWindsor CPC: sign up in two minutes, hop on the Discord, and come to a practice. For students who know the basics of programming.",
   path: "/join",
 });
 

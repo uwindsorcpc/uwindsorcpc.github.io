@@ -92,7 +92,7 @@ export function SignupForm({ clubEmail }: { clubEmail: string }) {
         <p className="flex items-center gap-2 text-lg font-semibold text-easy">
           <CheckIcon /> You&apos;re signed up!
         </p>
-        <p className="mt-2 text-muted">Welcome to CPC UWindsor. Join the Discord next so you hear about every event.</p>
+        <p className="mt-2 text-muted">Welcome to UWindsor CPC. Join the Discord next so you hear about every event.</p>
         {status.returnTo && (
           <Link href={status.returnTo} className="mt-4 inline-flex text-sm font-semibold text-accent underline underline-offset-4">
             ← {status.returnLabel ?? "Go back"}
@@ -169,7 +169,7 @@ export function SignupForm({ clubEmail }: { clubEmail: string }) {
       <label className="flex items-start gap-3 text-sm text-muted">
         <input type="checkbox" name="consent" required className="mt-1 size-4 shrink-0 accent-[var(--accent)]" />
         <span>
-          I agree that CPC UWindsor may store these details to contact me about club activities. Only the club&apos;s
+          I agree that UWindsor CPC may store these details to contact me about club activities. Only the club&apos;s
           executives can see them. I can ask for them to be deleted at any time
           {isPlaceholder(clubEmail) ? "" : ` by emailing ${clubEmail}`}.
         </span>

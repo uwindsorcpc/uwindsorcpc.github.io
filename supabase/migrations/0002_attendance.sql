@@ -1,5 +1,5 @@
 -- =============================================================================
--- CPC UWindsor: attendance (check-in) and RSVPs.
+-- UWindsor CPC: attendance (check-in) and RSVPs.
 --
 -- Run once in Supabase → SQL Editor → New query → paste → Run, AFTER
 -- 0001_schema.sql. Safe to re-run.

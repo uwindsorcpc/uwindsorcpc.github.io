@@ -1,6 +1,6 @@
-# CPC UWindsor website
+# UWindsor CPC website
 
-The website for **CPC UWindsor**, the UWindsor Competitive Programming Club, live at **https://uwindsorcpc.github.io**.
+The website for **UWindsor CPC**, the UWindsor Competitive Programming Club, live at **https://uwindsorcpc.github.io**.
 
 - **Frontend:** Next.js (App Router), TypeScript and Tailwind CSS, built into static files and hosted free on GitHub Pages.
 - **Database:** [Supabase](https://supabase.com) (PostgreSQL, Canada Central region, free plan) stores events, the team, contests, problems, the FAQ, member sign-ups, event check-ins and RSVPs.

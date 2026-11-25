@@ -33,7 +33,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-bg/85 backdrop-blur-md">
       <nav aria-label="Main" className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" onClick={close} className="shrink-0 rounded-md" aria-label="CPC UWindsor home">
+        <Link href="/" onClick={close} className="shrink-0 rounded-md" aria-label="UWindsor CPC home">
           <Logo />
         </Link>
 

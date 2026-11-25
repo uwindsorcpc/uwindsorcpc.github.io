@@ -47,7 +47,7 @@ UWindsor competes in the **ICPC East Central North America (ECNA) Regional**, wh
 
 ## Our mission
 
-CPC UWindsor was started by three UWindsor ICPC contestants who want more students to discover competitive programming. Our goals are simple:
+UWindsor CPC was started by three UWindsor ICPC contestants who want more students to discover competitive programming. Our goals are simple:
 
 1. **Get more students into competitive programming**, especially people who've never tried it, through workshops and practice nights.
 2. **Help members prepare for technical interviews** for co-op, internships and full-time jobs.

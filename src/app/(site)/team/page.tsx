@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Team",
-  description: "Meet the CPC UWindsor executive team: ICPC contestants who run the club's practices, workshops and contests.",
+  description: "Meet the UWindsor CPC executive team: ICPC contestants who run the club's practices, workshops and contests.",
   path: "/team",
 });
 
@@ -16,7 +16,7 @@ export default async function TeamPage() {
     <>
       <PageHeader
         title="The team"
-        intro="CPC UWindsor was started by three UWindsor ICPC contestants. Say hi at any practice night, or message us on Discord."
+        intro="UWindsor CPC was started by three UWindsor ICPC contestants. Say hi at any practice night, or message us on Discord."
       />
       <Container className="py-14">
         <TeamGrid team={team} />

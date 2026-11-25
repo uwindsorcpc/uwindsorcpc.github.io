@@ -1,7 +1,7 @@
 {
   "_readme": "Club-wide settings. Fill in discordUrl and the social links when they exist (links still in [SQUARE_BRACKETS] are hidden or shown as 'coming soon'). Events, team, contests, problems, FAQ and sign-ups are managed from the /admin page, not from files.",
   "showSampleContentBanner": false,
-  "name": "CPC UWindsor",
+  "name": "UWindsor CPC",
   "fullName": "UWindsor Competitive Programming Club",
   "url": "https://uwindsorcpc.github.io",
   "description": "The University of Windsor's competitive programming club. Get better at problem solving, prepare for technical interviews, compete in contests, and train for the ICPC East Central NA Regional.",
@@ -31,7 +31,7 @@
   ],
   "home": {
     "headline": "Learn algorithms. Compete. Go to ICPC.",
-    "pitch": "CPC UWindsor is a student club for getting better at solving problems with code. Our weekly practice, workshops and contests build the skills behind technical interviews for co-op, internships and full-time jobs, and we train UWindsor teams for the ICPC East Central North America Regional, which UWindsor hosts.",
+    "pitch": "UWindsor CPC is a student club for getting better at solving problems with code. Our weekly practice, workshops and contests build the skills behind technical interviews for co-op, internships and full-time jobs, and we train UWindsor teams for the ICPC East Central North America Regional, which UWindsor hosts.",
     "highlights": [
       {
         "title": "Weekly practice",

@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Events",
-  description: "Weekly practice sessions, workshops and club contests run by CPC UWindsor, all on campus.",
+  description: "Weekly practice sessions, workshops and club contests run by UWindsor CPC, all on campus.",
   path: "/events",
 });
 

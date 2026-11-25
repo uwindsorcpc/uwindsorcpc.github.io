@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ platform:
   const page = resources.platformPages[platform as Platform];
   return pageMetadata({
     title: `${page.name} practice problems`,
-    description: `Hand-picked ${page.name} problems from CPC UWindsor, sorted into easy, medium and hard, plus tips for getting started on ${page.name}.`,
+    description: `Hand-picked ${page.name} problems from UWindsor CPC, sorted into easy, medium and hard, plus tips for getting started on ${page.name}.`,
     path: `/resources/${platform}`,
   });
 }

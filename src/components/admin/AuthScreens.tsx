@@ -137,7 +137,7 @@ export function MfaEnroll({ onSignOut }: { onSignOut: () => void }) {
       const { data, error } = await db.auth.mfa.enroll({
         factorType: "totp",
         friendlyName: `CPC admin ${new Date().toISOString().slice(0, 10)}`,
-        issuer: "CPC UWindsor",
+        issuer: "UWindsor CPC",
       });
       if (error || !data) {
         setError("Couldn't start 2FA setup. Reload the page to try again.");

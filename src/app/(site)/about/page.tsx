@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "About",
   description:
-    "What competitive programming is, why it's worth learning (interviews, problem solving, ICPC), and the mission of CPC UWindsor.",
+    "What competitive programming is, why it's worth learning (interviews, problem solving, ICPC), and the mission of UWindsor CPC.",
   path: "/about",
 });
 

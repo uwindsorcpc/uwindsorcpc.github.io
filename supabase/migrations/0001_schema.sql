@@ -1,5 +1,5 @@
 -- =============================================================================
--- CPC UWindsor database: tables, security rules and sign-up function.
+-- UWindsor CPC database: tables, security rules and sign-up function.
 --
 -- Run once in Supabase → SQL Editor → New query → paste → Run.
 -- It is safe to re-run: it only creates what is missing and replaces rules.

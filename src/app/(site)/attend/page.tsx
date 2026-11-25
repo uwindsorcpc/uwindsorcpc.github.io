@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Attend",
-  description: "Check in to a CPC UWindsor event with the room code, or RSVP to an upcoming one.",
+  description: "Check in to a UWindsor CPC event with the room code, or RSVP to an upcoming one.",
   path: "/attend",
 });
 

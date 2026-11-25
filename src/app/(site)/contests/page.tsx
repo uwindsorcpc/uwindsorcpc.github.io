@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Contests",
-  description: "Past CPC UWindsor club contests on Kattis. Every contest stays open for practice.",
+  description: "Past UWindsor CPC club contests on Kattis. Every contest stays open for practice.",
   path: "/contests",
 });
 
