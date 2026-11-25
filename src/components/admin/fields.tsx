@@ -12,7 +12,7 @@ export type FormValues = Record<string, FormValue>;
 type Base = { name: string; label: string; required?: boolean; help?: string; wide?: boolean };
 export type FieldDef =
   | (Base & { kind: "text" | "url" | "email" | "textarea"; maxLength?: number; placeholder?: string })
-  | (Base & { kind: "number"; min?: number; max?: number })
+  | (Base & { kind: "number"; min?: number; max?: number; step?: number | "any" })
   | (Base & { kind: "date" | "time" })
   | (Base & { kind: "checkbox" })
   | (Base & { kind: "select"; options: readonly (readonly [string, string])[] })
@@ -182,6 +182,7 @@ export function Field({ def, value, onChange }: { def: FieldDef; value: FormValu
             placeholder={"placeholder" in def ? def.placeholder : def.kind === "url" ? "https://…" : undefined}
             min={"min" in def ? def.min : undefined}
             max={"max" in def ? def.max : undefined}
+            step={"step" in def ? def.step : undefined}
             onChange={(e) => onChange(e.target.value)}
             className={inputClass}
           />

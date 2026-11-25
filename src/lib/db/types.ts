@@ -44,7 +44,15 @@ export type PastContest = {
 
 export const DIFFICULTIES = ["easy", "medium", "hard"] as const;
 export type Difficulty = (typeof DIFFICULTIES)[number];
-export type Problem = { id: string; name: string; url: string; topic: string | null };
+export type Problem = {
+  id: string;
+  name: string;
+  url: string;
+  /** Tags, split from the comma-separated "topic" column. */
+  tags: string[];
+  /** The platform's own rating: Kattis difficulty (e.g. 2.4) or Codeforces rating (e.g. 1200). */
+  rating: number | null;
+};
 export type ProblemSets = Record<Difficulty, Problem[]>;
 
 /** Practice platforms with their own page under /resources. */

@@ -144,3 +144,10 @@ export const socialIcons = {
   email: MailIcon,
   website: GlobeIcon,
 };
+
+export const SearchIcon = (p: IconProps) => (
+  <svg {...base} {...stroke} {...p}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-3.5-3.5" />
+  </svg>
+);

@@ -83,7 +83,7 @@ export async function fetchPastContests(): Promise<PastContest[]> {
 export async function fetchProblems(): Promise<ProblemsByPlatform> {
   const { data, error } = await publicDb
     .from("problems")
-    .select("id, name, url, topic, difficulty")
+    .select("*") // "*" so the build still works before the rating column exists
     .eq("published", true)
     .order("sort_order")
     .order("created_at");
@@ -93,7 +93,8 @@ export async function fetchProblems(): Promise<ProblemsByPlatform> {
   for (const r of data) {
     const platform = platformOf(r.url);
     const set = platform ? out[platform][r.difficulty as Difficulty] : undefined;
-    set?.push({ id: r.id, name: r.name, url: r.url, topic: r.topic });
+    const tags = (r.topic ?? "").split(",").map((x: string) => x.trim()).filter(Boolean);
+    set?.push({ id: r.id, name: r.name, url: r.url, tags, rating: r.rating == null ? null : Number(r.rating) });
   }
   return out;
 }

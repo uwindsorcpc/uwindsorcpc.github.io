@@ -110,13 +110,18 @@ create table if not exists public.problems (
   id         uuid primary key default gen_random_uuid(),
   name       text not null check (char_length(name) between 1 and 200),
   url        text not null check (url ~ '^https://'),
-  topic      text check (char_length(topic) <= 60),
+  topic      text check (char_length(topic) <= 120),  -- tags, comma-separated
   difficulty text not null check (difficulty in ('easy', 'medium', 'hard')),
+  rating     numeric(5,1) check (rating between 0 and 4000),  -- Kattis difficulty or Codeforces rating
   sort_order integer not null default 0,
   published  boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+-- For databases created before ratings and multiple tags were added.
+alter table public.problems add column if not exists rating numeric(5,1) check (rating between 0 and 4000);
+alter table public.problems drop constraint if exists problems_topic_check;
+alter table public.problems add constraint problems_topic_check check (char_length(topic) <= 120);
 
 create table if not exists public.faqs (
   id         uuid primary key default gen_random_uuid(),

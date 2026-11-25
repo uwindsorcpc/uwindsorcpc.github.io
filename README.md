@@ -67,7 +67,7 @@ Go to **https://uwindsorcpc.github.io/admin**. It isn't linked anywhere on the s
 - **Order** sorts team members, problems and FAQ entries (lower numbers come first).
 - **Event times** are Windsor time. The site handles daylight saving and visitors in other time zones, and events move from "Upcoming" to "Past" on their own.
 - **Team photos** upload straight from the form (JPG/PNG/WebP, under 2 MB).
-- **Problems** show up under Resources on the Kattis, Codeforces or LeetCode page, picked automatically from the link you paste (any other site isn't shown). The text on those pages is in `content/resources.json` → `platformPages`.
+- **Problems** show up under Resources on the Kattis, Codeforces or LeetCode page, picked automatically from the link you paste (any other site isn't shown). The text on those pages is in `content/resources.json` → `platformPages`. **Tags** (comma-separated) and **Rating** (Kattis difficulty like 2.4, or Codeforces rating like 1200; blank for LeetCode) power the search bar on those pages.
 - **Members** can be searched and exported to CSV. They can't be added from the admin page, only through the Join form. To handle a deletion request, find the person and click **Delete**.
 
 ### Running check-in at an event
