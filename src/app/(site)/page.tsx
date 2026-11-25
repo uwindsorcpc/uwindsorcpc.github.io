@@ -1,7 +1,7 @@
 import { NextEvent } from "@/components/events/NextEvent";
 import { JudgeDemo } from "@/components/home/JudgeDemo";
 import { ButtonLink, Container, ExternalButton, SectionHeading } from "@/components/ui";
-import { site } from "@/lib/content";
+import { isPlaceholder, site } from "@/lib/content";
 import { fetchEvents } from "@/lib/db/queries";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -10,11 +10,41 @@ export const metadata = pageMetadata({ description: site.description, path: "/" 
 // The moment this page was built. The countdown uses it until the visitor's clock takes over.
 const builtAt = Date.now();
 
+// Tells Google the site's name. Without it, Google shows the parent domain's name ("GitHub") above results.
+// https://developers.google.com/search/docs/appearance/site-names
+const home = `${site.url}/`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${home}#website`,
+      name: site.name,
+      alternateName: ["UWindsor CPC", site.fullName],
+      url: home,
+      publisher: { "@id": `${home}#organization` },
+    },
+    {
+      "@type": "Organization",
+      "@id": `${home}#organization`,
+      name: site.fullName,
+      alternateName: [site.name, "UWindsor CPC"],
+      url: home,
+      logo: `${site.url}/brand/icon-512.png`,
+      email: site.email,
+      description: site.description,
+      parentOrganization: { "@type": "CollegeOrUniversity", name: "University of Windsor", url: "https://www.uwindsor.ca/" },
+      sameAs: [site.discordUrl, ...site.socials.map((s) => s.url)].filter((u) => !isPlaceholder(u)),
+    },
+  ],
+};
+
 export default async function HomePage() {
   const events = await fetchEvents();
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       {/* Hero: the headline, and a solution being written and judged */}
       <section className="border-b border-border">
         <Container className="grid items-center gap-12 pt-14 pb-16 sm:pt-20 sm:pb-24 lg:grid-cols-[1fr_1fr] lg:gap-16">
