@@ -50,7 +50,7 @@ insert into public.problems (name, url, topic, difficulty, sort_order) values
   ('Suffix Sorting', 'https://open.kattis.com/problems/suffixsorting', 'Strings', 'hard', 8);
 
 insert into public.faqs (question, answer, sort_order) values
-  ('Do I need experience?', 'No. Many members start with one intro programming course. If you can write a loop and an if-statement, you''re ready for our beginner sessions.', 1),
+  ('Do I need programming experience?', 'Some, yes. We highly recommend that you have taken, or are taking, COMP-1400 (the intro programming course in C), or that you''re comfortable with the basics in any language: variables, conditionals, loops, functions and arrays. You don''t need any competitive programming experience; that''s what we teach.', 1),
   ('Which languages can I use?', 'C++, Python and Java. These are the languages ICPC allows, and the ones Kattis and Codeforces support best. Most competitive programmers end up using C++ for speed, but Python is a great place to start.', 2),
   ('Do I have to be a Computer Science student?', 'No. Any UWindsor student is welcome: engineering, math, science, business, anyone. To compete at ICPC you must meet ICPC''s eligibility rules, and we''ll help you check.', 4),
   ('How do I get on an ICPC team?', 'Come to practice and club contests. Before the regional we help members form teams of three based on interest and skill, and we hold training sessions in the weeks before.', 5),

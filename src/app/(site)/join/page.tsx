@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Join",
-  description: "Join CPC UWindsor: sign up in two minutes, hop on the Discord, and come to a practice. No experience needed.",
+  description: "Join CPC UWindsor: sign up in two minutes, hop on the Discord, and come to a practice. For students who know the basics of programming.",
   path: "/join",
 });
 
@@ -25,7 +25,7 @@ export default async function JoinPage() {
     <>
       <PageHeader
         title="Join the club"
-        intro="Membership is open to every UWindsor student, whatever your program or experience. It takes about two minutes."
+        intro="Membership is open to every UWindsor student, from any program or year. It takes about two minutes."
       />
 
       <Container className="py-14">
@@ -34,7 +34,16 @@ export default async function JoinPage() {
             <h2 id="signup" className="condensed text-3xl font-bold">
               Become a member
             </h2>
-            <p className="mt-2 mb-8 text-muted">Any experience level is welcome, including none at all.</p>
+            <aside aria-labelledby="before-you-join" className="mt-4 mb-8 border-l-2 border-accent pl-4">
+              <h3 id="before-you-join" className="font-semibold">
+                Before you join
+              </h3>
+              <p className="mt-1 leading-relaxed text-muted">
+                We highly recommend a basic grounding in programming: you have taken, or are taking, COMP-1400 (the intro
+                programming course in C), or you&apos;re comfortable with variables, conditionals, loops, functions and arrays
+                in any language. You don&apos;t need any competitive programming experience.
+              </p>
+            </aside>
             <SignupForm clubEmail={site.email} />
           </section>
 

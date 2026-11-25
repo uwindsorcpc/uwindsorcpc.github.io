@@ -19,6 +19,20 @@ If you see these verdicts, here's what they mean:
 
 You don't need to know any of this yet. That's what the club is for.
 
+## Who it's for
+
+CPC is for students who already know the basics of programming and want to get much better at using them.
+
+We highly recommend that you have taken, or are currently taking, **COMP-1400** (the intro programming course in C), or that you're comfortable with these basics in any language:
+
+- variables, input and output
+- conditionals (`if` / `else`)
+- loops (`for`, `while`)
+- functions
+- arrays
+
+You don't need any competitive programming experience. If you know these, we'll take it from there.
+
 ## Why it's worth your time
 
 - **Interview prep.** Technical interviews for co-op, internships and new-grad jobs are mostly algorithm problems. Competitive programmers find them familiar.
@@ -35,8 +49,9 @@ UWindsor competes in the **ICPC East Central North America (ECNA) Regional**, wh
 
 CPC UWindsor was started by three UWindsor ICPC contestants who want more students to discover competitive programming. Our goals are simple:
 
-1. **Get more students started**, especially people who've never tried it, through beginner-friendly workshops and practice nights.
-2. **Build a community** of people who enjoy solving problems together.
-3. **Send more UWindsor teams to the ICPC ECNA Regional**, and help them do well there.
+1. **Get more students into competitive programming**, especially people who've never tried it, through workshops and practice nights.
+2. **Help members prepare for technical interviews** for co-op, internships and full-time jobs.
+3. **Build a community** of people who enjoy solving problems together.
+4. **Send more UWindsor teams to the ICPC ECNA Regional**, and help them do well there.
 
-Everyone is welcome, whatever your program, year or experience.
+Students from any program or year are welcome.

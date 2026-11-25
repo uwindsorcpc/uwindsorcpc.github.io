@@ -4,7 +4,7 @@
   "name": "CPC UWindsor",
   "fullName": "UWindsor Competitive Programming Club",
   "url": "https://uwindsorcpc.github.io",
-  "description": "The University of Windsor's competitive programming club. Learn algorithms, practise weekly, compete in contests, and train for the ICPC East Central NA Regional.",
+  "description": "The University of Windsor's competitive programming club. Get better at problem solving, prepare for technical interviews, compete in contests, and train for the ICPC East Central NA Regional.",
   "email": "uwindsorcpc@gmail.com",
   "discordUrl": "[DISCORD_URL]",
   "socials": [
@@ -31,11 +31,15 @@
   ],
   "home": {
     "headline": "Learn algorithms. Compete. Go to ICPC.",
-    "pitch": "CPC UWindsor is a student club for anyone who wants to get better at solving problems with code. We run weekly practice sessions, club contests and workshops, and we train UWindsor teams for the ICPC East Central North America Regional, which UWindsor hosts. No experience needed: if you can write a loop, you can start.",
+    "pitch": "CPC UWindsor is a student club for getting better at solving problems with code. Our weekly practice, workshops and contests build the skills behind technical interviews for co-op, internships and full-time jobs, and we train UWindsor teams for the ICPC East Central North America Regional, which UWindsor hosts.",
     "highlights": [
       {
         "title": "Weekly practice",
-        "text": "Practice nights and workshops on the core ideas: sorting, binary search, graphs, dynamic programming. Every session comes with problems to try on the spot, and beginners are welcome."
+        "text": "Practice nights and workshops on the core ideas: sorting, binary search, graphs, dynamic programming. Every session comes with problems to try on the spot."
+      },
+      {
+        "title": "Interview prep",
+        "text": "Technical interviews for co-op, internships and new-grad roles are mostly algorithm problems. We work through the patterns that come up most: arrays, hashing, two pointers, trees, graphs and dynamic programming."
       },
       {
         "title": "Club contests",

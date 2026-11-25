@@ -20,7 +20,7 @@ const YEARS = [
 ] as const;
 
 const EXPERIENCE = [
-  ["none", "None yet: I'm brand new"],
+  ["none", "New to competitive programming"],
   ["beginner", "Beginner: solved a few problems"],
   ["intermediate", "Intermediate: comfortable with common algorithms"],
   ["advanced", "Advanced: competed before (ICPC, Codeforces…)"],

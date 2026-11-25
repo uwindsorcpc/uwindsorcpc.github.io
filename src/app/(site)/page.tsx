@@ -40,17 +40,14 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* What we do: three things the club runs */}
+      {/* What we do: the things the club runs */}
       <section aria-labelledby="what-we-do" className="py-20 sm:py-28">
         <Container>
           <SectionHeading id="what-we-do">What we do</SectionHeading>
-          <ul className="grid border-t border-border md:grid-cols-3">
+          <ul className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {site.home.highlights.map((h) => (
-              <li
-                key={h.title}
-                className="border-b border-border py-8 md:border-b-0 md:py-10 md:pr-10 md:[&:not(:first-child)]:border-l md:[&:not(:first-child)]:pl-10"
-              >
-                <h3 className="condensed text-2xl font-bold sm:text-3xl">{h.title}</h3>
+              <li key={h.title} className="border-t border-border pt-6">
+                <h3 className="condensed text-2xl font-bold">{h.title}</h3>
                 <p className="mt-3 leading-relaxed text-muted">{h.text}</p>
               </li>
             ))}

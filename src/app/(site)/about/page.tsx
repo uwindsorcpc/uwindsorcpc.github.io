@@ -17,7 +17,7 @@ export default function AboutPage() {
     <>
       <PageHeader
         title="About the club"
-        intro="New to competitive programming? Start here. No jargon, no prerequisites."
+        intro="New to competitive programming? Start here. No jargon."
       />
       <Container className="py-16">
         <div className="grid gap-12 lg:grid-cols-[1fr_280px]">
