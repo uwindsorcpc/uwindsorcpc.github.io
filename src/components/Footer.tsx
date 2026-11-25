@@ -14,7 +14,7 @@ export function Footer() {
     <footer className="mt-auto border-t border-border">
       <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
-          <Logo variant="stacked" />
+          <Logo className="h-8" />
           <p className="mt-4 max-w-sm text-sm text-muted">
             {site.fullName}. A student-run, non-commercial club at the University of Windsor.
           </p>

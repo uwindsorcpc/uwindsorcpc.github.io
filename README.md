@@ -166,7 +166,19 @@ Setup facts, already done: the repo must be **public** and named exactly `uwinds
 ## Changing the look
 
 - **Colours:** every colour is a CSS variable at the top of `src/app/globals.css`, with one block for dark mode (the default) and one for light mode. If you change `--bg` or `--accent`, also update the hex values in `src/app/icon.svg`, `src/app/og.png/route.tsx` (social preview image) and `src/app/apple-touch-icon.png/route.tsx` (iPhone icon).
-- **Logo:** the wordmark is text, built in `src/components/Logo.tsx`. The square favicon is `src/app/icon.svg`.
+- **Logo:** `<CPC.h>`, drawn as outlined JetBrains Mono ExtraBold in `src/components/Logo.tsx` (it follows the site colours in dark and light mode). The browser-tab icon is `src/app/icon.svg`; the iPhone icon and link-preview image are `public/apple-touch-icon.png` and `public/og.png`.
+
+### Brand files (`public/brand/`)
+
+Ready-made logo files, also downloadable from the live site at `https://uwindsorcpc.github.io/brand/<file>`:
+
+| File | Use it for |
+| --- | --- |
+| `icon-1024.png`, `icon-512.png`, `icon.svg` | Profile pictures: Discord server icon, Instagram, GitHub org, LinkedIn |
+| `wordmark-dark.png` / `.svg` | Logo on dark backgrounds (slides, posters) |
+| `wordmark-light.png` / `.svg` | Logo on white backgrounds |
+| `mark-dark.svg`, `mark-light.svg` | Just `<CPC.h>`, without "UWindsor" |
+| `include-banner.png` / `.svg` | `#include <CPC.h>` banner: Discord or LinkedIn header |
 - **Fonts:** Geist (text) and JetBrains Mono (code accents), set in `src/app/layout.tsx`. They're downloaded at build time and served from the site itself.
 
 ## Project structure

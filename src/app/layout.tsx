@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   keywords: ["competitive programming", "ICPC", "University of Windsor", "UWindsor", "ECNA", "algorithms", "Kattis", "student club"],
   openGraph: { type: "website", siteName: site.name, locale: "en_CA" },
   twitter: { card: "summary_large_image" },
-  icons: { apple: "/apple-touch-icon.png" },
+  // Both listed here: setting `icons` replaces Next.js's automatic favicon link.
+  icons: { icon: [{ url: "/icon.svg", type: "image/svg+xml" }], apple: "/apple-touch-icon.png" },
   // Google Search Console ownership check (public by design).
   verification: { google: "ifhw3kUUyO5RCidgOLrTOXHN7Ewyd9zwrHFcK2hjGCc" },
 };
