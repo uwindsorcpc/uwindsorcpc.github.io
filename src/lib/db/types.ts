@@ -47,4 +47,25 @@ export type Difficulty = (typeof DIFFICULTIES)[number];
 export type Problem = { id: string; name: string; url: string; topic: string | null };
 export type ProblemSets = Record<Difficulty, Problem[]>;
 
+/** Practice platforms with their own page under /resources. */
+export const PLATFORMS = ["kattis", "codeforces", "leetcode"] as const;
+export type Platform = (typeof PLATFORMS)[number];
+
+/** A problem's platform, worked out from its link (no extra field to fill in). */
+export function platformOf(url: string): Platform | null {
+  let host = "";
+  try {
+    host = new URL(url).hostname.toLowerCase();
+  } catch {
+    return null;
+  }
+  if (host === "kattis.com" || host.endsWith(".kattis.com")) return "kattis";
+  if (host === "codeforces.com" || host.endsWith(".codeforces.com")) return "codeforces";
+  if (host === "leetcode.com" || host.endsWith(".leetcode.com")) return "leetcode";
+  return null;
+}
+
+/** All problems, split by platform and then by difficulty. */
+export type ProblemsByPlatform = Record<Platform, ProblemSets>;
+
 export type Faq = { id: string; question: string; answer: string };

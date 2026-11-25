@@ -1,61 +1,95 @@
 {
-  "_readme": "roadmap: the beginner path shown as numbered steps. platforms: practice sites. books: reading material. Links inside a step are optional.",
+  "_readme": "roadmap: the beginner path shown as numbered steps. platforms: practice sites (those with a slug get their own page under /resources). platformPages: the text on the Kattis, Codeforces and LeetCode pages. books: reading material. The problems on each platform page come from Admin → Problems, grouped by the link's site.",
   "roadmap": [
     {
       "title": "Pick a language and learn input/output",
       "duration": "Week 1",
       "text": "Use C++ or Python (Java works too). Learn how to read input from standard input and print output, because every judge works this way. Grab a starter template below.",
-      "links": [{ "label": "Kattis: Hello World!", "url": "https://open.kattis.com/problems/hello" }]
+      "links": [
+        {
+          "label": "Kattis: Hello World!",
+          "url": "https://open.kattis.com/problems/hello"
+        }
+      ]
     },
     {
       "title": "Solve 20 easy problems",
       "duration": "Weeks 1–3",
       "text": "Loops, conditionals, arrays and strings. Don't worry about speed yet. The goal is getting comfortable turning a problem statement into working code.",
-      "links": [{ "label": "Our easy problem list", "url": "/contests#easy" }]
+      "links": [
+        {
+          "label": "Our easy problem list",
+          "url": "/resources/kattis#easy"
+        }
+      ]
     },
     {
       "title": "Learn complexity (Big-O)",
       "duration": "Week 4",
       "text": "Learn to estimate whether your solution will run in time. Roughly 10⁸ simple operations per second is a good rule of thumb.",
-      "links": [{ "label": "CSES Handbook, chapter 2", "url": "https://cses.fi/book/book.pdf" }]
+      "links": [
+        {
+          "label": "CSES Handbook, chapter 2",
+          "url": "https://cses.fi/book/book.pdf"
+        }
+      ]
     },
     {
       "title": "Core techniques",
       "duration": "Weeks 5–10",
       "text": "Sorting, binary search, prefix sums, greedy, recursion and brute force. Then graphs (BFS, DFS, shortest paths) and dynamic programming.",
       "links": [
-        { "label": "CSES Problem Set", "url": "https://cses.fi/problemset/" },
-        { "label": "Our medium problem list", "url": "/contests#medium" }
+        {
+          "label": "CSES Problem Set",
+          "url": "https://cses.fi/problemset/"
+        },
+        {
+          "label": "Our medium problem list",
+          "url": "/resources/kattis#medium"
+        }
       ]
     },
     {
       "title": "Compete regularly",
       "duration": "Ongoing",
       "text": "Join club contests and Codeforces rounds. Timed contests train speed and nerves, and upsolving the problems you missed afterwards is where most learning happens.",
-      "links": [{ "label": "Upcoming club events", "url": "/events" }]
+      "links": [
+        {
+          "label": "Upcoming club events",
+          "url": "/events"
+        }
+      ]
     },
     {
       "title": "Train as a team for ICPC",
       "duration": "Before the regional",
       "text": "ICPC is three people sharing one computer. Practise splitting problems, pair-debugging, and building a team reference document (notebook). The regional is judged with PC², so get used to submitting through it in practice rounds.",
-      "links": [{ "label": "ICPC", "url": "https://icpc.global/" }]
+      "links": [
+        {
+          "label": "ICPC",
+          "url": "https://icpc.global/"
+        }
+      ]
     }
   ],
   "platforms": [
     {
       "name": "Kattis",
       "url": "https://open.kattis.com/",
-      "text": "Thousands of problems rated by difficulty, including many from past ICPC contests. We use it for club practice and contests."
+      "text": "Thousands of problems rated by difficulty, including many from past ICPC contests. We use it for club practice and contests.",
+      "slug": "kattis"
     },
     {
       "name": "Codeforces",
       "url": "https://codeforces.com/",
-      "text": "Rated contests several times a week, plus a huge problem archive with tags. The best place to track your progress."
+      "text": "Rated contests several times a week, plus a huge problem archive with tags. The best place to track your progress.",
+      "slug": "codeforces"
     },
     {
       "name": "LeetCode",
       "url": "https://leetcode.com/",
-      "text": "Interview-style problems. Great for co-op and internship prep, and a gentle introduction to data structures."
+      "text": "Interview-style problems. Great for co-op and internship prep, and a gentle introduction to data structures.",
+      "slug": "leetcode"
     },
     {
       "name": "CSES Problem Set",
@@ -82,5 +116,40 @@
       "url": "https://cp-algorithms.com/",
       "text": "Reference articles with code for almost every standard algorithm and data structure."
     }
-  ]
+  ],
+  "platformPages": {
+    "kattis": {
+      "name": "Kattis",
+      "url": "https://open.kattis.com/",
+      "intro": "Kattis is where our club contests run. It has thousands of problems, including many from past ICPC contests, each with a difficulty score.",
+      "tips": [
+        "Make an account at open.kattis.com.",
+        "Your program reads the input from standard input and prints the answer to standard output. Use one of our starter templates.",
+        "Submit by uploading your file. You get a verdict in seconds: Accepted, Wrong Answer, Time Limit Exceeded or Run Time Error.",
+        "Each problem has a difficulty score. Start with the lowest ones and move up."
+      ]
+    },
+    "codeforces": {
+      "name": "Codeforces",
+      "url": "https://codeforces.com/",
+      "intro": "Codeforces runs rated contests several times a week and has a huge problem archive. Every problem has a rating, so it's easy to pick the right level.",
+      "tips": [
+        "Make an account at codeforces.com.",
+        "Problem ratings start at 800. Solve 800s comfortably before moving up by about 100 at a time.",
+        "Div. 3 and Div. 4 contests are aimed at newer contestants. Join one live, then upsolve the problems you didn't finish.",
+        "Like Kattis, your program reads standard input and prints to standard output."
+      ]
+    },
+    "leetcode": {
+      "name": "LeetCode",
+      "url": "https://leetcode.com/",
+      "intro": "LeetCode is the go-to site for technical interview prep. Problems are labelled Easy, Medium and Hard and are grouped by topic.",
+      "tips": [
+        "Make an account at leetcode.com.",
+        "Unlike Kattis and Codeforces, you write a function, not a full program: there's no input to read yourself.",
+        "Practise explaining your approach out loud, as you would in an interview.",
+        "Once a problem passes, look at its time and space complexity and see whether you can do better."
+      ]
+    }
+  }
 }

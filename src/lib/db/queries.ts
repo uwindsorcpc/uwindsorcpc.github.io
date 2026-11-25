@@ -6,7 +6,18 @@
  */
 import { publicDb } from "@/lib/supabase/clients";
 import { CLUB_TIMEZONE, formatEventDate, formatEventTime, monthDayLabels } from "@/lib/time";
-import { DIFFICULTIES, type ClubEvent, type EventType, type Faq, type PastContest, type ProblemSets, type TeamMember } from "./types";
+import {
+  PLATFORMS,
+  platformOf,
+  type ClubEvent,
+  type Difficulty,
+  type EventType,
+  type Faq,
+  type PastContest,
+  type ProblemSets,
+  type ProblemsByPlatform,
+  type TeamMember,
+} from "./types";
 
 function fail(what: string, error: { message: string }): never {
   throw new Error(`Could not load ${what} from Supabase: ${error.message}`);
@@ -69,7 +80,7 @@ export async function fetchPastContests(): Promise<PastContest[]> {
   }));
 }
 
-export async function fetchProblems(): Promise<ProblemSets> {
+export async function fetchProblems(): Promise<ProblemsByPlatform> {
   const { data, error } = await publicDb
     .from("problems")
     .select("id, name, url, topic, difficulty")
@@ -77,9 +88,14 @@ export async function fetchProblems(): Promise<ProblemSets> {
     .order("sort_order")
     .order("created_at");
   if (error) fail("problems", error);
-  const sets = Object.fromEntries(DIFFICULTIES.map((d) => [d, []])) as unknown as ProblemSets;
-  for (const r of data) sets[r.difficulty as keyof ProblemSets]?.push({ id: r.id, name: r.name, url: r.url, topic: r.topic });
-  return sets;
+  const empty = (): ProblemSets => ({ easy: [], medium: [], hard: [] });
+  const out = Object.fromEntries(PLATFORMS.map((p) => [p, empty()])) as ProblemsByPlatform;
+  for (const r of data) {
+    const platform = platformOf(r.url);
+    const set = platform ? out[platform][r.difficulty as Difficulty] : undefined;
+    set?.push({ id: r.id, name: r.name, url: r.url, topic: r.topic });
+  }
+  return out;
 }
 
 export async function fetchFaqs(): Promise<Faq[]> {

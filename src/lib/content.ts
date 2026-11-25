@@ -35,9 +35,11 @@ export const site = siteJson as {
 };
 
 export type LinkItem = { label: string; url: string };
+export type PlatformPage = { name: string; url: string; intro: string; tips: string[] };
 export const resources = resourcesJson as {
   roadmap: { title: string; duration?: string; text: string; links?: LinkItem[] }[];
-  platforms: { name: string; url: string; text: string }[];
+  platforms: { name: string; url: string; text: string; slug?: "kattis" | "codeforces" | "leetcode" }[];
+  platformPages: Record<"kattis" | "codeforces" | "leetcode", PlatformPage>;
   books: { name: string; author?: string; url: string; text: string }[];
 };
 

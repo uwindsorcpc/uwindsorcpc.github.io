@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 
 import { CLUB_TIMEZONE, formatEventDate, utcMsToZoned, zonedToUtcMs } from "@/lib/time";
-import { TEAM_LINK_KEYS } from "@/lib/db/types";
+import { TEAM_LINK_KEYS, platformOf } from "@/lib/db/types";
 import type { FieldDef, FormValues } from "./fields";
 
 export type Row = Record<string, unknown> & { id: string };
@@ -69,6 +69,12 @@ export function defaultFromForm(fields: FieldDef[], values: FormValues): Record<
 }
 
 /* --------------------------------- helpers --------------------------------- */
+
+const PLATFORM_NAMES = { kattis: "Kattis", codeforces: "Codeforces", leetcode: "LeetCode" } as const;
+const platformLabel = (url: string) => {
+  const p = platformOf(url);
+  return p ? PLATFORM_NAMES[p] : <span className="text-hard">Not shown (unknown site)</span>;
+};
 
 const published = (row: Row) =>
   row.published ? (
@@ -275,13 +281,14 @@ export const RESOURCES: ResourceDef[] = [
     order: [{ column: "difficulty" }, { column: "sort_order" }, { column: "created_at" }],
     fields: [
       { name: "name", label: "Problem name", kind: "text", required: true, maxLength: 200 },
-      { name: "url", label: "Link", kind: "url", required: true },
+      { name: "url", label: "Link", kind: "url", required: true, help: "A Kattis, Codeforces or LeetCode problem link. The site files it under that platform automatically." },
       { name: "difficulty", label: "Difficulty", kind: "select", required: true, options: [["easy", "Easy"], ["medium", "Medium"], ["hard", "Hard"]] },
       { name: "topic", label: "Topic", kind: "text", maxLength: 60, placeholder: "e.g. BFS, DP, Math" },
       orderField,
       publishedField,
     ],
     columns: [
+      { label: "Platform", render: (r) => platformLabel(s(r.url)) },
       { label: "Difficulty", render: (r) => <span className="font-mono text-xs uppercase">{s(r.difficulty)}</span> },
       { label: "Order", render: (r) => s(r.sort_order) },
       { label: "Name", render: (r) => s(r.name) },

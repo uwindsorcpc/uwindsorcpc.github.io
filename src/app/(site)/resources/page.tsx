@@ -4,6 +4,7 @@ import { CodeTabs } from "@/components/CodeTabs";
 import { ExternalIcon } from "@/components/icons";
 import { Container, ExternalLink, PageHeader, SectionHeading } from "@/components/ui";
 import { readTemplate, resources } from "@/lib/content";
+import { fetchProblems } from "@/lib/db/queries";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -24,7 +25,8 @@ function SmartLink({ href, children }: { href: string; children: React.ReactNode
   return <ExternalLink href={href}>{children}</ExternalLink>;
 }
 
-export default function ResourcesPage() {
+export default async function ResourcesPage() {
+  const problems = await fetchProblems();
   const templates = [
     { id: "cpp", label: "C++", filename: "template.cpp", code: readTemplate("template.cpp") },
     { id: "java", label: "Java", filename: "Main.java", code: readTemplate("template.java") },
@@ -73,25 +75,37 @@ export default function ResourcesPage() {
         </section>
 
         <section aria-labelledby="platforms" className="mb-20">
-          <SectionHeading id="platforms" sub="Where to practise. Make an account on Kattis and Codeforces first.">
-            Practice platforms
+          <SectionHeading id="platforms" sub="Where to practise, with problems we've picked for each. Make a Kattis and a Codeforces account first.">
+            Practice problems
           </SectionHeading>
           <ul className="divide-y divide-border border-y border-border">
-            {resources.platforms.map((p) => (
-              <li key={p.name}>
-                <a
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group grid gap-1 py-6 sm:grid-cols-[14rem_1fr_auto] sm:items-baseline sm:gap-8"
-                >
+            {resources.platforms.map((p) => {
+              const count = p.slug ? (["easy", "medium", "hard"] as const).reduce((n, d) => n + problems[p.slug!][d].length, 0) : 0;
+              const inner = (
+                <>
                   <span className="condensed text-2xl font-bold group-hover:text-accent">{p.name}</span>
                   <span className="leading-relaxed text-muted">{p.text}</span>
-                  <ExternalIcon className="hidden size-4 text-muted group-hover:text-accent sm:block" />
-                  <span className="sr-only">(opens in a new tab)</span>
-                </a>
-              </li>
-            ))}
+                  <span className="text-sm whitespace-nowrap text-muted group-hover:text-accent">
+                    {p.slug ? (count > 0 ? `${count} problem${count === 1 ? "" : "s"}` : "Tips and problems") : <ExternalIcon className="size-4" />}
+                  </span>
+                </>
+              );
+              const cls = "group grid gap-1 py-6 sm:grid-cols-[14rem_1fr_9rem] sm:items-baseline sm:gap-8";
+              return (
+                <li key={p.name}>
+                  {p.slug ? (
+                    <Link href={`/resources/${p.slug}`} className={cls}>
+                      {inner}
+                    </Link>
+                  ) : (
+                    <a href={p.url} target="_blank" rel="noopener noreferrer" className={cls}>
+                      {inner}
+                      <span className="sr-only">(opens in a new tab)</span>
+                    </a>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
 
