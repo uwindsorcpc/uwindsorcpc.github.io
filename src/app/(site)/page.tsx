@@ -62,7 +62,7 @@ export default async function HomePage() {
       <section aria-labelledby="next-event" className="border-t border-border py-20 sm:py-28">
         <Container className="grid gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
           <div>
-            <SectionHeading id="next-event" sub="Weekly practice, workshops and club contests. On campus, and free.">
+            <SectionHeading id="next-event" sub="Weekly practice, workshops and club contests, all on campus.">
               Next event
             </SectionHeading>
             <ButtonLink href="/events" variant="secondary">

@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Join",
-  description: "Join CPC UWindsor: sign up in two minutes, hop on the Discord, and come to a practice. Free, and no experience needed.",
+  description: "Join CPC UWindsor: sign up in two minutes, hop on the Discord, and come to a practice. No experience needed.",
   path: "/join",
 });
 
@@ -25,7 +25,7 @@ export default async function JoinPage() {
     <>
       <PageHeader
         title="Join the club"
-        intro="Membership is free and open to every UWindsor student. It takes about two minutes."
+        intro="Membership is open to every UWindsor student, whatever your program or experience. It takes about two minutes."
       />
 
       <Container className="py-14">

@@ -37,7 +37,7 @@ export function NotMemberChoice({
       </h2>
       <p className="mt-3 text-sm text-muted">
         We couldn&apos;t find <span className="font-mono text-fg">{email}</span> in the member list. Would you like to sign
-        up? It&apos;s free and takes a minute, and your name and email are already filled in.
+        up? It takes a minute, and your name and email are already filled in.
       </p>
       <div className="mt-6 grid gap-3">
         <button

@@ -16,7 +16,7 @@ export function Footer() {
         <div className="lg:col-span-2">
           <Logo className="h-8" />
           <p className="mt-4 max-w-sm text-sm text-muted">
-            {site.fullName}. A student-run, non-commercial club at the University of Windsor.
+            {site.fullName}. A student-run club at the University of Windsor.
           </p>
         </div>
 
@@ -72,7 +72,7 @@ export function Footer() {
       <div className="border-t border-border">
         <Container className="flex flex-col gap-2 py-5 text-sm text-muted sm:flex-row sm:justify-between">
           <p>© {year} {site.name}</p>
-          <p>Free to join. Run by students.</p>
+          <p>Run by students, for students.</p>
         </Container>
       </div>
     </footer>

@@ -226,7 +226,7 @@ export function AttendApp({ events: initialEvents }: { events: ClubEvent[] }) {
               <strong>{outcome.displayName}</strong>.
               {outcome.guest && (
                 <span className="mt-2 block text-muted">
-                  Enjoyed it? <a href="/join" className="text-accent underline underline-offset-4">Become a member</a>. It&apos;s free.
+                  Enjoyed it? <a href="/join" className="text-accent underline underline-offset-4">Become a member</a>.
                 </span>
               )}
             </Verdict>
