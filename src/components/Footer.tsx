@@ -46,13 +46,13 @@ export function Footer() {
               </a>
             )}
           </p>
-          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Social links">
-            {site.socials.map((s) => {
-              const Icon = socialIcons[s.icon] ?? socialIcons.website;
-              const ready = socials.includes(s);
-              return (
-                <li key={s.label}>
-                  {ready ? (
+          {/* Only links that are filled in (not "[PLACEHOLDER]") are shown. */}
+          {socials.length > 0 && (
+            <ul className="mt-4 flex flex-wrap gap-2" aria-label="Social links">
+              {socials.map((s) => {
+                const Icon = socialIcons[s.icon] ?? socialIcons.website;
+                return (
+                  <li key={s.label}>
                     <a
                       href={s.url}
                       target="_blank"
@@ -62,19 +62,11 @@ export function Footer() {
                     >
                       <Icon />
                     </a>
-                  ) : (
-                    <span
-                      title={`${s.label}: link not set yet`}
-                      className="inline-flex size-10 items-center justify-center rounded-md border border-dashed border-border text-muted opacity-50"
-                    >
-                      <Icon />
-                      <span className="sr-only">{s.label} (link coming soon)</span>
-                    </span>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </Container>
       <div className="border-t border-border">

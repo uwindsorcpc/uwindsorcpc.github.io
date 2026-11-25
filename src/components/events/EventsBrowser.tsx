@@ -59,7 +59,7 @@ export function EventsBrowser({ events: initial, builtAt }: { events: ClubEvent[
           </ul>
         ) : (
           <p className="border-y border-border py-8 text-muted">
-            No upcoming {filter === "all" ? "events" : `${filter} events`} scheduled yet. Check Discord for announcements.
+            No upcoming {filter === "all" ? "events" : `${filter} events`} scheduled yet. New events are posted here as soon as they are planned.
           </p>
         )}
       </section>

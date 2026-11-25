@@ -30,11 +30,10 @@ export function NextEvent({ events: initial, builtAt }: { events: ClubEvent[]; b
       <div className="border-y border-border py-8">
         <p className="text-lg font-semibold">No events scheduled right now.</p>
         <p className="mt-2 text-sm text-muted">
-          Join the Discord to hear about the next one first, or browse{" "}
-          <Link href="/events#past" className="text-accent underline underline-offset-4">
-            past events
-          </Link>
-          .
+          <Link href="/join" className="text-accent underline underline-offset-4">
+            Become a member
+          </Link>{" "}
+          to hear about the next one first.
         </p>
       </div>
     );

@@ -1,11 +1,11 @@
 {
-  "_readme": "Club-wide settings. Replace every value in [SQUARE_BRACKETS] before launch, then set showSampleContentBanner to false. Events, team, contests, problems, FAQ and sign-ups are managed from the /admin page, not from files.",
-  "showSampleContentBanner": true,
+  "_readme": "Club-wide settings. Fill in discordUrl and the social links when they exist (links still in [SQUARE_BRACKETS] are hidden or shown as 'coming soon'). Events, team, contests, problems, FAQ and sign-ups are managed from the /admin page, not from files.",
+  "showSampleContentBanner": false,
   "name": "CPC UWindsor",
   "fullName": "UWindsor Competitive Programming Club",
   "url": "https://uwindsorcpc.github.io",
   "description": "The University of Windsor's competitive programming club. Learn algorithms, practise weekly, compete in contests, and train for the ICPC East Central NA Regional.",
-  "email": "[CLUB_EMAIL]",
+  "email": "uwindsorcpc@gmail.com",
   "discordUrl": "[DISCORD_URL]",
   "socials": [
     {
